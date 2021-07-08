@@ -1,6 +1,10 @@
 # DemEn
 Modelo de dados/
 
+# VSCODE Debbuger
+.vscode/*
+!.vscode/launch.json
+
 # Logs
 logs
 *.log
