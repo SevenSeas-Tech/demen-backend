@@ -6,7 +6,7 @@
   "author": "Huam Benvenutti <huambenvenutti@protonmail.com>",
   "license": "Particular",
   "script": {
-    "commit": "git-cz"
+    "dev:server": " --inspect"
   },
   "husky": {
     "hooks": {
