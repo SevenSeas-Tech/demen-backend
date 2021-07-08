@@ -6,7 +6,8 @@
   "author": "Huam Benvenutti <huambenvenutti@protonmail.com>",
   "license": "Particular",
   "script": {
-    "dev:server": " --inspect -r tsconfig-paths/register ",
+    "build": "tsc",
+    "dev:server": "tsnd -r tsconfig-paths/register --inspect --transpile-only --ignore node_modules src/index.ts",
     "typeorm": "-r tsconfig-paths/register"
   },
   "husky": {
@@ -46,6 +47,7 @@
     "husky": "4.3.8",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.2",
+    "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
   }
