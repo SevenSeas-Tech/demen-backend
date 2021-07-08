@@ -1,6 +1,6 @@
-[![Updated Badge](https://badges.pufler.dev/updated/SevenSeas-Tech/dem-ensino)](https://badges.pufler.dev)
-![Licence](https://img.shields.io/github/license/SevenSeas-Tech/dem-ensino.svg)
-![stars](https://img.shields.io/github/stars/SevenSeas-Tech/dem-ensino.svg)
+[![Updated Badge](https://badges.pufler.dev/updated/SevenSeas-Tech/demen-backend)](https://badges.pufler.dev)
+![Licence](https://img.shields.io/github/license/SevenSeas-Tech/demen-backend.svg)
+![stars](https://img.shields.io/github/stars/SevenSeas-Tech/demen-backend.svg)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
@@ -13,4 +13,4 @@
 Biblioteca gratuita de video aulas. Pensada para auxiliar estudantes de todas as áreas.
 
 # Colaboradores
-![GitHub Contributors Image](https://contrib.rocks/image?repo=SevenSeas-Tech/dem-ensino)
+![GitHub Contributors Image](https://contrib.rocks/image?repo=SevenSeas-Tech/demen-backend)
