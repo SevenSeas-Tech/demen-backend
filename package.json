@@ -4,7 +4,7 @@
   "main": "index.js",
   "repository": "git@github.com:SevenSeas-Tech/demen-backend.git",
   "author": "Huam Benvenutti <huambenvenutti@protonmail.com>",
-  "license": "MIT",
+  "license": "Particular",
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
