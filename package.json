@@ -4,24 +4,25 @@
   "main": "index.js",
   "repository": "git@github.com:SevenSeas-Tech/demen-backend.git",
   "author": "Huam Benvenutti <huambenvenutti@protonmail.com>",
-  "license": "Particular",
-  "script": {
+  "license": "MIT",
+  "scripts": {
     "build": "tsc",
     "dev:server": "tsnd -r tsconfig-paths/register --inspect --transpile-only --ignore node_modules src/index.ts",
-    "typeorm": "-r tsconfig-paths/register"
+    "typeorm": "-r tsconfig-paths/register",
+    "test": ""
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+
     }
   },
   "lint-staged": {
     "*.ts": [
       "eslint --fix",
-      "cross-env CI=true yarn test --bail --findRelatedTests",
-      "git add"
+      "cross-env CI=true yarn test --bail --findRelatedTests"
     ]
   },
   "config": {
@@ -50,5 +51,10 @@
     "ts-node-dev": "^1.1.8",
     "tsconfig-paths": "^3.10.1",
     "typescript": "^4.3.5"
+  },
+  "dependencies": {
+    "pg": "^8.6.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.34"
   }
 }
