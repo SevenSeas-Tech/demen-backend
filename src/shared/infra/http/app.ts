@@ -1,5 +1,7 @@
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
 
 import AppError from '@shared/errors/AppError';
 
@@ -7,6 +9,7 @@ import routes from './routes';
 
 class App {
   server = express();
+  swaggerDocument = YAML.load('./swagger.yml');
 
   constructor() {
     this.middlewares();
@@ -20,26 +23,33 @@ class App {
 
   routes() {
     this.server.use(routes);
+    this.server.use(
+      '/api-docs',
+      swaggerUi.serve,
+      swaggerUi.setup(this.swaggerDocument),
+    );
   }
 
   exceptionHandler() {
-    this.server.use((err: Error, req: Request, res: Response) => {
-      if (err instanceof AppError) {
-        return res
-          .status(err.statusCode)
-          .json({ status: 'error', message: err.message });
-      }
-      if (process.env.NODE_ENV !== 'production') {
+    this.server.use(
+      (err: Error, req: Request, res: Response, _: NextFunction) => {
+        if (err instanceof AppError) {
+          return res
+            .status(err.statusCode)
+            .json({ status: 'error', message: err.message });
+        }
+        if (process.env.NODE_ENV !== 'production') {
+          return res.status(500).json({
+            status: 'error',
+            message: err.message,
+          });
+        }
         return res.status(500).json({
           status: 'error',
-          message: err.message,
+          message: 'internal server error',
         });
-      }
-      return res.status(500).json({
-        status: 'error',
-        message: 'internal server error',
-      });
-    });
+      },
+    );
   }
 }
 
