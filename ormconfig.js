@@ -2,7 +2,7 @@
 const entities;
 const migrations;
 
-if (process.env.ENVIRONMENT === 'develop'){
+if (process.env.ENVIRONMENT === 'development'){
   entities = ["./src/modules/**/infra/typeorm/entities/*.ts"];
   migrations = ["./src/shared/infra/typeorm/migrations/*.ts"]
 }
@@ -13,7 +13,7 @@ else {
   module.exports = {
   "type": "postgres",
   "host": process.env.DATABASE_URL,
-  "port": process.env.PORT,
+  "port": process.env.DB_PORT,
   "username": process.env.USERNAME,
   "password": process.env.PASSWORD,
   "database": "demen",
