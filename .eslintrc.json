@@ -31,7 +31,10 @@
       "no-useless-constructor": "off",
       "no-empty-function": "off",
       "lines-between-class-members": "off",
-      "@typescript-eslint/naming-convention": [  // Nomenclatura de interface de tipos
+      "@tpescript-eslint/no-unused-vars": ["error", {
+        "argsIgnorePattern": "_"
+      }],
+      "@typescript-eslint/naming-convention": [
         "error",
         {
           "selector": "interface",
