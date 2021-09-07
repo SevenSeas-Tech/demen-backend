@@ -3,7 +3,7 @@ import 'dotenv/config';
 
 import '@shared/infra/typeorm';
 
-import app from './app';
+import app from './App';
 
 app.listen(process.env.PORT, () => {
   if (process.env.ENVIRONMENT === 'development') {
