@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import 'dotenv/config';
 
 import '@shared/infra/typeorm';
+import '@shared:containers/index';
 
 import app from './App';
 
