@@ -13,6 +13,7 @@
       "@shared/errors/*": ["shared/errors/*"],
       "@shared/typeorm/*": ["shared/typeorm/*"],
       "@accounts:containers/*": ["modules/accounts/infra/containers/*"],
+      "@accounts:dtos/*": ["modules/accounts/dtos/*"],
       "@accounts:entities/*": ["modules/accounts/infra/typeorm/entities/*"],
       "@accounts:errors/*": ["modules/accounts/errors/*"],
       "@accounts:repos/*": ["modules/accounts/infra/typeorm/repositories/*"],
