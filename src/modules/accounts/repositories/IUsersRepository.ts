@@ -1,8 +1,8 @@
 import { CreateUserDto } from '@accounts:dtos/CreateUserDto';
-import { UserResponseDto } from '@accounts:dtos/UserResponseDto';
+import User from '@accounts:entities/User';
 
 interface IUsersRepository {
-  create(data: CreateUserDto): UserResponseDto;
+  create(data: CreateUserDto): Promise<User>;
 }
 
 export default IUsersRepository;
