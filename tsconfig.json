@@ -9,9 +9,9 @@
     "paths": {
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"],
-      "@shared/containers/*": ["shared/containers/*"],
-      "@shared/errors/*": ["shared/errors/*"],
-      "@shared/typeorm/*": ["shared/typeorm/*"],
+      "@shared:containers/*": ["shared/containers/*"],
+      "@shared:errors/*": ["shared/errors/*"],
+      "@shared:typeorm/*": ["shared/typeorm/*"],
       "@accounts:containers/*": ["modules/accounts/infra/containers/*"],
       "@accounts:dtos/*": ["modules/accounts/dtos/*"],
       "@accounts:entities/*": ["modules/accounts/infra/typeorm/entities/*"],
