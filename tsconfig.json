@@ -9,7 +9,18 @@
     "paths": {
       "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
-      "@shared/*": ["shared/*"]
+      "@shared/*": ["shared/*"],
+      "@shared/containers/*": ["shared/containers/*"],
+      "@shared/errors/*": ["shared/errors/*"],
+      "@shared/typeorm/*": ["shared/typeorm/*"],
+      "@accounts:containers/*": ["modules/accounts/infra/containers/*"],
+      "@accounts:entities/*": ["modules/accounts/infra/typeorm/entities/*"],
+      "@accounts:errors/*": ["modules/accounts/errors/*"],
+      "@accounts:repos/*": ["modules/accounts/infra/typeorm/repositories/*"],
+      "@accounts:irepos/*": ["modules/accounts/repositories/*"],
+      "@accounts:routes/*": ["modules/accounts/infra/http/routes/*"],
+      "@accounts:types/*": ["modules/accounts/@types/*"],
+      "@accounts:use-cases/*": ["modules/accounts/use-cases/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
