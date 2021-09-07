@@ -3,6 +3,7 @@
 # VSCODE Debbuger
 .vscode/*
 !.vscode/launch.json
+!.vscode/tasks.json
 
 # Logs
 logs
