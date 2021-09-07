@@ -16,6 +16,7 @@
       "@accounts:dtos/*": ["modules/accounts/dtos/*"],
       "@accounts:entities/*": ["modules/accounts/infra/typeorm/entities/*"],
       "@accounts:errors/*": ["modules/accounts/errors/*"],
+      "@accounts:mapper/*": ["modules/accounts/mapper/*"],
       "@accounts:repos/*": ["modules/accounts/infra/typeorm/repositories/*"],
       "@accounts:irepos/*": ["modules/accounts/repositories/*"],
       "@accounts:routes/*": ["modules/accounts/infra/http/routes/*"],
