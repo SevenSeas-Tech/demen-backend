@@ -5,7 +5,17 @@ export class CreateUsers1631033076090 implements MigrationInterface {
     await queryRunner.createTable(
       new Table({
         name: 'users',
-        columns: [],
+        columns: [
+          { name: 'id', type: 'uuid', isPrimary: true, default: 'uuid_generate_v4()' },
+          { name: 'username', type: 'varchar', isUnique: true },
+          { name: 'name', type: 'varchar' },
+          { name: 'last_name', type: 'varchar' },
+          { name: 'email', type: 'varchar' },
+          { name: 'password', type: 'varchar' },
+          { name: 'admin', type: 'boolean', default: false },
+          { name: 'created_at', type: 'timestamp', default: 'now()' },
+          { name: 'updated_at', type: 'timestamp', default: 'now()' },
+        ],
       }),
     );
   }
