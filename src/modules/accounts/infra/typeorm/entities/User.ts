@@ -1,5 +1,6 @@
-import { Email, Uuid } from '@modules/accounts/@types/User';
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+
+import { Email, Uuid } from '@accounts:types/User';
 
 @Entity()
 class User {

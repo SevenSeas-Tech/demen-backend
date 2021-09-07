@@ -5,7 +5,7 @@ import YAML from 'yamljs';
 
 import AppError from '@shared/errors/AppError';
 
-import routes from './routes';
+import routes from './routes/index.routes';
 
 class App {
   server = express();
