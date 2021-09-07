@@ -5,19 +5,6 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "type": "node",
-      "protocol": "inspector",
-      "restart": true,
-      "request": "attach",
-      "name": "Debug",
-      "skipFiles": [
-        "<node_internals>/**"
-      ],
-      "outFiles": [
-        "${workspaceFolder}/**/*.js"
-      ]
-    },
-    {
       "name": "Docker Node.js Launch",
       "type": "docker",
       "request": "launch",
