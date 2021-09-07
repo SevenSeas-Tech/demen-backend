@@ -23,33 +23,25 @@ class App {
 
   routes() {
     this.server.use(routes);
-    this.server.use(
-      '/api-docs',
-      swaggerUi.serve,
-      swaggerUi.setup(this.swaggerDocument),
-    );
+    this.server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(this.swaggerDocument));
   }
 
   exceptionHandler() {
-    this.server.use(
-      (err: Error, req: Request, res: Response, _: NextFunction) => {
-        if (err instanceof AppError) {
-          return res
-            .status(err.statusCode)
-            .json({ status: 'error', message: err.message });
-        }
-        if (process.env.NODE_ENV !== 'production') {
-          return res.status(500).json({
-            status: 'error',
-            message: err.message,
-          });
-        }
+    this.server.use((err: Error, req: Request, res: Response, _: NextFunction) => {
+      if (err instanceof AppError) {
+        return res.status(err.statusCode).json({ status: 'error', message: err.message });
+      }
+      if (process.env.NODE_ENV !== 'production') {
         return res.status(500).json({
           status: 'error',
-          message: 'internal server error',
+          message: err.message,
         });
-      },
-    );
+      }
+      return res.status(500).json({
+        status: 'error',
+        message: 'internal server error',
+      });
+    });
   }
 }
 
