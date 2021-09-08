@@ -28,9 +28,6 @@ definitions:
   User:
     type: object
     properties:
-        id:
-          type: string
-          format: uuid
         username:
           type: string
         email:
@@ -47,7 +44,6 @@ definitions:
           type: string
           format: date
     example:
-      id: d1916f02-0448-11ec-9a03-0242ac130003
       username: foobar
       email: foobar@example.com
       name: Foo
