@@ -1,4 +1,4 @@
-import { Email } from '@accounts:types/User';
+import { Email } from '@accounts:types/users/User';
 
 export type CreateUserDto = {
   username: string;

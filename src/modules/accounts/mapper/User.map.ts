@@ -1,4 +1,4 @@
-import { UserResponseDto } from '@accounts:dtos/UserResponseDto';
+import { UserResponseDto } from '@accounts:dtos/UserResponse.dto';
 import User from '@accounts:entities/User';
 
 class UserMap {
