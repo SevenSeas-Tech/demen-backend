@@ -1,11 +1,7 @@
 import 'reflect-metadata';
-import 'dotenv/config';
+import App from './App';
 
-import '@shared/infra/typeorm';
-
-import app from './App';
-
-app.listen(process.env.PORT, () => {
+App.listen(process.env.PORT, () => {
   if (process.env.ENVIRONMENT === 'development') {
     console.log(`Listening at port: ${process.env.PORT}\n\
     Environment: ${process.env.ENVIRONMENT}
