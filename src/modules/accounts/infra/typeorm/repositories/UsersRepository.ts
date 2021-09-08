@@ -13,7 +13,8 @@ class UsersRepository implements IUsersRepository {
   }
 
   async create(data: CreateUserDto): Promise<User> {
-    const user = this.repository.create(data);
+    const { username, name, lastName, email, password } = data;
+    const user = this.repository.create({ username, name, last_name: lastName, email, password });
 
     await this.repository.save(user);
 
@@ -23,11 +24,11 @@ class UsersRepository implements IUsersRepository {
   // *** ----------------------- Find Methods ----------------------------------------------- *** //
 
   async findByEmail(email: string): Promise<User | undefined> {
-    return this.repository.findOne(email);
+    return this.repository.findOne({ email });
   }
 
   async findByUsername(username: string): Promise<User | undefined> {
-    return this.repository.findOne(username);
+    return this.repository.findOne({ username });
   }
 }
 
