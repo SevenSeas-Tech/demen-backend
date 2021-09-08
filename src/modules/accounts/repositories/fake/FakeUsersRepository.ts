@@ -6,9 +6,19 @@ class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];
 
   async create(data: CreateUserDto): Promise<User> {
+    const { username, name, lastName, email, password } = data;
     const user = new User();
 
-    Object.assign(user, data);
+    Object.assign(user, {
+      id: username,
+      username,
+      name,
+      last_name: lastName,
+      email,
+      password,
+      created_at: Date.now(),
+      updated_at: Date.now(),
+    });
 
     this.users.push(user);
 
