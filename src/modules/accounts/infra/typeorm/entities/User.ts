@@ -1,11 +1,9 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
-import { Email, Uuid } from '@accounts:types/User';
-
 @Entity()
 class User {
   @PrimaryColumn('uuid')
-  id!: Uuid;
+  id!: string;
 
   @Column()
   username!: string;
@@ -14,7 +12,7 @@ class User {
   password!: string;
 
   @Column()
-  email!: Email;
+  email!: string;
 
   @Column()
   name!: string;
