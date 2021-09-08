@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
-@Entity()
+@Entity('users')
 class User {
   @PrimaryColumn('uuid')
   id!: string;
