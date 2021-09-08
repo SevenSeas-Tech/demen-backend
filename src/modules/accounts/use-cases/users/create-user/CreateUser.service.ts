@@ -1,11 +1,13 @@
 import { inject, injectable } from 'tsyringe';
 
-import { CreateUserDto } from '@accounts:dtos/CreateUserDto';
-import { UserResponseDto } from '@accounts:dtos/UserResponseDto';
-import IUsersRepository from '@accounts:irepos/IUsersRepository';
-import UserMap from '@accounts:mapper/UserMap';
-import IHashProvider from '@shared/containers/providers/hash-provider/IHashProvider';
-import AppError from '@shared/errors/AppError';
+import { CreateUserDto } from '@accounts:dtos/CreateUser.dto';
+import { UserResponseDto } from '@accounts:dtos/UserResponse.dto';
+import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import UserMap from '@accounts:mapper/User.map';
+import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
+
+import EmailInUseError from './errors/EmailInUse.error';
+import UsernameTakenError from './errors/UsernameTaken.error';
 
 @injectable()
 class CreateUser {
@@ -23,13 +25,13 @@ class CreateUser {
     const findByUsername = await this.usersRepository.findByUsername(username);
 
     if (findByUsername) {
-      throw new AppError('Username already in use!');
+      throw new UsernameTakenError();
     }
 
     const findByEmail = await this.usersRepository.findByEmail(email);
 
     if (findByEmail) {
-      throw new AppError('Email already in use!');
+      throw new EmailInUseError();
     }
 
     const passwordHash = await this.hashProvider.hash(password);
