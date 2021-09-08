@@ -5,4 +5,81 @@ info:
   version: 0.0.1
 
 paths:
-  
+  /accounts/users:
+    post:
+      tags:
+        - Users
+      summary: Criação de Usuário
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/UserDto"
+      responses:
+        201:
+          description: 'Sucesso!'
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/User"
+
+
+definitions:
+  User:
+    type: object
+    properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        lastName:
+          type: string
+        createdAt:
+          type: string
+          format: date
+        updatedAt:
+          type: string
+          format: date
+    example:
+      id: d1916f02-0448-11ec-9a03-0242ac130003
+      username: foobar
+      email: foobar@example.com
+      name: Foo
+      lastName: Bar
+      createdAt: 01/01/1111
+      updatedAt: 01/01/1111
+  UserDto:
+    type: object
+    properties:
+        username:
+          type: string
+        email:
+          type: string
+          format: email
+        name:
+          type: string
+        lastName:
+          type: string
+        password:
+          type: string
+          format: secret
+    example:
+      username: foobar
+      email: foobar@example.com
+      name: Foo
+      lastName: Bar
+      password: "*****"
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
