@@ -1,4 +1,4 @@
-import { Email, Uuid } from '@accounts:types/User';
+import { Email, Uuid } from '@accounts:types/users/User';
 
 export type UserResponseDto = {
   id: Uuid;
