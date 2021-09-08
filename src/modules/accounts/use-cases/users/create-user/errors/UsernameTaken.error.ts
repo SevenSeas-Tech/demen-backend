@@ -1,4 +1,4 @@
-import AppError from '@shared/errors/AppError';
+import AppError from '@shared/errors/App.error';
 
 class UsernameTakenError extends AppError {
   constructor() {
