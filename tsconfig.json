@@ -11,7 +11,7 @@
       "@shared/*": ["shared/*"],
       "@shared:containers/*": ["shared/containers/*"],
       "@shared:errors/*": ["shared/errors/*"],
-      "@shared:typeorm/*": ["shared/typeorm/*"],
+      "@shared:typeorm/*": ["shared/infra/typeorm/*"],
       "@accounts:containers/*": ["modules/accounts/containers/*"],
       "@accounts:dtos/*": ["modules/accounts/dtos/*"],
       "@accounts:entities/*": ["modules/accounts/infra/typeorm/entities/*"],
