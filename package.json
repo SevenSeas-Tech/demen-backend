@@ -1,7 +1,7 @@
 {
   "name": "demen-backend",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "src/shared/infra/http/server.ts",
   "repository": "git@github.com:SevenSeas-Tech/demen-backend.git",
   "author": "Huam Benvenutti <huambenvenutti@protonmail.com>",
   "license": "MIT",
