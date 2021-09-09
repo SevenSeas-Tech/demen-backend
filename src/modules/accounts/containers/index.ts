@@ -1,3 +1,5 @@
+import '@accounts:containers/providers/';
+
 import { container } from 'tsyringe';
 
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
