@@ -7,4 +7,4 @@ export type TokenPayload = {
   exp: number;
 };
 
-export type TokenResponse = Pick<TokenPayload, sub | admin>;
+export type TokenResponse = Pick<TokenPayload, 'sub' | 'admin'>;
