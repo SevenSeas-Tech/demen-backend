@@ -5,7 +5,8 @@ import IUsersRepository from '@accounts:irepos/IUsers.repository';
 import UserMap from '@accounts:mapper/User.map';
 import { LoginCredentials, SessionResponse } from '@accounts:types/sessions/Sessions';
 import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
-import AppError from '@shared/errors/App.error';
+
+import InvalidCredentialsError from './errors/InvalidCredentials.error';
 
 @injectable()
 class CreateSession {
@@ -26,13 +27,13 @@ class CreateSession {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new AppError('');
+      throw new InvalidCredentialsError();
     }
 
     const passwordMatch = await this.hashProvider.match(password, user.password);
 
     if (!passwordMatch) {
-      throw new AppError('');
+      throw new InvalidCredentialsError();
     }
 
     const { id, admin } = user;
