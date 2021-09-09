@@ -1,26 +1,17 @@
-import 'reflect-metadata';
-import 'dotenv/config';
-
-import '@shared:containers/index';
-
 import express, { Request, Response, NextFunction } from 'express';
 import 'express-async-errors';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
-import AppError from '@shared/errors/App.error';
-import createConnection from '@shared/infra/typeorm';
+import AppError from '@shared/errors/AppError';
 
-import routes from './routes/index.routes';
-
-// ---------------------------------------------------------------------------------------------- //
+import routes from './routes';
 
 class App {
   server = express();
   swaggerDocument = YAML.load('./swagger.yml');
 
   constructor() {
-    createConnection();
     this.middlewares();
     this.routes();
     this.exceptionHandler();

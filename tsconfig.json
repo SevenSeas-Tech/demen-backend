@@ -7,21 +7,9 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
+      "@modules/*": ["modules/*"],
       "@config/*": ["config/*"],
-      "@shared/*": ["shared/*"],
-      "@shared:containers/*": ["shared/containers/*"],
-      "@shared:errors/*": ["shared/errors/*"],
-      "@shared:typeorm/*": ["shared/infra/typeorm/*"],
-      "@accounts:containers/*": ["modules/accounts/containers/*"],
-      "@accounts:dtos/*": ["modules/accounts/dtos/*"],
-      "@accounts:entities/*": ["modules/accounts/infra/typeorm/entities/*"],
-      "@accounts:errors/*": ["modules/accounts/errors/*"],
-      "@accounts:mapper/*": ["modules/accounts/mapper/*"],
-      "@accounts:repos/*": ["modules/accounts/infra/typeorm/repositories/*"],
-      "@accounts:irepos/*": ["modules/accounts/repositories/*"],
-      "@accounts:routes/*": ["modules/accounts/infra/http/routes/*"],
-      "@accounts:types/*": ["modules/accounts/@types/*"],
-      "@accounts:use-cases/*": ["modules/accounts/use-cases/*"]
+      "@shared/*": ["shared/*"]
     },
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
