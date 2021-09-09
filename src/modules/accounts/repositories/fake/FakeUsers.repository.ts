@@ -1,4 +1,4 @@
-import { CreateUserDto } from '@accounts:dtos/CreateUser.dto';
+import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
 import User from '@accounts:entities/User';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
 

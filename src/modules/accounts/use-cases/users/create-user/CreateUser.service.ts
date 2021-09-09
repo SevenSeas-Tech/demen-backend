@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import { CreateUserDto } from '@accounts:dtos/CreateUser.dto';
-import { UserResponseDto } from '@accounts:dtos/UserResponse.dto';
+import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
+import { UserResponseDto } from '@accounts:dtos/users/UserResponse.dto';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
 import UserMap from '@accounts:mapper/User.map';
 import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
