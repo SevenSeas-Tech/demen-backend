@@ -2,7 +2,7 @@ import FakeUsersRepository from '@accounts:irepos/fake/FakeUsers.repository';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
 import CreateUser from '@accounts:use-cases/users/create-user/CreateUser.service';
 import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
-import Bcrypt from '@shared/containers/providers/hash-provider/implementations/Bcrypt.provider';
+import FakeHashProvider from '@shared/containers/providers/hash-provider/implementations/FakeHash.provider';
 
 import EmailInUseError from '../errors/EmailInUse.error';
 import UsernameTakenError from '../errors/UsernameTaken.error';
@@ -16,7 +16,7 @@ describe('Create User Service', () => {
     // ! ---------------------- Providers e repositorios -------------------------------------- ! //
 
     usersRepository = new FakeUsersRepository();
-    hashProvider = new Bcrypt();
+    hashProvider = new FakeHashProvider();
 
     // ! -------------------------------------------------------------------------------------- ! //
 
