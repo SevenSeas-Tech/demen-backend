@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
 import User from '@accounts:entities/User';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
@@ -10,7 +12,7 @@ class FakeUsersRepository implements IUsersRepository {
     const user = new User();
 
     Object.assign(user, {
-      id: username,
+      id: uuid(),
       username,
       name,
       last_name: lastName,
