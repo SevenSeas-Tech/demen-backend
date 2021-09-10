@@ -10,6 +10,7 @@ paths:
       tags:
         - Users
       summary: Criação de Usuário
+      description: Rota para criação de usuários.
       requestBody:
         content:
           application/json:
@@ -29,8 +30,42 @@ paths:
               schema:
                 $ref: "#/definitions/Error"
 
+  /accounts/sessions:
+    post:
+      tags:
+        - Sessions
+      summary: Criação de sessão
+      description: Rota para login de usuários.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/definitions/Login"
+      responses:
+        201:
+          description: 'Sucesso!'
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/Session"
+
+        400:
+          description: Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/Error"
 
 definitions:
+  Session:
+    type: object
+    properties:
+      user:
+        $ref: "#/definitions/SessionUser"
+      token:
+        type: string
+        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw
+
   Error:
     type: object
     properties:
@@ -41,6 +76,7 @@ definitions:
     example:
       message: Something went wrong!
       status: error
+
   User:
     type: object
     properties:
@@ -66,6 +102,18 @@ definitions:
       lastName: Bar
       createdAt: 01/01/1111
       updatedAt: 01/01/1111
+
+  SessionUser:
+    allOf:
+      - $ref: "#/definitions/User"
+      - type: object
+        properties:
+          id:
+            type: string
+            format: uuid
+        example:
+          id: adf8df02-cc28-4c46-9fde-ded8c574f24f
+
   UserDto:
     type: object
     properties:
@@ -86,6 +134,19 @@ definitions:
       email: foobar@example.com
       name: Foo
       lastName: Bar
+      password: "*****"
+
+  Login:
+    type: object
+    properties:
+      email:
+          type: string
+          format: email
+      password:
+          type: string
+          format: secret
+    example:
+      email: foobar@example.com
       password: "*****"
 
 components:
