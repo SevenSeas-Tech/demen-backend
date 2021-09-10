@@ -1,6 +1,7 @@
-[![Updated Badge](https://badges.pufler.dev/updated/SevenSeas-Tech/demen-backend)](https://badges.pufler.dev)
-![Licence](https://img.shields.io/github/license/SevenSeas-Tech/demen-backend.svg)
-![stars](https://img.shields.io/github/stars/SevenSeas-Tech/demen-backend.svg)
+<div style="display: flex align-items: left">
+  <img src="https://i.imgur.com/Kt64d3S.png" width="100" style="border-radius:50%"/>
+</div>
+
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 
 ![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
@@ -12,5 +13,8 @@
 # Democratizando o Ensino (Backend)
 Biblioteca gratuita de video aulas. Pensada para auxiliar estudantes de todas as áreas.
 
+## Rotas
+* Criação de Usuário
+
 # Colaboradores
-![GitHub Contributors Image](https://contrib.rocks/image?repo=SevenSeas-Tech/demen-backend)
+![GitHub Contributors Image](https://contrib.rocks/image?repo=SevenSeas-Tech/dem-ensino)
