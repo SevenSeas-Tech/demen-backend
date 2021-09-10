@@ -2,20 +2,25 @@ import { validate } from 'uuid';
 
 import FakeTokenProvider from '@accounts:containers/providers/token-provider/implementations/FakeToken.provider';
 import ITokenProvider from '@accounts:containers/providers/token-provider/IToken.provider';
-import User from '@accounts:entities/User';
 import FakeUsersRepository from '@accounts:irepos/fake/FakeUsers.repository';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
 import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
 import FakeHashProvider from '@shared/containers/providers/hash-provider/implementations/FakeHash.provider';
 
 import CreateSession from '../CreateSession.service';
+import InvalidCredentialsError from '../errors/InvalidCredentials.error';
 
 describe('Create session', () => {
   let usersRepository: IUsersRepository;
   let tokenProvider: ITokenProvider;
   let hashProvider: IHashProvider;
   let createSession: CreateSession;
-  let user: User;
+
+  const username = 'foobar';
+  const name = 'Foo';
+  const lastName = 'Bar';
+  const email = 'foobar@example.com';
+  const password = 'secret';
 
   beforeEach(async () => {
     usersRepository = new FakeUsersRepository();
@@ -23,31 +28,59 @@ describe('Create session', () => {
     hashProvider = new FakeHashProvider();
     createSession = new CreateSession(usersRepository, tokenProvider, hashProvider);
 
-    user = await usersRepository.create({
-      username: 'username',
-      name: 'Foo',
-      lastName: 'Bar',
-      email: 'foobar@example.com',
-      password: 'password',
+    await usersRepository.create({
+      username,
+      name,
+      lastName,
+      email,
+      password,
     });
   });
 
   it('should create a session', async () => {
-    const { email, password } = user;
-
     const session = await createSession.execute({ email, password });
 
+    const { user, token } = session;
     const isUuid = validate(session.user.id);
 
-    expect(session).toHaveProperty('token');
     expect(session).toHaveProperty('user');
-    expect(session.user).toHaveProperty('id');
-    expect(isUuid).toEqual(true);
-    expect(session.user).toHaveProperty('email');
-    expect(session.user.email).toEqual(email);
-    expect(session.user).toHaveProperty('username');
-    expect(session.user.username).toEqual(user.username);
-    expect(session.user).toHaveProperty('createdAt');
-    expect(session.user).toHaveProperty('updatedAt');
+    expect(session).toHaveProperty('token');
+    expect(token).toBeTruthy();
+
+    expect(user).toHaveProperty('id');
+    expect(isUuid).toBeTruthy();
+
+    expect(user).toHaveProperty('username');
+    expect(user.username).toEqual(username);
+
+    expect(user).toHaveProperty('name');
+    expect(user.name).toEqual(name);
+
+    expect(user).toHaveProperty('lastName');
+    expect(user.lastName).toEqual(lastName);
+
+    expect(user).toHaveProperty('email');
+    expect(user.email).toEqual(email);
+
+    expect(user).toHaveProperty('createdAt');
+    expect(user.createdAt).toBeTruthy();
+    expect(user).toHaveProperty('updatedAt');
+    expect(user.updatedAt).toBeTruthy();
+  });
+
+  it('should create session with invalid email', async () => {
+    const email = 'invalid-email';
+
+    expect(async () => {
+      await createSession.execute({ email, password });
+    }).rejects.toEqual(new InvalidCredentialsError());
+  });
+
+  it('should create session with invalid password', async () => {
+    const password = 'invalid-password';
+
+    expect(async () => {
+      await createSession.execute({ email, password });
+    }).rejects.toEqual(new InvalidCredentialsError());
   });
 });
