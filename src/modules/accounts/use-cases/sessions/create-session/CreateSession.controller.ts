@@ -11,7 +11,7 @@ class CreateSessionController {
 
     const token = await createSession.execute({ email, password });
 
-    return response.status(201).json({ token });
+    return response.status(201).json(token);
   }
 }
 
