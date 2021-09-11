@@ -32,6 +32,7 @@ describe('Create User Service', () => {
   it('Should create a user', async () => {
     const hash = jest.spyOn(hashProvider, 'hash');
     const validateUser = jest.spyOn(validationProvider, 'validateUser');
+    const trimStrings = jest.spyOn(validationProvider, 'trimStrings');
 
     const user = await createUser.execute({
       email,
@@ -63,6 +64,7 @@ describe('Create User Service', () => {
 
     expect(hash).toHaveBeenCalled();
     expect(validateUser).toHaveBeenCalled();
+    expect(trimStrings).toHaveBeenCalled();
   });
 
   it('should not create if username is taken', async () => {
