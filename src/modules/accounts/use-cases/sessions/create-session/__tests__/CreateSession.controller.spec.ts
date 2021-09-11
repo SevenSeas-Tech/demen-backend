@@ -5,14 +5,14 @@ import { validate } from 'uuid';
 import createConnection from '@shared:typeorm/index';
 import App from '@shared/infra/http/App';
 
-describe('Create User Controller', () => {
+describe('Create Session Controller', () => {
   let connection: Connection;
 
   const username = 'foobar';
   const name = 'Foo';
   const lastName = 'Bar';
   const email = 'foobar@example.com';
-  const password = 'secret';
+  const password = 'Password12';
 
   beforeAll(async () => {
     connection = await createConnection();
@@ -33,9 +33,7 @@ describe('Create User Controller', () => {
   });
 
   it('should create a session', async () => {
-    const response = await request(App)
-      .post('/accounts/sessions')
-      .send({ email: 'foobar@example.com', password: 'secret' });
+    const response = await request(App).post('/accounts/sessions').send({ email, password });
 
     const { user, token } = response.body;
 
@@ -68,8 +66,8 @@ describe('Create User Controller', () => {
     expect(user.updatedAt).toBeTruthy();
   });
 
-  it('should create session with invalid email', async () => {
-    const email = 'invalid-email';
+  it('should not create session with invalid email', async () => {
+    const email = 'foobar2@example.com';
 
     const response = await request(App).post('/accounts/sessions').send({ email, password });
 
@@ -82,8 +80,35 @@ describe('Create User Controller', () => {
     expect(body.status).toEqual('error');
   });
 
-  it('should create session with invalid password', async () => {
-    const password = 'invalid-password';
+  it('should not create session with invalid password', async () => {
+    const password = 'Password14';
+
+    const response = await request(App).post('/accounts/sessions').send({ email, password });
+
+    const { body } = response;
+
+    expect(response.status).toEqual(400);
+    expect(body).toHaveProperty('message');
+    expect(body.message).toEqual('Incorrect password or email');
+    expect(body).toHaveProperty('status');
+    expect(body.status).toEqual('error');
+  });
+
+  it('should not create session if password validation failed', async () => {
+    const password = 'password12';
+
+    const response = await request(App).post('/accounts/sessions').send({ email, password });
+    const { body } = response;
+
+    expect(response.status).toEqual(400);
+    expect(body).toHaveProperty('message');
+    expect(body.message).toEqual('Incorrect password or email');
+    expect(body).toHaveProperty('status');
+    expect(body.status).toEqual('error');
+  });
+
+  it('should not create session if email validation failed', async () => {
+    const email = 'invalid-email';
 
     const response = await request(App).post('/accounts/sessions').send({ email, password });
 
