@@ -5,10 +5,13 @@ import { UserResponseDto } from '@accounts:dtos/users/UserResponse.dto';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
 import UserMap from '@accounts:mapper/User.map';
 import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
+import IValidationProvider from '@shared/containers/providers/validation-provider/IValidation.provider';
 
 import EmailInUseError from './errors/EmailInUse.error';
+import InvalidDataError from './errors/InvalidData.error';
 import UsernameTakenError from './errors/UsernameTaken.error';
 
+// ---------------------------------------------------------------------------------------------- //
 @injectable()
 class CreateUser {
   constructor(
@@ -17,10 +20,27 @@ class CreateUser {
 
     @inject('HashProvider')
     private hashProvider: IHashProvider,
+
+    @inject('ValidationProvider')
+    private validationProvider: IValidationProvider
   ) {}
 
   async execute(data: CreateUserDto): Promise<UserResponseDto> {
+    const isValid = await this.validationProvider.validateUser(data);
+
+    if (!isValid) {
+      throw new InvalidDataError();
+    }
+
     const { username, email, name, lastName, password } = data;
+
+    const [trimmedUsername, trimmedName, trimmedLastName] = this.validationProvider.trimStrings([
+      username,
+      name,
+      lastName
+    ]);
+
+    // ------------------------------------------------------------------------------------------ //
 
     const findByUsername = await this.usersRepository.findByUsername(username);
 
@@ -37,11 +57,11 @@ class CreateUser {
     const passwordHash = await this.hashProvider.hash(password);
 
     const user = await this.usersRepository.create({
-      username,
+      username: trimmedUsername,
       email,
-      name,
-      lastName,
-      password: passwordHash,
+      name: trimmedName,
+      lastName: trimmedLastName,
+      password: passwordHash
     });
 
     return UserMap.toDto(user);
