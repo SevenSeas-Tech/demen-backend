@@ -12,6 +12,7 @@ class Yup implements IValidationProvider {
   private passwordUpper = 1;
   private passwordNumber = 1;
   private passwordRepeating = 2;
+  private passwordSymbol = 0;
 
   private stringMin = 3;
 
@@ -30,6 +31,7 @@ class Yup implements IValidationProvider {
         .minUppercase(this.passwordUpper)
         .minNumbers(this.passwordNumber)
         .minRepeating(this.passwordRepeating)
+        .minSymbols(this.passwordSymbol)
         .required(),
     });
     return loginSchema.isValid(credentials);
@@ -50,6 +52,7 @@ class Yup implements IValidationProvider {
         .minUppercase(this.passwordUpper)
         .minNumbers(this.passwordNumber)
         .minRepeating(this.passwordRepeating)
+        .minSymbols(this.passwordSymbol)
         .required(),
     });
 
