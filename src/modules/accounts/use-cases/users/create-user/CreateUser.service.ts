@@ -11,6 +11,7 @@ import EmailInUseError from './errors/EmailInUse.error';
 import InvalidDataError from './errors/InvalidData.error';
 import UsernameTakenError from './errors/UsernameTaken.error';
 
+// ---------------------------------------------------------------------------------------------- //
 @injectable()
 class CreateUser {
   constructor(
@@ -33,6 +34,14 @@ class CreateUser {
 
     const { username, email, name, lastName, password } = data;
 
+    const [trimmedUsername, trimmedName, trimmedLastName] = this.validationProvider.trimStrings([
+      username,
+      name,
+      lastName
+    ]);
+
+    // ------------------------------------------------------------------------------------------ //
+
     const findByUsername = await this.usersRepository.findByUsername(username);
 
     if (findByUsername) {
@@ -48,10 +57,10 @@ class CreateUser {
     const passwordHash = await this.hashProvider.hash(password);
 
     const user = await this.usersRepository.create({
-      username,
+      username: trimmedUsername,
       email,
-      name,
-      lastName,
+      name: trimmedName,
+      lastName: trimmedLastName,
       password: passwordHash
     });
 
