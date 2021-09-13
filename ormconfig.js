@@ -9,6 +9,6 @@
   "entities": [process.env.TYPEORM_ENTITIES],
   "migrations": [process.env.TYPEORM_MIGRATIONS],
   "cli": {
-    "migrationsDir": "./src/shared/infra/typeorm/migrations"
+    "migrationsDir": process.env.MIGRATIONS_DIR
   }
 }
