@@ -41,7 +41,7 @@ class Yup implements IValidationProvider {
     return loginSchema.isValid(credentials);
   }
 
-  validateUser(userData: CreateUserDto): Promise<boolean> {
+  async validateUser(userData: CreateUserDto): Promise<boolean> {
     const userSchema = yup.object().shape({
       username: yup.string().min(this.stringMin).required(),
       name: yup.string().min(this.stringMin).required(),
@@ -59,7 +59,7 @@ class Yup implements IValidationProvider {
         .minSymbols(this.passwordSymbol)
         .required()
     });
-    // console.log(userSchema.validate(userData));
+    // console.log(await userSchema.validate(userData));
     return userSchema.isValid(userData);
   }
 }
