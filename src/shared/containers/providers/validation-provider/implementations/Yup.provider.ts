@@ -46,7 +46,7 @@ class Yup implements IValidationProvider {
     }
 
     const userSchema = yup.object().shape({
-      username: yup.string().min(this.stringMin).required(),
+      username: yup.string().required(),
       name: yup.string().min(this.stringMin).required(),
       lastName: yup.string().min(this.stringMin).required(),
       email: yup.string().email().required(),
