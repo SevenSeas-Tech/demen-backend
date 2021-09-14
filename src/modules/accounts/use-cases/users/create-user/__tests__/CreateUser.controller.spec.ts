@@ -23,7 +23,7 @@ describe('Create User Controller', () => {
     await connection.close();
   });
 
-  // -------------------------------------------------------------------------------------------- //
+  // *** --------------------------------- User Creation ------------------------------------ *** //
 
   it('Should create a user', async () => {
     const response = await request(App).post('/accounts/users').send({
@@ -101,36 +101,14 @@ describe('Create User Controller', () => {
 
   // *** ------------------------- String Validation Tests ---------------------------------- *** //
 
-  it('should not create user with invalid password', async () => {
-    const response = await request(App)
-      .post('/accounts/users')
-      .send({
-        username: `${username}3`,
-        name,
-        lastName,
-        email: `3${email}`,
-        password: 'password'
-      });
-
-    const { body } = response;
-
-    expect(response.status).toEqual(400);
-    expect(body).toHaveProperty('message');
-    expect(body.message).toEqual('Invalid data!');
-    expect(body).toHaveProperty('status');
-    expect(body.status).toEqual('error');
-  });
-
   it('should not create user with invalid email', async () => {
-    const response = await request(App)
-      .post('/accounts/users')
-      .send({
-        username: `${username}4`,
-        name,
-        lastName,
-        email: 'invalid-email',
-        password
-      });
+    const response = await request(App).post('/accounts/users').send({
+      username,
+      name,
+      lastName,
+      email: 'invalid-email',
+      password
+    });
 
     const { body } = response;
 
@@ -142,15 +120,13 @@ describe('Create User Controller', () => {
   });
 
   it('should not create user with name length < 3', async () => {
-    const response = await request(App)
-      .post('/accounts/users')
-      .send({
-        username: `${username}5`,
-        name: 'ab',
-        lastName,
-        email: `4${email}`,
-        password
-      });
+    const response = await request(App).post('/accounts/users').send({
+      username,
+      name: 'ab',
+      lastName,
+      email,
+      password
+    });
 
     const { body } = response;
 
@@ -162,15 +138,13 @@ describe('Create User Controller', () => {
   });
 
   it('should not create user with last name length < 3', async () => {
-    const response = await request(App)
-      .post('/accounts/users')
-      .send({
-        username: `${username}6`,
-        name,
-        lastName: 'ab',
-        email: `5${email}`,
-        password
-      });
+    const response = await request(App).post('/accounts/users').send({
+      username,
+      name,
+      lastName: 'ab',
+      email,
+      password
+    });
 
     const { body } = response;
 
@@ -188,7 +162,7 @@ describe('Create User Controller', () => {
         username: 'ab',
         name,
         lastName,
-        email: `6${email}`,
+        email: `s3${email}`,
         password
       });
 
@@ -201,23 +175,23 @@ describe('Create User Controller', () => {
     expect(body.status).toEqual('error');
   });
 
-  it('should not create user with spaces on strings', async () => {
-    const response = await request(App)
-      .post('/accounts/users')
-      .send({
-        username: ` ${username}7 `,
-        name: ' Foo ',
-        lastName: ' Bar ',
-        email: `7${email}`, // ! Yup validates if email have spaces ! //
-        password
-      });
+  it('should not create user with spaces on names', async () => {
+    const username = 'foobar-names';
+    const email = 'nospaces@names.com';
+    const response = await request(App).post('/accounts/users').send({
+      username,
+      name: ' Foo ',
+      lastName: ' Bar ',
+      email,
+      password
+    });
 
     const user = response.body;
 
     expect(response.status).toEqual(201);
 
     expect(user).toHaveProperty('username');
-    expect(user.username).toEqual(`${username}7`);
+    expect(user.username).toEqual(username);
 
     expect(user).toHaveProperty('name');
     expect(user.name).toEqual(name);
@@ -226,6 +200,115 @@ describe('Create User Controller', () => {
     expect(user.lastName).toEqual(lastName);
 
     expect(user).toHaveProperty('email');
-    expect(user.email).toEqual(`7${email}`);
+    expect(user.email).toEqual(email);
+  });
+
+  it('should not create user with spaces on email', async () => {
+    const response = await request(App).post('/accounts/users').send({
+      username,
+      name,
+      lastName,
+      email: ' foobar@example.com ',
+      password
+    });
+
+    const { body } = response;
+
+    expect(response.status).toEqual(400);
+    expect(body).toHaveProperty('message');
+    expect(body.message).toEqual('Invalid data!');
+    expect(body).toHaveProperty('status');
+    expect(body.status).toEqual('error');
+  });
+
+  // *** ------------------------ Password Validation --------------------------------------- *** //
+  it('should not create user when password has no numbers', async () => {
+    const response = await request(App).post('/accounts/users').send({
+      username,
+      name,
+      lastName,
+      email,
+      password: 'Password'
+    });
+
+    const { body } = response;
+
+    expect(response.status).toEqual(400);
+    expect(body).toHaveProperty('message');
+    expect(body.message).toEqual('Invalid data!');
+    expect(body).toHaveProperty('status');
+    expect(body.status).toEqual('error');
+  });
+
+  it('should not create user when password has no capitalized letters', async () => {
+    const response = await request(App).post('/accounts/users').send({
+      username,
+      name,
+      lastName,
+      email,
+      password: 'password14'
+    });
+
+    const { body } = response;
+
+    expect(response.status).toEqual(400);
+    expect(body).toHaveProperty('message');
+    expect(body.message).toEqual('Invalid data!');
+    expect(body).toHaveProperty('status');
+    expect(body.status).toEqual('error');
+  });
+
+  it('should not create user when password has length < 6', async () => {
+    const response = await request(App).post('/accounts/users').send({
+      username,
+      name,
+      lastName,
+      email,
+      password: 'Less6'
+    });
+
+    const { body } = response;
+
+    expect(response.status).toEqual(400);
+    expect(body).toHaveProperty('message');
+    expect(body.message).toEqual('Invalid data!');
+    expect(body).toHaveProperty('status');
+    expect(body.status).toEqual('error');
+  });
+
+  it('should not create user when password has length > 16', async () => {
+    const response = await request(App).post('/accounts/users').send({
+      username,
+      name,
+      lastName,
+      email,
+      password: 'HugePassword00017'
+    });
+
+    const { body } = response;
+
+    expect(response.status).toEqual(400);
+    expect(body).toHaveProperty('message');
+    expect(body.message).toEqual('Invalid data!');
+    expect(body).toHaveProperty('status');
+    expect(body.status).toEqual('error');
+  });
+
+  it('should not create user when password has 3 repeated', async () => {
+    const response = await request(App).post('/accounts/users').send({
+      username,
+      name,
+      lastName,
+      email,
+      password: 'Password111'
+    });
+
+    const { body } = response;
+
+    expect(response.status).toEqual(400);
+    expect(body).toHaveProperty('message');
+    expect(body.message).toEqual('Invalid data!');
+    expect(body).toHaveProperty('status');
+    expect(body.status).toEqual('error');
   });
 });
