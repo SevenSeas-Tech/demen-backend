@@ -20,10 +20,6 @@ class Yup implements IValidationProvider {
     YupPassword(yup);
   }
 
-  trimStrings(strings: string[]): string[] {
-    return strings.map(string => string.trim());
-  }
-
   async validateLogin(credentials: LoginCredentials): Promise<boolean> {
     const loginSchema = yup.object().shape({
       email: yup.string().email().required(),
