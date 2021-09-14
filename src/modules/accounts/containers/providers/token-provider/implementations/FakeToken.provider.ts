@@ -5,24 +5,14 @@ import ITokenProvider from '../IToken.provider';
 
 class FakeTokenProvider implements ITokenProvider {
   sign(data: SignTokenDto, _: string): string {
-    const { id, admin } = data;
+    const { id, email } = data;
 
-    return `token ${id} ${admin}`;
+    return `token ${id} ${email}`;
   }
   verify(token: string, _: string): TokenResponse {
-    const [, id, adminString] = token.split(' ');
-    let admin: boolean;
+    const [, id, email] = token.split(' ');
 
-    switch (adminString) {
-      case 'true':
-        admin = true;
-        break;
-      default:
-        admin = false;
-        break;
-    }
-
-    return { id, admin };
+    return { id, email };
   }
 }
 

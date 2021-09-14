@@ -12,17 +12,17 @@ class Jwt implements ITokenProvider {
   private secret?: string;
   private expiresIn?: string;
 
-  // *** ----------------------Methods ------------------------------------------------------ *** //
+  // *** ---------------------- Methods ----------------------------------------------------- *** //
 
   sign(data: SignTokenDto, type = 'jwt'): Token {
-    const { id, admin } = data;
+    const { id, email } = data;
 
     // ------------------------------------------------------------------------------------------ //
     this.setSecret(type);
 
-    const token = sign({ admin }, this.secret as string, {
+    const token = sign({ email }, this.secret as string, {
       subject: id,
-      expiresIn: this.expiresIn,
+      expiresIn: this.expiresIn
     });
 
     return token;
@@ -31,9 +31,9 @@ class Jwt implements ITokenProvider {
   verify(token: Token, type = 'jwt'): TokenResponse {
     this.setSecret(type);
 
-    const { sub: id, admin } = verify(token, this.secret as string) as TokenPayload;
+    const { sub: id, email } = verify(token, this.secret as string) as TokenPayload;
 
-    return { id, admin };
+    return { id, email };
   }
 
   // * ----------------------- Private Methods ------------------------------------------------ * //
