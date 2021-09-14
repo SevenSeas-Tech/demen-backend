@@ -34,12 +34,6 @@ class CreateUser {
 
     const { username, email, name, lastName, password } = data;
 
-    const [trimmedUsername, trimmedName, trimmedLastName] = this.validationProvider.trimStrings([
-      username,
-      name,
-      lastName
-    ]);
-
     // ------------------------------------------------------------------------------------------ //
 
     const findByUsername = await this.usersRepository.findByUsername(username);
@@ -57,10 +51,10 @@ class CreateUser {
     const passwordHash = await this.hashProvider.hash(password);
 
     const user = await this.usersRepository.create({
-      username: trimmedUsername,
+      username: username.trim(),
       email,
-      name: trimmedName,
-      lastName: trimmedLastName,
+      name: name.trim().toLowerCase(),
+      lastName: lastName.trim().toLowerCase(),
       password: passwordHash
     });
 

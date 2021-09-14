@@ -20,10 +20,6 @@ class Yup implements IValidationProvider {
     YupPassword(yup);
   }
 
-  trimStrings(strings: string[]): string[] {
-    return strings.map(string => string.trim());
-  }
-
   async validateLogin(credentials: LoginCredentials): Promise<boolean> {
     const loginSchema = yup.object().shape({
       email: yup.string().email().required(),
@@ -41,9 +37,16 @@ class Yup implements IValidationProvider {
     return loginSchema.isValid(credentials);
   }
 
-  validateUser(userData: CreateUserDto): Promise<boolean> {
+  async validateUser(userData: CreateUserDto): Promise<boolean> {
+    const usernameRegex = /^[A-Za-z]\w{5,15}$/;
+    const validUsername = usernameRegex.exec(userData.username);
+
+    if (!validUsername) {
+      return false;
+    }
+
     const userSchema = yup.object().shape({
-      username: yup.string().min(this.stringMin).required(),
+      username: yup.string().required(),
       name: yup.string().min(this.stringMin).required(),
       lastName: yup.string().min(this.stringMin).required(),
       email: yup.string().email().required(),
@@ -59,7 +62,7 @@ class Yup implements IValidationProvider {
         .minSymbols(this.passwordSymbol)
         .required()
     });
-    // console.log(userSchema.validate(userData));
+    // console.log(await userSchema.validate(userData));
     return userSchema.isValid(userData);
   }
 }

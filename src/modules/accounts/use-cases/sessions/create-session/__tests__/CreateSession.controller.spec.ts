@@ -9,8 +9,8 @@ describe('Create Session Controller', () => {
   let connection: Connection;
 
   const username = 'foobar';
-  const name = 'Foo';
-  const lastName = 'Bar';
+  const name = 'foo';
+  const lastName = 'bar';
   const email = 'foobar@example.com';
   const password = 'Password12';
 
@@ -23,7 +23,7 @@ describe('Create Session Controller', () => {
       name,
       lastName,
       email,
-      password,
+      password
     });
   });
 

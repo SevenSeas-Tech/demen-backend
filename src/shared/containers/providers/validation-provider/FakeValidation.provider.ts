@@ -11,10 +11,6 @@ class FakeValidationProvider implements IValidationProvider {
   async validateUser(_: CreateUserDto): Promise<boolean> {
     return true;
   }
-
-  trimStrings(strings: string[]): string[] {
-    return strings.map(string => string.trim());
-  }
 }
 
 export default FakeValidationProvider;

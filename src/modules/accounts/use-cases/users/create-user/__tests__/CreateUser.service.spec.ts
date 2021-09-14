@@ -9,15 +9,17 @@ import IValidationProvider from '@shared/containers/providers/validation-provide
 import EmailInUseError from '../errors/EmailInUse.error';
 import UsernameTakenError from '../errors/UsernameTaken.error';
 
+// ---------------------------------------------------------------------------------------------- //
+
 describe('Create User Service', () => {
   let createUser: CreateUser;
   let hashProvider: IHashProvider;
   let validationProvider: IValidationProvider;
   let usersRepository: IUsersRepository;
 
-  const name = 'Foo';
+  const name = 'foo';
   const email = 'foo@bar.com';
-  const lastName = 'Bar';
+  const lastName = 'bar';
   const password = 'Password12';
   const username = 'foobar';
 
@@ -29,10 +31,11 @@ describe('Create User Service', () => {
     createUser = new CreateUser(usersRepository, hashProvider, validationProvider);
   });
 
+  // -------------------------------------------------------------------------------------------- //
+
   it('Should create a user', async () => {
     const hash = jest.spyOn(hashProvider, 'hash');
     const validateUser = jest.spyOn(validationProvider, 'validateUser');
-    const trimStrings = jest.spyOn(validationProvider, 'trimStrings');
 
     const user = await createUser.execute({
       email,
@@ -64,7 +67,6 @@ describe('Create User Service', () => {
 
     expect(hash).toHaveBeenCalled();
     expect(validateUser).toHaveBeenCalled();
-    expect(trimStrings).toHaveBeenCalled();
   });
 
   it('should not create if username is taken', async () => {
@@ -105,5 +107,34 @@ describe('Create User Service', () => {
         username: 'foobar2'
       });
     }).rejects.toEqual(new EmailInUseError());
+  });
+
+  // *** ------------------------- String Validation ---------------------------------------- *** //
+
+  it('should create user without spaces in names', async () => {
+    const user = await createUser.execute({
+      email,
+      name: ' foo ',
+      lastName: ' bar ',
+      password,
+      username: ' foobar '
+    });
+
+    expect(user.username).toEqual(username);
+    expect(user.name).toEqual(name);
+    expect(user.lastName).toEqual(lastName);
+  });
+
+  it('should create user with lower letters only in names', async () => {
+    const user = await createUser.execute({
+      email,
+      name: 'Foo',
+      lastName: 'Bar',
+      password,
+      username
+    });
+
+    expect(user.name).toEqual(name);
+    expect(user.lastName).toEqual(lastName);
   });
 });
