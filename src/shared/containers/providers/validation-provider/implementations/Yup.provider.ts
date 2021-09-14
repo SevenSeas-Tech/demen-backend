@@ -38,6 +38,13 @@ class Yup implements IValidationProvider {
   }
 
   async validateUser(userData: CreateUserDto): Promise<boolean> {
+    const usernameRegex = /^[A-Za-z]\w{5,15}$/;
+    const validUsername = usernameRegex.exec(userData.username);
+
+    if (!validUsername) {
+      return false;
+    }
+
     const userSchema = yup.object().shape({
       username: yup.string().min(this.stringMin).required(),
       name: yup.string().min(this.stringMin).required(),
