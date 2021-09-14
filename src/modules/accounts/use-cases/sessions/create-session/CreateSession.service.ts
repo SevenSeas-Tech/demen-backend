@@ -22,7 +22,7 @@ class CreateSession {
     private hashProvider: IHashProvider,
 
     @inject('ValidationProvider')
-    private validationProvider: IValidationProvider,
+    private validationProvider: IValidationProvider
   ) {}
 
   async execute(data: LoginCredentials): Promise<SessionResponse> {
@@ -46,12 +46,12 @@ class CreateSession {
       throw new InvalidCredentialsError();
     }
 
-    const { id, admin } = user;
-    const token = this.TokenProvider.sign({ id, admin }, 'jwt');
+    const { id } = user;
+    const token = this.TokenProvider.sign({ id, email }, 'jwt');
 
     const response = {
       user: UserMap.toDto(user),
-      token,
+      token
     };
 
     return response;
