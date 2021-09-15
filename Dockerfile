@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:16 as base
 
 WORKDIR /usr/app
 
@@ -8,7 +8,23 @@ RUN npm install
 
 COPY . .
 
-EXPOSE 3333
 EXPOSE 9229
 
+
+FROM base as development
+
+EXPOSE 3333
+
 CMD ["npm", "run", "dev:server"]
+
+
+FROM base as production
+EXPOSE 3334
+
+CMD ["npm", "run", "prod:server"]
+
+
+
+
+
+
