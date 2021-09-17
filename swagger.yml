@@ -15,20 +15,19 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/definitions/UserDto"
+              $ref: "#/components/schemas/UserDto"
       responses:
         201:
           description: 'Sucesso!'
           content:
             application/json:
               schema:
-                $ref: "#/definitions/User"
+                $ref: "#/components/schemas/User"
         400:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/definitions/Error"
+          $ref: "#/components/responses/BadRequest"
+        5XX:
+          $ref: "#/components/responses/Unexpected"
+
 
   /accounts/sessions:
     post:
@@ -40,116 +39,131 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/definitions/Login"
+              $ref: "#/components/schemas/Login"
       responses:
         201:
           description: 'Sucesso!'
           content:
             application/json:
               schema:
-                $ref: "#/definitions/Session"
+                $ref: "#/components/schemas/Session"
 
         400:
-          description: Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/definitions/Error"
+          $ref: "#/components/responses/BadRequest"
+        5XX:
+          $ref: "#/components/responses/Unexpected"
+
 
 definitions:
-  Session:
-    type: object
-    properties:
-      user:
-        $ref: "#/definitions/SessionUser"
-      token:
-        type: string
-        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw
-
-  Error:
-    type: object
-    properties:
-      message:
-        type: string
-      status:
-        type: string
-    example:
-      message: Something went wrong!
-      status: error
-
-  User:
-    type: object
-    properties:
-        username:
-          type: string
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-        lastName:
-          type: string
-        createdAt:
-          type: string
-          format: date
-        updatedAt:
-          type: string
-          format: date
-    example:
-      username: foobar
-      email: foobar@example.com
-      name: Foo
-      lastName: Bar
-      createdAt: 01/01/1111
-      updatedAt: 01/01/1111
-
-  SessionUser:
-    allOf:
-      - $ref: "#/definitions/User"
-      - type: object
-        properties:
-          id:
-            type: string
-            format: uuid
-        example:
-          id: adf8df02-cc28-4c46-9fde-ded8c574f24f
-
-  UserDto:
-    type: object
-    properties:
-        username:
-          type: string
-        email:
-          type: string
-          format: email
-        name:
-          type: string
-        lastName:
-          type: string
-        password:
-          type: string
-          format: secret
-    example:
-      username: foobar
-      email: foobar@example.com
-      name: Foo
-      lastName: Bar
-      password: "*****"
-
-  Login:
-    type: object
-    properties:
-      email:
-          type: string
-          format: email
-      password:
-          type: string
-          format: secret
-    example:
-      email: foobar@example.com
-      password: "*****"
 
 components:
+  schemas:
+    Session:
+      type: object
+      properties:
+        user:
+          $ref: "#/definitions/SessionUser"
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: string
+      example:
+        message: Something went wrong!
+        status: error
+
+    User:
+      type: object
+      properties:
+          username:
+            type: string
+          email:
+            type: string
+            format: email
+          name:
+            type: string
+          lastName:
+            type: string
+          createdAt:
+            type: string
+            format: date
+          updatedAt:
+            type: string
+            format: date
+      example:
+        username: foobar
+        email: foobar@example.com
+        name: Foo
+        lastName: Bar
+        createdAt: 01/01/1111
+        updatedAt: 01/01/1111
+
+    SessionUser:
+      allOf:
+        - $ref: "#/definitions/User"
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+          example:
+            id: adf8df02-cc28-4c46-9fde-ded8c574f24f
+
+    UserDto:
+      type: object
+      properties:
+          username:
+            type: string
+          email:
+            type: string
+            format: email
+          name:
+            type: string
+          lastName:
+            type: string
+          password:
+            type: string
+            format: secret
+      example:
+        username: foobar
+        email: foobar@example.com
+        name: Foo
+        lastName: Bar
+        password: "Password13"
+
+    Login:
+      type: object
+      properties:
+        email:
+            type: string
+            format: email
+        password:
+            type: string
+            format: secret
+      example:
+        email: foobar@example.com
+        password: "Password13"
+
+  responses:
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    Unexpected:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
   securitySchemes:
     BearerAuth:
       type: http
