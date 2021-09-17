@@ -9,7 +9,7 @@ class UserMap {
     name,
     last_name,
     created_at,
-    updated_at,
+    updated_at
   }: User): UserResponseDto {
     const user = {
       id,
@@ -18,7 +18,7 @@ class UserMap {
       name,
       lastName: last_name,
       createdAt: created_at,
-      updatedAt: updated_at,
+      updatedAt: updated_at
     };
 
     return user;
