@@ -37,7 +37,7 @@ describe('Create session', () => {
       usersRepository,
       tokenProvider,
       hashProvider,
-      validationProvider,
+      validationProvider
     );
 
     await usersRepository.create({
@@ -45,7 +45,7 @@ describe('Create session', () => {
       name,
       lastName,
       email,
-      password,
+      password
     });
   });
 

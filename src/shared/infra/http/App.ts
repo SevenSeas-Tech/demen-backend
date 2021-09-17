@@ -43,12 +43,12 @@ class App {
       if (process.env.NODE_ENV !== 'production') {
         return res.status(500).json({
           status: 'error',
-          message: err.message,
+          message: err.message
         });
       }
       return res.status(500).json({
         status: 'error',
-        message: 'internal server error',
+        message: 'internal server error'
       });
     });
   }
