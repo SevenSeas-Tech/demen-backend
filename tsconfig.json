@@ -3,6 +3,7 @@
     "allowJs": true,
     "noEmit": true,
     "strict": true,
+    "sourceMap": true,
 
     "moduleResolution": "node",
     "baseUrl": "./src",
