@@ -3,7 +3,7 @@ import { inject, injectable } from 'tsyringe';
 
 import ITokenProvider from '@accounts:containers/providers/token-provider/IToken.provider';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
-import AppError from '@shared/errors/App.error';
+import UnauthorizedError from '@shared/infra/http/middlewares/errors/Unauthorized.error';
 
 @injectable()
 class AuthenticationMiddleware {
@@ -19,7 +19,7 @@ class AuthenticationMiddleware {
     const { authorization } = request.headers;
 
     if (!authorization) {
-      throw new AppError('Missing Token!', 401);
+      throw new UnauthorizedError();
     }
 
     const [, token] = authorization.split(' ');
@@ -30,7 +30,7 @@ class AuthenticationMiddleware {
       const user = await this.usersRepository.findById(id);
 
       if (!user) {
-        throw new AppError('User does not exist', 401);
+        throw new UnauthorizedError();
       }
 
       request.user = {
@@ -44,7 +44,7 @@ class AuthenticationMiddleware {
       };
       next();
     } catch {
-      throw new AppError('Invalid Token!', 401);
+      throw new UnauthorizedError();
     }
   }
 }
