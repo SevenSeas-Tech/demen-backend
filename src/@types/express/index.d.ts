@@ -7,6 +7,7 @@ declare namespace Express {
       email: string;
       name: string;
       lastName: string;
+      admin: boolean;
       createdAt: Date;
       updatedAt: Date;
     };
