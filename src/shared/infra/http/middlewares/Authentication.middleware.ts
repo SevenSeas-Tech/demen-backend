@@ -39,6 +39,7 @@ class AuthenticationMiddleware {
         email,
         name: user.name,
         lastName: user.last_name,
+        admin: user.admin,
         createdAt: user.created_at,
         updatedAt: user.updated_at
       };
