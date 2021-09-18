@@ -5,6 +5,28 @@ info:
   version: 0.0.1
 
 paths:
+  /accounts/users/profile:
+    get:
+      tags:
+        - Users
+      summary: Ver Perfil
+      description: Rota para buscar o perfil do usuário.
+      security:
+        - BearerAuth: []
+      responses:
+        201:
+          description: 'Sucesso!'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserWithId"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        5XX:
+          $ref: "#/components/responses/Unexpected"
+
   /accounts/users:
     post:
       tags:
@@ -54,7 +76,6 @@ paths:
           $ref: "#/components/responses/Unexpected"
 
 
-definitions:
 
 components:
   schemas:
@@ -62,7 +83,7 @@ components:
       type: object
       properties:
         user:
-          $ref: "#/definitions/SessionUser"
+          $ref: "#/components/schemas/UserWithId"
         token:
           type: string
           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw
@@ -104,9 +125,9 @@ components:
         createdAt: 01/01/1111
         updatedAt: 01/01/1111
 
-    SessionUser:
+    UserWithId:
       allOf:
-        - $ref: "#/definitions/User"
+        - $ref: "#/components/schemas/User"
         - type: object
           properties:
             id:
@@ -163,6 +184,13 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/Error"
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+
 
   securitySchemes:
     BearerAuth:
