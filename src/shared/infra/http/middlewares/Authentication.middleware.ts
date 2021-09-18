@@ -1,21 +1,25 @@
 import { Request, Response, NextFunction } from 'express';
-import { inject, injectable } from 'tsyringe';
 
+import JwtProvider from '@accounts:containers/providers/token-provider/implementations/Jwt.provider';
 import ITokenProvider from '@accounts:containers/providers/token-provider/IToken.provider';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import UsersRepository from '@accounts:repos/Users.repository';
 import UnauthorizedError from '@shared/infra/http/middlewares/errors/Unauthorized.error';
 
-@injectable()
 class AuthenticationMiddleware {
-  constructor(
-    @inject('UsersRepository')
-    private usersRepository: IUsersRepository,
+  /**
+   * TODO: Implement dependency injection.
+   * * tsyringe couldn't inject user's repository.
+   * * It did not find the database default connection.
+   */
 
-    @inject('TokenProvider')
-    private tokenProvider: ITokenProvider
-  ) {}
+  async execute(request: Request, _: Response, next: NextFunction): Promise<void> {
+    // ! -- On (provider | repository) change, change this lines too -------------------------- ! //
+    const tokenProvider: ITokenProvider = new JwtProvider();
+    const usersRepository: IUsersRepository = new UsersRepository();
 
-  async execute(request: Request, r_: Response, next: NextFunction): Promise<void> {
+    // ------------------------------------------------------------------------------------------ //
+
     const { authorization } = request.headers;
 
     if (!authorization) {
@@ -25,9 +29,9 @@ class AuthenticationMiddleware {
     const [, token] = authorization.split(' ');
 
     try {
-      const { id, email } = this.tokenProvider.verify(token, 'jwt');
+      const { id, email } = tokenProvider.verify(token, 'jwt');
 
-      const user = await this.usersRepository.findById(id);
+      const user = await usersRepository.findById(id);
 
       if (!user) {
         throw new UnauthorizedError();

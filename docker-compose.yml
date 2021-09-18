@@ -24,6 +24,9 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3333
+      - TYPEORM_ENTITIES=./dist/modules/**/infra/typeorm/entities/*.js
+      - TYPEORM_MIGRATIONS=./dist/shared/infra/typeorm/migrations/*.js
+      - MIGRATIONS_DIR=./dist/shared/infra/typeorm/migrations
     volumes:
       - .:/usr/app
     links:
@@ -41,6 +44,9 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3334
+      - TYPEORM_ENTITIES="./dist/modules/**/infra/typeorm/entities/*.js"
+      - TYPEORM_MIGRATIONS="./dist/shared/infra/typeorm/migrations/*.js"
+      - MIGRATIONS_DIR="./dist/shared/infra/typeorm/migrations"
     volumes:
       - .:/usr/app
     links:
