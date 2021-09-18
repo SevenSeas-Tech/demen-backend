@@ -1,7 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import User from '@accounts:entities/User';
+import { UserResponseDto } from '@accounts:dtos/users/UserResponse.dto';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import UserMap from '@accounts:mapper/User.map';
 import { Uuid } from '@accounts:types/users/User';
 import NotFoundError from '@shared/infra/http/middlewares/errors/NotFound.error';
 
@@ -12,14 +13,14 @@ class ShowProfile {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute(id: Uuid): Promise<User> {
+  async execute(id: Uuid): Promise<UserResponseDto> {
     const user = await this.usersRepository.findById(id);
 
     if (!user) {
       throw new NotFoundError();
     }
 
-    return user;
+    return UserMap.toDto(user);
   }
 }
 
