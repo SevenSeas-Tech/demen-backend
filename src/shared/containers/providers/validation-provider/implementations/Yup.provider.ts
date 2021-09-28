@@ -1,4 +1,4 @@
-import uuid from 'uuid';
+import { validate } from 'uuid';
 import * as yup from 'yup';
 import YupPassword from 'yup-password';
 
@@ -82,7 +82,7 @@ class Yup implements IValidationProvider {
   async validateUserUpdateData(userData: UpdateUserDto): Promise<boolean> {
     const { id } = userData;
 
-    const isUuid = uuid.validate(id);
+    const isUuid = validate(id);
 
     if (!isUuid) {
       return false;
