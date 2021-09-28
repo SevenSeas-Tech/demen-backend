@@ -80,12 +80,7 @@ class Yup implements IValidationProvider {
   // -------------------------------------------------------------------------------------------- //
 
   async validateUserUpdateData(userData: UpdateUserDto): Promise<boolean> {
-    const { id, username } = userData;
-    const validUsername = this.usernameRegex.exec(username);
-
-    if (!validUsername) {
-      return false;
-    }
+    const { id } = userData;
 
     const isUuid = uuid.validate(id);
 
@@ -95,22 +90,10 @@ class Yup implements IValidationProvider {
 
     const userSchema = yup.object().shape({
       id: yup.string().required(),
-      username: yup.string().required(),
       name: yup.string().min(this.stringMin).required(),
-      lastName: yup.string().min(this.stringMin).required(),
-      email: yup.string().email().required(),
-
-      password: yup
-        .string()
-        .password()
-        .min(this.passwordMin)
-        .max(this.passwordMax)
-        .minUppercase(this.passwordUpper)
-        .minNumbers(this.passwordNumber)
-        .minRepeating(this.passwordRepeating)
-        .minSymbols(this.passwordSymbol)
-        .required()
+      lastName: yup.string().min(this.stringMin).required()
     });
+
     return userSchema.isValid(userData);
   }
 }
