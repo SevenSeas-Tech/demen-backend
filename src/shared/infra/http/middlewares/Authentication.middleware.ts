@@ -1,22 +1,18 @@
 import { Request, Response, NextFunction } from 'express';
 
-import JwtProvider from '@accounts:containers/providers/token-provider/implementations/Jwt.provider';
 import ITokenProvider from '@accounts:containers/providers/token-provider/IToken.provider';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
-import UsersRepository from '@accounts:repos/Users.repository';
+import ProviderContainer from '@shared/containers/middlewares/Provider.container';
+import RepositoryContainer from '@shared/containers/middlewares/Repository.container';
 import UnauthorizedError from '@shared/infra/http/middlewares/errors/Unauthorized.error';
 
 class AuthenticationMiddleware {
-  /**
-   * TODO: Implement dependency injection.
-   * * tsyringe couldn't inject user's repository.
-   * * It did not find the database default connection.
-   */
-
   async execute(request: Request, _: Response, next: NextFunction): Promise<void> {
-    // ! -- On (provider | repository) change, change this lines too -------------------------- ! //
-    const tokenProvider: ITokenProvider = new JwtProvider();
-    const usersRepository: IUsersRepository = new UsersRepository();
+    const providerInjection = new ProviderContainer();
+    const repositoryInjection = new RepositoryContainer();
+
+    const tokenProvider: ITokenProvider = providerInjection.TokenProvider;
+    const usersRepository: IUsersRepository = repositoryInjection.UsersRepository;
 
     // ------------------------------------------------------------------------------------------ //
 
