@@ -14,6 +14,8 @@ module.exports = {
           "@shared:errors": "./src/shared/errors",
           "@shared:typeorm": "./src/shared/infra/typeorm",
           "@accounts:containers": "./src/modules/accounts/containers",
+          "@shared:middlewares": "./src/shared/infra/http/middlewares",
+          "@shared:providers": "./src/shared/containers/providers",
           "@accounts:dtos": "./src/modules/accounts/dtos",
           "@accounts:entities": "./src/modules/accounts/infra/typeorm/entities",
           "@accounts:errors": "./src/modules/accounts/errors",
