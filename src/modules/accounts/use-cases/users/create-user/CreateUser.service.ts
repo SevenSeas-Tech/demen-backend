@@ -2,13 +2,13 @@ import { inject, injectable } from 'tsyringe';
 
 import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
 import { UserResponseDto } from '@accounts:dtos/users/UserResponse.dto';
+import InvalidDataError from '@accounts:errors/InvalidData.error';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
 import UserMap from '@accounts:mapper/User.map';
 import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
 import IValidationProvider from '@shared/containers/providers/validation-provider/IValidation.provider';
 
 import EmailInUseError from './errors/EmailInUse.error';
-import InvalidDataError from './errors/InvalidData.error';
 import UsernameTakenError from './errors/UsernameTaken.error';
 
 // ---------------------------------------------------------------------------------------------- //
@@ -26,7 +26,7 @@ class CreateUser {
   ) {}
 
   async execute(data: CreateUserDto): Promise<UserResponseDto> {
-    const isValid = await this.validationProvider.validateUser(data);
+    const isValid = await this.validationProvider.validateUserCreationData(data);
 
     if (!isValid) {
       throw new InvalidDataError();
