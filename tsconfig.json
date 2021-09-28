@@ -11,6 +11,7 @@
       "@config/*": ["config/*"],
       "@shared/*": ["shared/*"],
       "@shared:containers/*": ["shared/containers/*"],
+      "@shared:middlewares/*": ["shared/infra/http/middlewares/*"],
       "@shared:providers/*": ["shared/containers/providers/*"],
       "@shared:errors/*": ["shared/errors/*"],
       "@shared:typeorm/*": ["shared/infra/typeorm/*"],
