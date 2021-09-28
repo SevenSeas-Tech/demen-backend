@@ -1,6 +1,7 @@
 import { getRepository, Repository } from 'typeorm';
 
 import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
+import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
 import User from '@accounts:entities/User';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
 
@@ -12,9 +13,23 @@ class UsersRepository implements IUsersRepository {
     this.repository = getRepository(User);
   }
 
+  // -------------------------------------------------------------------------------------------- //
+
   async create(data: CreateUserDto): Promise<User> {
-    const { username, name, lastName, email, password } = data;
-    const user = this.repository.create({ username, name, last_name: lastName, email, password });
+    const { username, name, lastName: last_name, email, password } = data;
+    const user = this.repository.create({ username, name, last_name, email, password });
+
+    await this.repository.save(user);
+
+    return user;
+  }
+
+  // -------------------------------------------------------------------------------------------- //
+
+  async update(data: UpdateUserDto): Promise<User> {
+    const { id, name, lastName: last_name } = data;
+
+    const user = this.repository.create({ id, name, last_name });
 
     await this.repository.save(user);
 
@@ -22,6 +37,7 @@ class UsersRepository implements IUsersRepository {
   }
 
   // *** ----------------------- Find Methods ----------------------------------------------- *** //
+
   async findById(id: string): Promise<User | undefined> {
     return this.repository.findOne(id);
   }
@@ -34,5 +50,7 @@ class UsersRepository implements IUsersRepository {
     return this.repository.findOne({ username });
   }
 }
+
+// ---------------------------------------------------------------------------------------------- //
 
 export default UsersRepository;

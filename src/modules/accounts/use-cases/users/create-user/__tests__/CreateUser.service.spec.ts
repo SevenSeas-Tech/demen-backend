@@ -35,7 +35,7 @@ describe('Create User Service', () => {
 
   it('Should create a user', async () => {
     const hash = jest.spyOn(hashProvider, 'hash');
-    const validateUser = jest.spyOn(validationProvider, 'validateUser');
+    const validateUser = jest.spyOn(validationProvider, 'validateUserCreationData');
 
     const user = await createUser.execute({
       email,
@@ -69,6 +69,8 @@ describe('Create User Service', () => {
     expect(validateUser).toHaveBeenCalled();
   });
 
+  // -------------------------------------------------------------------------------------------- //
+
   it('should not create if username is taken', async () => {
     await createUser.execute({
       email,
@@ -88,6 +90,8 @@ describe('Create User Service', () => {
       });
     }).rejects.toEqual(new UsernameTakenError());
   });
+
+  // -------------------------------------------------------------------------------------------- //
 
   it('should not create if email is already in use', async () => {
     await createUser.execute({
@@ -124,6 +128,8 @@ describe('Create User Service', () => {
     expect(user.name).toEqual(name);
     expect(user.lastName).toEqual(lastName);
   });
+
+  // -------------------------------------------------------------------------------------------- //
 
   it('should create user with lower letters only in names', async () => {
     const user = await createUser.execute({

@@ -9,7 +9,7 @@ paths:
     get:
       tags:
         - Users
-      summary: Ver Perfil
+      summary: Ver perfil do usuário.
       description: Rota para buscar o perfil do usuário.
       security:
         - BearerAuth: []
@@ -24,6 +24,41 @@ paths:
           $ref: "#/components/responses/Unauthorized"
         404:
           $ref: "#/components/responses/NotFound"
+        5XX:
+          $ref: "#/components/responses/Unexpected"
+    patch:
+      tags:
+        - Users
+      summary: Atualizar o usuário.
+      description: |
+        Rota para atualizar o nome e sobrenome do usuário. Deve enviar o nome e o sobrenome,
+        mesmo que não queira atualizar os dois.
+      security:
+        - BearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                lastName:
+                  type: string
+              example:
+                name: foo
+                lastName: bar
+      responses:
+        201:
+          description: 'Sucesso!'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserWithId"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
         5XX:
           $ref: "#/components/responses/Unexpected"
 
