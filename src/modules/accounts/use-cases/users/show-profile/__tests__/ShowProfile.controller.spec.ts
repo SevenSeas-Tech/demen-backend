@@ -4,13 +4,18 @@ import { Connection } from 'typeorm';
 import createConnection from '@shared:typeorm/index';
 import App from '@shared/infra/http/App';
 
-let connection: Connection;
+// ---------------------------------------------------------------------------------------------- //
+
 describe('Create User Controller', () => {
+  let connection: Connection;
+
   const name = 'foo';
   const email = 'foo@bar.com';
   const lastName = 'bar';
   const password = 'Password12';
   const username = 'foobar';
+
+  // -------------------------------------------------------------------------------------------- //
 
   beforeAll(async () => {
     connection = await createConnection();
@@ -29,6 +34,8 @@ describe('Create User Controller', () => {
     await connection.dropDatabase();
     await connection.close();
   });
+
+  // -------------------------------------------------------------------------------------------- //
 
   it('should show users profile', async () => {
     const session = await request(App).post('/accounts/sessions').send({
@@ -50,6 +57,8 @@ describe('Create User Controller', () => {
     expect(body.id).toEqual(user.id);
     expect(body).toEqual(user);
   });
+
+  // -------------------------------------------------------------------------------------------- //
 
   it('should not return profile of unauthenticated user', async () => {
     const response = await request(App).get('/accounts/users/profile');
