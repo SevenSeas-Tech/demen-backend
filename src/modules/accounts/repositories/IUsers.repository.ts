@@ -5,6 +5,7 @@ import { Email, Uuid } from '@accounts:types/users/User';
 
 interface IUsersRepository {
   create(data: CreateUserDto): Promise<User>;
+  findAll(): Promise<User[]>;
   findById(id: Uuid): Promise<User | undefined>;
   findByEmail(email: Email): Promise<User | undefined>;
   findByUsername(username: string): Promise<User | undefined>;

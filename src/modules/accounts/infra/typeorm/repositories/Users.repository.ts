@@ -38,6 +38,12 @@ class UsersRepository implements IUsersRepository {
 
   // *** ----------------------- Find Methods ----------------------------------------------- *** //
 
+  async findAll(): Promise<User[]> {
+    return this.repository.find();
+  }
+
+  // -------------------------------------------------------------------------------------------- //
+
   async findById(id: string): Promise<User | undefined> {
     return this.repository.findOne(id);
   }
