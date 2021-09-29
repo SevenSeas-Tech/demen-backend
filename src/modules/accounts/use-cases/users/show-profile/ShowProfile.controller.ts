@@ -1,17 +1,18 @@
 import { Request, Response } from 'express';
-import { container } from 'tsyringe';
 
 import ShowProfile from './ShowProfile.service';
 
+// ---------------------------------------------------------------------------------------------- //
+
 class ShowProfileController {
   async execute(request: Request, response: Response): Promise<Response> {
-    const { id } = request.user;
+    const { user } = request;
 
-    const showProfile = container.resolve(ShowProfile);
+    const showProfile = new ShowProfile();
 
-    const user = await showProfile.execute(id);
+    const alteredUser = await showProfile.execute({ user });
 
-    return response.status(201).json(user);
+    return response.status(201).json(alteredUser);
   }
 }
 
