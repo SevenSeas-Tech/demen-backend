@@ -41,6 +41,10 @@ describe('User Update', () => {
 
     expect(updatedUser.id).toEqual(user.id);
     expect(updatedUser.name).toEqual(newName);
+
+    expect(updatedUser).not.toHaveProperty('password');
+    expect(updatedUser).not.toHaveProperty('admin');
+
     expect(updatedUser.lastName).toEqual(lastName);
 
     expect(validateData).toBeCalled();

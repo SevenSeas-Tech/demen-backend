@@ -47,6 +47,9 @@ describe('Create User Service', () => {
 
     expect(user).toHaveProperty('id');
 
+    expect(user).not.toHaveProperty('password');
+    expect(user).not.toHaveProperty('admin');
+
     expect(user).toHaveProperty('username');
     expect(user.username).toEqual(username);
 
