@@ -26,7 +26,10 @@ describe('List Users', () => {
 
     expect(users.length).toEqual(1);
     expect(users[0]).toHaveProperty('id');
+
     expect(users[0]).not.toHaveProperty('password');
+    expect(users[0]).toHaveProperty('admin');
+
     expect(users[0]).toHaveProperty('createdAt');
     expect(users[0]).toHaveProperty('updatedAt');
   });
