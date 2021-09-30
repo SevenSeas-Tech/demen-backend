@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import { UserResponseDto } from '@accounts:dtos/users/UserResponse.dto';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
-import UserMap from '@accounts:mapper/User.map';
+import { AdminUserResponseDto } from '@admin:dtos/users/AdminUserResponse.dto';
+import AdminUserMap from '@admin:mapper/AdminUser.map';
 
 // ---------------------------------------------------------------------------------------------- //
 
@@ -13,11 +13,11 @@ class ListUsers {
     private usersRepository: IUsersRepository
   ) {}
 
-  async execute(): Promise<UserResponseDto[]> {
+  async execute(): Promise<AdminUserResponseDto[]> {
     const users = await this.usersRepository.findAll();
 
     const mappedUsers = users.map(user => {
-      return UserMap.toDto(user);
+      return AdminUserMap.toDto(user);
     });
 
     return mappedUsers;
