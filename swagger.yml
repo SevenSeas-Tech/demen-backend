@@ -5,12 +5,37 @@ info:
   version: 0.0.1
 
 paths:
+  /accounts/users:
+    post:
+      tags:
+        - Accounts
+      summary: Criação de Usuário
+      description: |
+        Rota para o usuário se cadastrar na plataforma.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserDto"
+      responses:
+        201:
+          description: 'Sucesso!'
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        5XX:
+          $ref: "#/components/responses/Unexpected"
+
   /accounts/users/profile:
     get:
       tags:
-        - Users
+        - Accounts
       summary: Ver perfil do usuário.
-      description: Rota para buscar o perfil do usuário.
+      description: |
+        Rota para o usuário ver o seu próprio perfil.
       security:
         - BearerAuth: []
       responses:
@@ -28,10 +53,10 @@ paths:
           $ref: "#/components/responses/Unexpected"
     patch:
       tags:
-        - Users
+        - Accounts
       summary: Atualizar o usuário.
       description: |
-        Rota para atualizar o nome e sobrenome do usuário. Deve enviar o nome e o sobrenome,
+        Rota para o usuário atualizar o seu nome e sobrenome. Deve-se enviar o nome e o sobrenome,
         mesmo que não queira atualizar os dois.
       security:
         - BearerAuth: []
@@ -62,35 +87,13 @@ paths:
         5XX:
           $ref: "#/components/responses/Unexpected"
 
-  /accounts/users:
-    post:
-      tags:
-        - Users
-      summary: Criação de Usuário
-      description: Rota para criação de usuários.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/UserDto"
-      responses:
-        201:
-          description: 'Sucesso!'
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/User"
-        400:
-          $ref: "#/components/responses/BadRequest"
-        5XX:
-          $ref: "#/components/responses/Unexpected"
 
   /accounts/sessions:
     post:
       tags:
-        - Sessions
-      summary: Criação de sessão
-      description: Rota para login de usuários.
+        - Accounts
+      summary: Criação de sessão.
+      description: Rota para o usuário logar-se na plataforma.
       requestBody:
         content:
           application/json:
@@ -114,9 +117,8 @@ paths:
     get:
       tags:
         - Admin
-
       summary: Listagem de usuários.
-      description: Lista todos os usuarios para um administrador.
+      description: Lista todos os usuários para um administrador.
       security:
         - BearerAuth: []
       responses:
