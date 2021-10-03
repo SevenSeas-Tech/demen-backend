@@ -49,6 +49,8 @@ describe('Create session', () => {
     });
   });
 
+  // -------------------------------------------------------------------------------------------- //
+
   it('should create a session', async () => {
     const validateCredentials = jest.spyOn(validationProvider, 'validateLogin');
     const match = jest.spyOn(hashProvider, 'match');
@@ -68,6 +70,9 @@ describe('Create session', () => {
     expect(user).toHaveProperty('id');
     expect(isUuid).toBeTruthy();
 
+    expect(user).not.toHaveProperty('password');
+    expect(user).not.toHaveProperty('admin');
+
     expect(user).toHaveProperty('username');
     expect(user.username).toEqual(username);
 
@@ -86,6 +91,8 @@ describe('Create session', () => {
     expect(user.updatedAt).toBeTruthy();
   });
 
+  // -------------------------------------------------------------------------------------------- //
+
   it('should create session with invalid email', async () => {
     const email = 'invalid-email';
 
@@ -93,6 +100,8 @@ describe('Create session', () => {
       await createSession.execute({ email, password });
     }).rejects.toEqual(new InvalidCredentialsError());
   });
+
+  // -------------------------------------------------------------------------------------------- //
 
   it('should create session with invalid password', async () => {
     const password = 'invalid-password';

@@ -4,9 +4,11 @@ import { Connection } from 'typeorm';
 import createConnection from '@shared:typeorm/index';
 import App from '@shared/infra/http/App';
 
-let connection: Connection;
+// ---------------------------------------------------------------------------------------------- //
 
 describe('Create User Controller', () => {
+  let connection: Connection;
+
   const name = 'foo';
   const email = 'foo@bar.com';
   const lastName = 'bar';
@@ -39,6 +41,9 @@ describe('Create User Controller', () => {
 
     expect(user).toHaveProperty('username');
     expect(user.username).toEqual(username);
+
+    expect(user).not.toHaveProperty('password');
+    expect(user).not.toHaveProperty('admin');
 
     expect(user).toHaveProperty('name');
     expect(user.name).toEqual(name);
@@ -76,6 +81,8 @@ describe('Create User Controller', () => {
     expect(body).toHaveProperty('status');
     expect(body.status).toEqual('error');
   });
+
+  // -------------------------------------------------------------------------------------------- //
 
   it('should not create user if email is in use', async () => {
     const response = await request(App)
@@ -116,6 +123,8 @@ describe('Create User Controller', () => {
     expect(body.status).toEqual('error');
   });
 
+  // -------------------------------------------------------------------------------------------- //
+
   it('should not create user when email has spaces', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
@@ -153,6 +162,8 @@ describe('Create User Controller', () => {
     expect(body.status).toEqual('error');
   });
 
+  // -------------------------------------------------------------------------------------------- //
+
   it('should not create user with username is bigger than 16 characters', async () => {
     const response = await request(App).post('/accounts/users').send({
       username: 'foo_bar_huge_0017',
@@ -170,6 +181,8 @@ describe('Create User Controller', () => {
     expect(body).toHaveProperty('status');
     expect(body.status).toEqual('error');
   });
+
+  // -------------------------------------------------------------------------------------------- //
 
   it('should not create user with username containing symbols', async () => {
     const response = await request(App).post('/accounts/users').send({
@@ -189,6 +202,8 @@ describe('Create User Controller', () => {
     expect(body.status).toEqual('error');
   });
 
+  // -------------------------------------------------------------------------------------------- //
+
   it('should not create user with username starting with number', async () => {
     const response = await request(App).post('/accounts/users').send({
       username: '3foobar',
@@ -206,6 +221,8 @@ describe('Create User Controller', () => {
     expect(body).toHaveProperty('status');
     expect(body.status).toEqual('error');
   });
+
+  // -------------------------------------------------------------------------------------------- //
 
   it('should not create user when username has more than one word', async () => {
     const response = await request(App).post('/accounts/users').send({
@@ -244,6 +261,8 @@ describe('Create User Controller', () => {
     expect(body.status).toEqual('error');
   });
 
+  // -------------------------------------------------------------------------------------------- //
+
   it('should not create user with last name length < 3', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
@@ -262,6 +281,8 @@ describe('Create User Controller', () => {
     expect(body.status).toEqual('error');
   });
 
+  // -------------------------------------------------------------------------------------------- //
+
   it('should create user without spaces on names', async () => {
     const email = 'nospaces@names.com';
 
@@ -279,6 +300,8 @@ describe('Create User Controller', () => {
     expect(user.name).toEqual(name);
     expect(user.lastName).toEqual(lastName);
   });
+
+  // -------------------------------------------------------------------------------------------- //
 
   it('should create user using lower letters on names', async () => {
     const username = 'foobar_cap';
@@ -318,6 +341,8 @@ describe('Create User Controller', () => {
     expect(body.status).toEqual('error');
   });
 
+  // -------------------------------------------------------------------------------------------- //
+
   it('should not create user when password has no capitalized letters', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
@@ -335,6 +360,8 @@ describe('Create User Controller', () => {
     expect(body).toHaveProperty('status');
     expect(body.status).toEqual('error');
   });
+
+  // -------------------------------------------------------------------------------------------- //
 
   it('should not create user when password has length < 6', async () => {
     const response = await request(App).post('/accounts/users').send({
@@ -354,6 +381,8 @@ describe('Create User Controller', () => {
     expect(body.status).toEqual('error');
   });
 
+  // -------------------------------------------------------------------------------------------- //
+
   it('should not create user when password has length > 16', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
@@ -371,6 +400,8 @@ describe('Create User Controller', () => {
     expect(body).toHaveProperty('status');
     expect(body.status).toEqual('error');
   });
+
+  // -------------------------------------------------------------------------------------------- //
 
   it('should not create user when password has 3 repeated', async () => {
     const response = await request(App).post('/accounts/users').send({
