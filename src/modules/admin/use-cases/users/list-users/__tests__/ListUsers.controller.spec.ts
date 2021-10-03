@@ -13,7 +13,7 @@ describe('List Users Integration tests', () => {
 
   const hashProvider = new ProviderContainer().HashProvider;
 
-  const username = 'administrator';
+  const username = 'admin';
   const name = 'admin';
   const lastName = 'admin';
   const email = 'admin@example.com';
@@ -47,19 +47,59 @@ describe('List Users Integration tests', () => {
       password
     });
 
-    console.log(session.body);
-
     const { token } = session.body;
-
-    console.log(token);
 
     const response = await request(App)
       .get('/admin/users')
       .set({ authorization: `Bearer ${token}` });
 
-    // const body = response;
-    // console.log(body);
+    const { body } = response;
 
     expect(response.status).toEqual(201);
+    expect(body.length).toEqual(1);
+    expect(body[0]).not.toHaveProperty('password');
+    expect(body[0]).toHaveProperty('admin');
+  });
+
+  // -------------------------------------------------------------------------------------------- //
+
+  it('should not list users to non admin user', async () => {
+    const email = 'foobar@example.com';
+
+    await request(App).post('/accounts/users').send({
+      name: 'foo',
+      lastName: 'bar',
+      email,
+      username: 'foobar',
+      password
+    });
+
+    const session = await request(App).post('/accounts/sessions').send({
+      email,
+      password
+    });
+
+    const { token } = session.body;
+
+    const response = await request(App)
+      .get('/admin/users')
+      .set({ authorization: `Bearer ${token}` });
+
+    const { body } = response;
+
+    expect(response.status).toEqual(404);
+    expect(body.status).toEqual('error');
+    expect(body.message).toEqual('Not Found!');
+  });
+
+  // -------------------------------------------------------------------------------------------- //
+  it('should not list users to unauthenticated user', async () => {
+    const response = await request(App).get('/admin/users');
+
+    const { body } = response;
+
+    expect(response.status).toEqual(401);
+    expect(body.status).toEqual('error');
+    expect(body.message).toEqual('Unauthorized!');
   });
 });
