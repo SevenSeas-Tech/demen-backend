@@ -12,9 +12,9 @@ class UpdateUserController {
 
     const updateUser = container.resolve(UpdateUser);
 
-    const user = await updateUser.execute({ id, name, lastName });
+    await updateUser.execute({ id, name, lastName });
 
-    return response.status(201).json(user);
+    return response.status(204).send();
   }
 }
 
