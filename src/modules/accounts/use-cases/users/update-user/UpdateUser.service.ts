@@ -1,10 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
 import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
-import { UserResponseDto } from '@accounts:dtos/users/UserResponse.dto';
 import InvalidDataError from '@accounts:errors/InvalidData.error';
 import IUsersRepository from '@accounts:irepos/IUsers.repository';
-import UserMap from '@accounts:mapper/User.map';
 import IValidationProvider from '@shared:providers/validation-provider/IValidation.provider';
 
 // ---------------------------------------------------------------------------------------------- //
@@ -18,7 +16,7 @@ class UpdateUser {
     private validationProvider: IValidationProvider
   ) {}
 
-  async execute(data: UpdateUserDto): Promise<UserResponseDto> {
+  async execute(data: UpdateUserDto): Promise<void> {
     const { id, name, lastName } = data;
 
     // ------------------------------------------------------------------------------------------ //
@@ -31,13 +29,11 @@ class UpdateUser {
 
     // ------------------------------------------------------------------------------------------ //
 
-    const user = await this.usersRepository.update({
+    await this.usersRepository.update({
       id,
       name: name.trim().toLowerCase(),
       lastName: lastName.trim().toLowerCase()
     });
-
-    return UserMap.toDto(user);
   }
 }
 
