@@ -15,8 +15,9 @@ class AxiosProvider implements IAPIProvider {
       params: { id, key: apiKey, part: parts, fields }
     });
 
-    const { channelId, description, title, thumbnails, publishedAt } =
-      response.data as ApiVideoResponseDTO;
+    const { items } = response.data as ApiVideoResponseDTO;
+
+    const { channelId, description, title, thumbnails, publishedAt } = items.snippet;
 
     return {
       id,
