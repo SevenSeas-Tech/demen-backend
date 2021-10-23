@@ -3,10 +3,11 @@ const youtube = `${baseUrl}/youtube/v3`;
 
 export default {
   apiKey: process.env.API_KEY,
-  channels: `${youtube}/channels`,
-  videos: `${youtube}/videos`,
+  channelsUrl: `${youtube}/channels`,
+  videosUrl: `${youtube}/videos`,
   parts: 'snippet',
-  fields: 'items(id,snippet(channelId,description,title,thumbnails,publishedAt))'
+  videoFields: 'items(id,snippet(channelId,description,title,thumbnails,publishedAt))',
+  channelFields: 'items(snippet(title,description,thumbnails))'
 };
 
 /*
