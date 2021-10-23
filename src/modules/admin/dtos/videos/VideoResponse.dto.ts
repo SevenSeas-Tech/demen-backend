@@ -1,4 +1,4 @@
-export type APIVideoResponseDTO = {
+export type VideoResponseDTO = {
   id: string;
   channel: string;
   description: string;
