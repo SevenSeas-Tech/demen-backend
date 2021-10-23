@@ -1,9 +1,34 @@
-import IAPIProvider from '../IAPI.provider';
+import axios from 'axios';
+
+import IAPIProvider from '@admin:containers/providers/API/IAPI.provider';
+import { ApiVideoResponseDTO } from '@admin:dtos/g-api/ApiVideoResponse.dto';
+import { VideoResponseDTO } from '@admin:dtos/videos/VideoResponse.dto';
+import GApiConfig from '@config/g-api/GApi.config';
+
+// ---------------------------------------------------------------------------------------------- //
 
 class AxiosProvider implements IAPIProvider {
-  getVideo(_: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async getVideo(id: string): Promise<VideoResponseDTO> {
+    const { videos: videosUrl, apiKey, fields, parts } = GApiConfig;
+
+    const response = await axios.get(videosUrl, {
+      params: { id, key: apiKey, part: parts, fields }
+    });
+
+    const { channelId, description, title, thumbnails, publishedAt } =
+      response.data as ApiVideoResponseDTO;
+
+    return {
+      id,
+      channel: channelId,
+      description,
+      title,
+      thumbnail: thumbnails.default.url,
+      publishedAt
+    };
   }
 }
+
+// ---------------------------------------------------------------------------------------------- //
 
 export default AxiosProvider;
