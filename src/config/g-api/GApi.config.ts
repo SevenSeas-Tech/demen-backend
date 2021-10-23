@@ -1,10 +1,13 @@
-class GApiConfig {
-  apiKey = process.env.API_KEY;
-  baseUrl = 'https://www.googleapis.com';
-  youtube = `${this.baseUrl}/youtube/v3`;
-  channels = `${this.youtube}/channels`;
-  videos = `${this.youtube}/videos`;
-}
+const baseUrl = 'https://www.googleapis.com';
+const youtube = `${baseUrl}/youtube/v3`;
+
+export default {
+  apiKey: process.env.API_KEY,
+  channels: `${youtube}/channels`,
+  videos: `${youtube}/videos`,
+  parts: 'snippet',
+  fields: 'items(id,snippet(channelId,description,title,thumbnails,publishedAt))'
+};
 
 /*
   Example from API Docs:
@@ -21,5 +24,3 @@ class GApiConfig {
       &part=snippet,statistics
 
 */
-
-export default GApiConfig;
