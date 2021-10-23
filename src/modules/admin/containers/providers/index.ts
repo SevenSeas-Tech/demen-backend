@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
 
-import IAPIProvider from '@admin:containers/providers/API/IAPI.provider';
+import IAPIProvider from '@admin:containers/providers/API/IApi.provider';
 import AxiosProvider from '@admin:containers/providers/API/implementations/Axios.provider';
 
 // ---------------------------------------------------------------------------------------------- //
