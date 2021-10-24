@@ -9,7 +9,9 @@ export class CreateChannels1635042809052 implements MigrationInterface {
           { name: 'id', type: 'uuid', isPrimary: true, default: 'uuid_generate_v4()' },
           { name: 'title', type: 'varchar' },
           { name: 'description', type: 'varchar' },
-          { name: 'thumbnail', type: 'varchar' }
+          { name: 'thumbnail', type: 'varchar' },
+          { name: 'created_at', type: 'timestamp', default: 'now()' },
+          { name: 'updated_at', type: 'timestamp', default: 'now()' }
         ]
       })
     );
