@@ -40,6 +40,7 @@ class AuthenticationMiddleware {
         name: user.name,
         lastName: user.last_name,
         admin: user.admin,
+        verified: user.verified,
         createdAt: user.created_at,
         updatedAt: user.updated_at
       };

@@ -8,6 +8,7 @@ declare namespace Express {
       name: string;
       lastName: string;
       admin: boolean;
+      verified: boolean;
       createdAt: Date;
       updatedAt: Date;
     };
