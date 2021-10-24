@@ -9,13 +9,15 @@ interface IRequestDto {
     name: string;
     lastName: string;
     admin: boolean;
+    verified: boolean;
     createdAt: Date;
     updatedAt: Date;
   };
 }
 class ShowProfile {
   async execute(data: IRequestDto): Promise<UserResponseDto> {
-    const { id, username, email, name, lastName, admin, createdAt, updatedAt } = data.user;
+    const { id, username, email, name, lastName, admin, verified, createdAt, updatedAt } =
+      data.user;
     const user = {
       id,
       username,
@@ -24,6 +26,7 @@ class ShowProfile {
       name,
       last_name: lastName,
       admin,
+      verified,
       created_at: createdAt,
       updated_at: updatedAt
     };

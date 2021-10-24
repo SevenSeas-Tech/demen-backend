@@ -23,6 +23,9 @@ class User {
   @Column()
   admin!: boolean;
 
+  @Column()
+  verified!: boolean;
+
   @CreateDateColumn()
   created_at!: Date;
 
