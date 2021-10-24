@@ -4,7 +4,9 @@ export type ApiChannelResponseDTO = {
       description: string;
       title: string;
       thumbnails: {
-        url: string;
+        default: {
+          url: string;
+        };
       };
     };
   };

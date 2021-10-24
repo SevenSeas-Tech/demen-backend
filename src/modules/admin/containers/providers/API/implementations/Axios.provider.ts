@@ -29,7 +29,7 @@ class AxiosProvider implements IApiProvider {
       id,
       description,
       title,
-      thumbnail: thumbnails.url
+      thumbnail: thumbnails.default.url
     };
   }
 
