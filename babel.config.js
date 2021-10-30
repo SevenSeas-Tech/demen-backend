@@ -37,7 +37,18 @@ module.exports = {
           "@admin:irepos": "./src/modules/admin/repositories",
           "@admin:routes": "./src/modules/admin/infra/http/routes",
           "@admin:types": "./src/modules/admin/@types",
-          "@admin:use-cases": "./src/modules/admin/use-cases"
+          "@admin:use-cases": "./src/modules/admin/use-cases",
+
+          "@lessons:containers": "./src/modules/lessons/containers",
+          "@lessons:dtos": "./src/modules/lessons/dtos",
+          "@lessons:entities": "./src/modules/lessons/infra/typeorm/entities",
+          "@lessons:errors": "./src/modules/lessons/errors",
+          "@lessons:mapper": "./src/modules/lessons/mapper",
+          "@lessons:repos": "./src/modules/lessons/infra/typeorm/repositories",
+          "@lessons:irepos": "./src/modules/lessons/repositories",
+          "@lessons:routes": "./src/modules/lessons/infra/http/routes",
+          "@lessons:types": "./src/modules/lessons/@types",
+          "@lessons:use-cases": "./src/modules/lessons/use-cases"
         }
       }
     ],
