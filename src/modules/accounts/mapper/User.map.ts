@@ -8,6 +8,7 @@ class UserMap {
     email,
     name,
     last_name,
+    verified,
     created_at,
     updated_at
   }: User): UserResponseDto {
@@ -16,6 +17,7 @@ class UserMap {
       username,
       email,
       name,
+      verified,
       lastName: last_name,
       createdAt: created_at,
       updatedAt: updated_at
