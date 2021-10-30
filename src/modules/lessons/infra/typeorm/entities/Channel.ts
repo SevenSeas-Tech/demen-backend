@@ -1,4 +1,15 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+  UpdateDateColumn
+} from 'typeorm';
+
+import Video from '@lessons:entities/Video';
+
+// ---------------------------------------------------------------------------------------------- //
 
 @Entity('channels')
 class Channel {
@@ -19,6 +30,11 @@ class Channel {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
+
+  // * ---- Foreign Keys ------------------------------------------------------------------------ //
+
+  @OneToMany(() => Video, video => video.channel)
+  videos!: Video[];
 }
 
 export default Channel;
