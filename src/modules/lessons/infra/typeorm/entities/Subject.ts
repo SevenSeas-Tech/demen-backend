@@ -1,11 +1,9 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
 
-import { Uuid } from '@shared/@types/Uuid';
-
 @Entity('subjects')
 class Subject {
   @PrimaryColumn()
-  id!: Uuid;
+  id!: string;
 
   @Column()
   title!: string;
