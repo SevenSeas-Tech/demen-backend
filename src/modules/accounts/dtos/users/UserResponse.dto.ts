@@ -6,6 +6,7 @@ export type UserResponseDto = {
   email: Email;
   name: string;
   lastName: string;
+  verified: boolean;
   createdAt: Date;
   updatedAt: Date;
 };
