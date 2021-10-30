@@ -43,7 +43,7 @@ describe('User Update', () => {
 
     expect(updatedUser?.name).toEqual(newName);
 
-    expect(updatedUser?.last_name).toEqual(lastName);
+    expect(updatedUser?.lastName).toEqual(lastName);
 
     expect(validateData).toBeCalled();
   });
@@ -58,7 +58,7 @@ describe('User Update', () => {
     const updatedUser = await usersRepository.findById(user.id);
 
     expect(updatedUser?.name).toEqual(name);
-    expect(updatedUser?.last_name).toEqual(newLastName);
+    expect(updatedUser?.lastName).toEqual(newLastName);
 
     expect(validateData).toBeCalled();
   });
@@ -75,7 +75,7 @@ describe('User Update', () => {
     const updatedUser = await usersRepository.findById(user.id);
 
     expect(updatedUser?.name).toEqual(newName);
-    expect(updatedUser?.last_name).toEqual(newLastName);
+    expect(updatedUser?.lastName).toEqual(newLastName);
   });
 
   // -------------------------------------------------------------------------------------------- //
@@ -90,6 +90,6 @@ describe('User Update', () => {
     const updatedUser = await usersRepository.findById(user.id);
 
     expect(updatedUser?.name).toEqual(newName);
-    expect(updatedUser?.last_name).toEqual(newLastName);
+    expect(updatedUser?.lastName).toEqual(newLastName);
   });
 });
