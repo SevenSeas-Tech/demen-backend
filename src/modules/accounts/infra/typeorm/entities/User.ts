@@ -17,8 +17,8 @@ class User {
   @Column()
   name!: string;
 
-  @Column()
-  last_name!: string;
+  @Column({ name: 'last_name' })
+  lastName!: string;
 
   @Column()
   admin!: boolean;
@@ -26,11 +26,11 @@ class User {
   @Column()
   verified!: boolean;
 
-  @CreateDateColumn()
-  created_at!: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt!: Date;
 
-  @UpdateDateColumn()
-  updated_at!: Date;
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt!: Date;
 }
 
 export default User;
