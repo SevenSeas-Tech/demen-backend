@@ -19,13 +19,13 @@ class Video {
   @PrimaryColumn()
   id!: string;
 
-  @Column('channel_id')
+  @Column({ name: 'channel_id' })
   channelId!: string;
 
-  @Column('user_id')
+  @Column({ name: 'user_id' })
   userId!: string;
 
-  @Column('subject_id')
+  @Column({ name: 'subject_id' })
   subjectId!: string;
 
   @Column()
@@ -34,7 +34,7 @@ class Video {
   @Column()
   institution?: string;
 
-  @Column('published_at')
+  @Column({ name: 'published_at' })
   publishedAt!: Date;
 
   @Column()
@@ -43,10 +43,10 @@ class Video {
   @Column()
   title!: string;
 
-  @CreateDateColumn('created_at')
+  @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
 
-  @UpdateDateColumn('updated_at')
+  @UpdateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
 
   // * ------------------- Foreign Keys ------------------------------------------------------- * //
