@@ -44,6 +44,7 @@ describe('Create User Controller', () => {
 
     expect(user).not.toHaveProperty('password');
     expect(user).not.toHaveProperty('admin');
+    expect(user).not.toHaveProperty('videos');
 
     expect(user).toHaveProperty('name');
     expect(user.name).toEqual(name);
@@ -53,6 +54,10 @@ describe('Create User Controller', () => {
 
     expect(user).toHaveProperty('email');
     expect(user.email).toEqual(email);
+
+    // ! The property verified is undefined because it's generates on DB (same as id)! //
+    // expect(user).toHaveProperty('verified');
+    // expect(user.verified).toEqual(false);
 
     expect(user).toHaveProperty('createdAt');
     expect(user.createdAt).toBeTruthy();
