@@ -16,8 +16,8 @@ class UsersRepository implements IUsersRepository {
   // -------------------------------------------------------------------------------------------- //
 
   async create(data: CreateUserDto): Promise<User> {
-    const { username, name, lastName: last_name, email, password } = data;
-    const user = this.repository.create({ username, name, last_name, email, password });
+    const { username, name, lastName, email, password } = data;
+    const user = this.repository.create({ username, name, lastName, email, password });
 
     await this.repository.save(user);
 
@@ -27,9 +27,9 @@ class UsersRepository implements IUsersRepository {
   // -------------------------------------------------------------------------------------------- //
 
   async update(data: UpdateUserDto): Promise<User> {
-    const { id, name, lastName: last_name } = data;
+    const { id, name, lastName } = data;
 
-    const user = this.repository.create({ id, name, last_name });
+    const user = this.repository.create({ id, name, lastName });
 
     await this.repository.save(user);
 
