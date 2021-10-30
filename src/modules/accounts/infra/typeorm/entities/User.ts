@@ -1,4 +1,15 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+  UpdateDateColumn
+} from 'typeorm';
+
+import Video from '@lessons:entities/Video';
+
+// ---------------------------------------------------------------------------------------------- //
 
 @Entity('users')
 class User {
@@ -31,6 +42,11 @@ class User {
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
+
+  // * ---- Foreign Keys ------------------------------------------------------------------------ //
+
+  @OneToMany(() => Video, video => video.user)
+  videos!: Video[];
 }
 
 export default User;
