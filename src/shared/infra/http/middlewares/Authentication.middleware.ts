@@ -6,6 +6,8 @@ import ProviderContainer from '@shared/containers/middlewares/Provider.container
 import RepositoryContainer from '@shared/containers/middlewares/Repository.container';
 import UnauthorizedError from '@shared/infra/http/middlewares/errors/Unauthorized.error';
 
+// ---------------------------------------------------------------------------------------------- //
+
 class AuthenticationMiddleware {
   async execute(request: Request, _: Response, next: NextFunction): Promise<void> {
     const providerInjection = new ProviderContainer();
@@ -14,9 +16,9 @@ class AuthenticationMiddleware {
     const tokenProvider: ITokenProvider = providerInjection.TokenProvider;
     const usersRepository: IUsersRepository = repositoryInjection.UsersRepository;
 
-    // ------------------------------------------------------------------------------------------ //
-
     const { authorization } = request.headers;
+
+    // ------------------------------------------------------------------------------------------ //
 
     if (!authorization) {
       throw new UnauthorizedError();
@@ -33,16 +35,19 @@ class AuthenticationMiddleware {
         throw new UnauthorizedError();
       }
 
+      const { username, name, lastName, admin, verified, videos, createdAt, updatedAt } = user;
+
       request.user = {
         id,
-        username: user.username,
+        username,
         email,
-        name: user.name,
-        lastName: user.last_name,
-        admin: user.admin,
-        verified: user.verified,
-        createdAt: user.created_at,
-        updatedAt: user.updated_at
+        name,
+        lastName,
+        admin,
+        verified,
+        videos,
+        createdAt,
+        updatedAt
       };
       next();
     } catch {
