@@ -49,6 +49,7 @@ describe('Create User Service', () => {
 
     expect(user).not.toHaveProperty('password');
     expect(user).not.toHaveProperty('admin');
+    expect(user).not.toHaveProperty('videos');
 
     expect(user).toHaveProperty('username');
     expect(user.username).toEqual(username);
@@ -61,6 +62,9 @@ describe('Create User Service', () => {
 
     expect(user).toHaveProperty('email');
     expect(user.email).toEqual(email);
+
+    expect(user).toHaveProperty('verified');
+    expect(user.verified).toEqual(false);
 
     expect(user).toHaveProperty('createdAt');
     expect(user.createdAt).toBeTruthy();
