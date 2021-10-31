@@ -6,7 +6,7 @@ export class CreateVideos1635044704980 implements MigrationInterface {
       new Table({
         name: 'videos',
         columns: [
-          { name: 'id', type: 'uuid', isPrimary: true },
+          { name: 'id', type: 'varchar', isPrimary: true },
           { name: 'channel_id', type: 'varchar' },
           { name: 'subject_id', type: 'uuid' },
           { name: 'user_id', type: 'uuid' },
