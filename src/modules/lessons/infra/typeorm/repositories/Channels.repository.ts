@@ -20,6 +20,12 @@ class ChannelsRepository implements IChannelRepositories {
 
     return this.repository.save(channel);
   }
+
+  async findById(id: string): Promise<Channel | undefined> {
+    return this.repository.findOne(id);
+  }
 }
+
+// ---------------------------------------------------------------------------------------------- //
 
 export default ChannelsRepository;
