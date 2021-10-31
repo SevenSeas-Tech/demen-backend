@@ -26,6 +26,10 @@ class FakeChannelsRepository implements IChannelRepositories {
 
     return channel;
   }
+
+  async findById(id: string): Promise<Channel | undefined> {
+    return this.channels.find(channel => channel.id === id);
+  }
 }
 
 // ---------------------------------------------------------------------------------------------- //
