@@ -20,6 +20,12 @@ class SubjectsRepository implements ISubjectsRepository {
 
     return this.repository.save(subject);
   }
+
+  async findById(id: string): Promise<Subject | undefined> {
+    const subject = await this.repository.findOne(id);
+
+    return subject;
+  }
 }
 
 // ---------------------------------------------------------------------------------------------- //
