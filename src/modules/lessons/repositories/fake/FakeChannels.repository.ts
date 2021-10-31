@@ -1,4 +1,4 @@
-import { CreateChannelDto } from '@lessons:dtos/CreateChannelDto';
+import { CreateChannelDto } from '@lessons:dtos/CreateChannel.dto';
 import Channel from '@lessons:entities/Channel';
 import IChannelRepositories from '@lessons:irepos/IChannels.repository';
 
