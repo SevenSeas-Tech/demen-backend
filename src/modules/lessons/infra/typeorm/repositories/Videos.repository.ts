@@ -42,6 +42,10 @@ class VideosRepository implements IVideosRepository {
 
     return video;
   }
+
+  async findById(id: string): Promise<Video | undefined> {
+    return this.repository.findOne(id);
+  }
 }
 
 // ---------------------------------------------------------------------------------------------- //
