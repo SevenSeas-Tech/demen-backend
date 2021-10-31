@@ -3,7 +3,7 @@ export type ApiVideoResponseDTO = {
     snippet: {
       channelId: string;
       description: string;
-      publishedAt: string;
+      publishedAt: Date;
       title: string;
       thumbnails: {
         default: {

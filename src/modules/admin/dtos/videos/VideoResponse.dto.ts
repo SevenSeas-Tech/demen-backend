@@ -2,7 +2,7 @@ export type VideoResponseDTO = {
   id: string;
   channelId: string;
   description: string;
-  publishedAt: string;
+  publishedAt: Date;
   title: string;
   thumbnail: string;
 };
