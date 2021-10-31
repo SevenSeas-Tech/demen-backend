@@ -9,13 +9,15 @@ module.exports = {
       {
         alias: {
           "@config": "./src/config",
+
           "@shared": "./src/shared",
           "@shared:containers": "./src/shared/containers",
           "@shared:errors": "./src/shared/errors",
           "@shared:typeorm": "./src/shared/infra/typeorm",
-          "@accounts:containers": "./src/modules/accounts/containers",
           "@shared:middlewares": "./src/shared/infra/http/middlewares",
           "@shared:providers": "./src/shared/containers/providers",
+
+          "@accounts:containers": "./src/modules/accounts/containers",
           "@accounts:dtos": "./src/modules/accounts/dtos",
           "@accounts:entities": "./src/modules/accounts/infra/typeorm/entities",
           "@accounts:errors": "./src/modules/accounts/errors",
@@ -24,7 +26,29 @@ module.exports = {
           "@accounts:irepos": "./src/modules/accounts/repositories",
           "@accounts:routes": "./src/modules/accounts/infra/http/routes",
           "@accounts:types": "./src/modules/accounts/@types",
-          "@accounts:use-cases": "./src/modules/accounts/use-cases"
+          "@accounts:use-cases": "./src/modules/accounts/use-cases",
+
+          "@admin:containers": "./src/modules/admin/containers",
+          "@admin:dtos": "./src/modules/admin/dtos",
+          "@admin:entities": "./src/modules/admin/infra/typeorm/entities",
+          "@admin:errors": "./src/modules/admin/errors",
+          "@admin:mapper": "./src/modules/admin/mapper",
+          "@admin:repos": "./src/modules/admin/infra/typeorm/repositories",
+          "@admin:irepos": "./src/modules/admin/repositories",
+          "@admin:routes": "./src/modules/admin/infra/http/routes",
+          "@admin:types": "./src/modules/admin/@types",
+          "@admin:use-cases": "./src/modules/admin/use-cases",
+
+          "@lessons:containers": "./src/modules/lessons/containers",
+          "@lessons:dtos": "./src/modules/lessons/dtos",
+          "@lessons:entities": "./src/modules/lessons/infra/typeorm/entities",
+          "@lessons:errors": "./src/modules/lessons/errors",
+          "@lessons:mapper": "./src/modules/lessons/mapper",
+          "@lessons:repos": "./src/modules/lessons/infra/typeorm/repositories",
+          "@lessons:irepos": "./src/modules/lessons/repositories",
+          "@lessons:routes": "./src/modules/lessons/infra/http/routes",
+          "@lessons:types": "./src/modules/lessons/@types",
+          "@lessons:use-cases": "./src/modules/lessons/use-cases"
         }
       }
     ],

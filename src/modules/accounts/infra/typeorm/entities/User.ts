@@ -1,4 +1,15 @@
-import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+  UpdateDateColumn
+} from 'typeorm';
+
+import Video from '@lessons:entities/Video';
+
+// ---------------------------------------------------------------------------------------------- //
 
 @Entity('users')
 class User {
@@ -17,17 +28,25 @@ class User {
   @Column()
   name!: string;
 
-  @Column()
-  last_name!: string;
+  @Column({ name: 'last_name' })
+  lastName!: string;
 
   @Column()
   admin!: boolean;
 
-  @CreateDateColumn()
-  created_at!: Date;
+  @Column()
+  verified!: boolean;
 
-  @UpdateDateColumn()
-  updated_at!: Date;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt!: Date;
+
+  @UpdateDateColumn({ name: 'updated_at' })
+  updatedAt!: Date;
+
+  // * ---- Foreign Keys ------------------------------------------------------------------------ //
+
+  @OneToMany(() => Video, video => video.user)
+  videos!: Video[];
 }
 
 export default User;

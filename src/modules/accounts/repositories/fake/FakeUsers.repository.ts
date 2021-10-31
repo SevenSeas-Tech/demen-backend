@@ -17,17 +17,26 @@ class FakeUsersRepository implements IUsersRepository {
     Object.assign(user, {
       id: uuid(),
       username,
+      admin: false,
       name,
-      last_name: lastName,
+      lastName,
       email,
       password,
-      created_at: Date.now(),
-      updated_at: Date.now()
+      verified: false,
+      videos: [],
+      createdAt: Date.now(),
+      updatedAt: Date.now()
     });
 
     this.users.push(user);
 
     return user;
+  }
+
+  // -------------------------------------------------------------------------------------------- //
+
+  async findAll(): Promise<User[]> {
+    return this.users;
   }
 
   // -------------------------------------------------------------------------------------------- //
@@ -55,8 +64,8 @@ class FakeUsersRepository implements IUsersRepository {
     const index = this.users.findIndex(user => user.id === id);
 
     this.users[index].name = name;
-    this.users[index].last_name = lastName;
-    this.users[index].updated_at = new Date();
+    this.users[index].lastName = lastName;
+    this.users[index].updatedAt = new Date();
 
     return this.users[index];
   }

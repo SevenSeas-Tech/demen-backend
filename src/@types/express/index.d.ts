@@ -8,6 +8,8 @@ declare namespace Express {
       name: string;
       lastName: string;
       admin: boolean;
+      verified: boolean;
+      videos?: Video[];
       createdAt: Date;
       updatedAt: Date;
     };

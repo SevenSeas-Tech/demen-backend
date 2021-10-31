@@ -55,6 +55,10 @@ describe('Create User Controller', () => {
 
     expect(body).toHaveProperty('id');
     expect(body.id).toEqual(user.id);
+
+    expect(body).not.toHaveProperty('password');
+    expect(body).not.toHaveProperty('admin');
+
     expect(body).toEqual(user);
   });
 

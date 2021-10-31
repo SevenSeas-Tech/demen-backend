@@ -13,6 +13,7 @@ describe('Show Profile Service', () => {
     password: 'Password14',
     username: 'foobar',
     admin: false,
+    verified: false,
     createdAt: new Date(),
     updatedAt: new Date()
   };

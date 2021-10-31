@@ -37,11 +37,13 @@ describe('User Update', () => {
   it('should update user name', async () => {
     const validateData = jest.spyOn(validationProvider, 'validateUserUpdateData');
 
-    const updatedUser = await updateUser.execute({ id: user.id, name: newName, lastName });
+    await updateUser.execute({ id: user.id, name: newName, lastName });
 
-    expect(updatedUser.id).toEqual(user.id);
-    expect(updatedUser.name).toEqual(newName);
-    expect(updatedUser.lastName).toEqual(lastName);
+    const updatedUser = await usersRepository.findById(user.id);
+
+    expect(updatedUser?.name).toEqual(newName);
+
+    expect(updatedUser?.lastName).toEqual(lastName);
 
     expect(validateData).toBeCalled();
   });
@@ -51,11 +53,12 @@ describe('User Update', () => {
   it('should update user last name', async () => {
     const validateData = jest.spyOn(validationProvider, 'validateUserUpdateData');
 
-    const updatedUser = await updateUser.execute({ id: user.id, name, lastName: newLastName });
+    await updateUser.execute({ id: user.id, name, lastName: newLastName });
 
-    expect(updatedUser.id).toEqual(user.id);
-    expect(updatedUser.name).toEqual(name);
-    expect(updatedUser.lastName).toEqual(newLastName);
+    const updatedUser = await usersRepository.findById(user.id);
+
+    expect(updatedUser?.name).toEqual(name);
+    expect(updatedUser?.lastName).toEqual(newLastName);
 
     expect(validateData).toBeCalled();
   });
@@ -63,26 +66,30 @@ describe('User Update', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should update user without spaces in names', async () => {
-    const updatedUser = await updateUser.execute({
+    await updateUser.execute({
       id: user.id,
       name: ' foot ',
       lastName: ' barr '
     });
 
-    expect(updatedUser.name).toEqual(newName);
-    expect(updatedUser.lastName).toEqual(newLastName);
+    const updatedUser = await usersRepository.findById(user.id);
+
+    expect(updatedUser?.name).toEqual(newName);
+    expect(updatedUser?.lastName).toEqual(newLastName);
   });
 
   // -------------------------------------------------------------------------------------------- //
 
   it('should update user with lower letters only in names', async () => {
-    const updatedUser = await updateUser.execute({
+    await updateUser.execute({
       id: user.id,
       name: 'Foot',
       lastName: 'Barr'
     });
 
-    expect(updatedUser.name).toEqual(newName);
-    expect(updatedUser.lastName).toEqual(newLastName);
+    const updatedUser = await usersRepository.findById(user.id);
+
+    expect(updatedUser?.name).toEqual(newName);
+    expect(updatedUser?.lastName).toEqual(newLastName);
   });
 });
