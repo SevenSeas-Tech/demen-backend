@@ -11,31 +11,19 @@ import Video from '@lessons:entities/Video';
 
 // ---------------------------------------------------------------------------------------------- //
 
-@Entity('users')
-class User {
-  @PrimaryColumn('uuid')
+@Entity('channels')
+class Channel {
+  @PrimaryColumn()
   id!: string;
 
   @Column()
-  username!: string;
+  title!: string;
 
   @Column()
-  password!: string;
+  description!: string;
 
   @Column()
-  email!: string;
-
-  @Column()
-  name!: string;
-
-  @Column({ name: 'last_name' })
-  lastName!: string;
-
-  @Column()
-  admin!: boolean;
-
-  @Column()
-  verified!: boolean;
+  thumbnail!: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
@@ -45,8 +33,8 @@ class User {
 
   // * ---- Foreign Keys ------------------------------------------------------------------------ //
 
-  @OneToMany(() => Video, video => video.user)
+  @OneToMany(() => Video, video => video.channel)
   videos!: Video[];
 }
 
-export default User;
+export default Channel;

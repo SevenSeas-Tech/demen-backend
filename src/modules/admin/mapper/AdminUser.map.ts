@@ -8,9 +8,11 @@ class AdminUserMap {
     username,
     email,
     name,
-    last_name,
-    created_at,
-    updated_at
+    lastName,
+    verified,
+    videos,
+    createdAt,
+    updatedAt
   }: User): AdminUserResponseDto {
     const user = {
       id,
@@ -18,9 +20,11 @@ class AdminUserMap {
       username,
       email,
       name,
-      lastName: last_name,
-      createdAt: created_at,
-      updatedAt: updated_at
+      videos,
+      verified,
+      lastName,
+      createdAt,
+      updatedAt
     };
 
     return user;

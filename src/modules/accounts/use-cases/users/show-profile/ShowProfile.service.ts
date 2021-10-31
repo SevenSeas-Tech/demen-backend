@@ -1,5 +1,8 @@
 import { UserResponseDto } from '@accounts:dtos/users/UserResponse.dto';
 import UserMap from '@accounts:mapper/User.map';
+import Video from '@lessons:entities/Video';
+
+// ---------------------------------------------------------------------------------------------- //
 
 interface IRequestDto {
   user: {
@@ -10,10 +13,13 @@ interface IRequestDto {
     lastName: string;
     admin: boolean;
     verified: boolean;
+    videos?: Video[];
     createdAt: Date;
     updatedAt: Date;
   };
 }
+
+// ---------------------------------------------------------------------------------------------- //
 class ShowProfile {
   async execute(data: IRequestDto): Promise<UserResponseDto> {
     const { id, username, email, name, lastName, admin, verified, createdAt, updatedAt } =
@@ -24,11 +30,12 @@ class ShowProfile {
       password: '',
       email,
       name,
-      last_name: lastName,
+      lastName,
       admin,
       verified,
-      created_at: createdAt,
-      updated_at: updatedAt
+      videos: [],
+      createdAt,
+      updatedAt
     };
     return UserMap.toDto(user);
   }

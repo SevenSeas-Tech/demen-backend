@@ -7,18 +7,20 @@ class UserMap {
     username,
     email,
     name,
-    last_name,
-    created_at,
-    updated_at
+    lastName,
+    verified,
+    createdAt,
+    updatedAt
   }: User): UserResponseDto {
     const user = {
       id,
       username,
       email,
       name,
-      lastName: last_name,
-      createdAt: created_at,
-      updatedAt: updated_at
+      lastName,
+      verified,
+      createdAt,
+      updatedAt
     };
 
     return user;
