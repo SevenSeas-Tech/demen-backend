@@ -2,6 +2,7 @@ import { CreateVideoDto } from '@lessons:dtos/CreateVideo.dto';
 import Video from '@lessons:entities/Video';
 import IVideosRepository from '@lessons:irepos/IVideos.repository';
 
+// ---------------------------------------------------------------------------------------------- //
 class FakeVideosRepository implements IVideosRepository {
   private videos: Video[] = [];
 
@@ -38,6 +39,10 @@ class FakeVideosRepository implements IVideosRepository {
     this.videos.push(video);
 
     return video;
+  }
+
+  async findById(id: string): Promise<Video | undefined> {
+    return this.videos.find(video => video.id === id);
   }
 }
 
