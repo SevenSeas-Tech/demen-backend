@@ -16,6 +16,7 @@ export class CreateVideos1635044704980 implements MigrationInterface {
           { name: 'published_at', type: 'timestamp' },
           { name: 'teacher', type: 'varchar', isNullable: true },
           { name: 'title', type: 'varchar' },
+          { name: 'thumbnail', type: 'varchar' },
           { name: 'created_at', type: 'timestamp', default: 'now()' },
           { name: 'updated_at', type: 'timestamp', default: 'now()' }
         ],
