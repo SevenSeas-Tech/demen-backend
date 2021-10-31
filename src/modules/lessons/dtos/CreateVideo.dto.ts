@@ -1,4 +1,5 @@
 export type CreateVideoDto = {
+  id: string;
   channelId: string;
   userId: string;
   subjectId: string;
@@ -6,4 +7,5 @@ export type CreateVideoDto = {
   publishedAt: Date;
   teacher?: string;
   title: string;
+  thumbnail: string;
 };
