@@ -25,6 +25,10 @@ class FakeSubjectsRepository implements ISubjectsRepository {
 
     return subject;
   }
+
+  async findById(id: string): Promise<Subject | undefined> {
+    return this.subjects.find(subject => subject.id === id);
+  }
 }
 
 // ---------------------------------------------------------------------------------------------- //
