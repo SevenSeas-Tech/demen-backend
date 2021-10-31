@@ -10,7 +10,7 @@ class FakeApiProvider implements IApiProvider {
     id: 'right-id',
     channelId: 'right-id',
     description: 'mock video',
-    publishedAt: '02032021',
+    publishedAt: new Date(),
     title: 'mock video',
     thumbnail: 'thumbnail'
   };
