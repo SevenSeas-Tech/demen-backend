@@ -23,6 +23,8 @@ class FakeSubjectsRepository implements ISubjectsRepository {
       updatedAt: date
     });
 
+    this.subjects.push(subject);
+
     return subject;
   }
 
