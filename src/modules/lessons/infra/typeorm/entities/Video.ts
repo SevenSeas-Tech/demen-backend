@@ -43,6 +43,9 @@ class Video {
   @Column()
   title!: string;
 
+  @Column()
+  thumbnail!: string;
+
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
 
