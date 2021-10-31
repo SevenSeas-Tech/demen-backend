@@ -1,5 +1,4 @@
 import IApiProvider from '@admin:containers/providers/API/IApi.provider';
-import { ApiChannelResponseDTO } from '@admin:dtos/g-api/ApiChannelResponse.dto';
 import { ChannelResponseDTO } from '@admin:dtos/videos/ChannelResponse.dto';
 import { VideoResponseDTO } from '@admin:dtos/videos/VideoResponse.dto';
 import AppError from '@shared/errors/App.error';
@@ -7,8 +6,6 @@ import AppError from '@shared/errors/App.error';
 // ---------------------------------------------------------------------------------------------- //
 
 class FakeApiProvider implements IApiProvider {
-  private channels: ApiChannelResponseDTO[] = [];
-
   private mockVideo: VideoResponseDTO = {
     id: 'right-id',
     channelId: 'right-id',
@@ -24,6 +21,8 @@ class FakeApiProvider implements IApiProvider {
     title: 'mock video',
     thumbnail: 'thumbnail'
   };
+
+  // -------------------------------------------------------------------------------------------- //
 
   async getVideo(id: string): Promise<VideoResponseDTO> {
     if (id !== this.mockVideo.id) {
