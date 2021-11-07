@@ -10,7 +10,7 @@ import IChannelRepository from '@lessons:irepos/IChannels.repository';
 import ISubjectsRepository from '@lessons:irepos/ISubjects.repository';
 import IVideosRepository from '@lessons:irepos/IVideos.repository';
 // eslint-disable-next-line import-helpers/order-imports
-import CreateVideo from '@admin:use-cases/videos/CreateVideo.service';
+import { CreateVideoService } from '@admin:use-cases/videos/CreateVideo.service';
 
 // ---------------------------------------------------------------------------------------------- //
 
@@ -22,7 +22,7 @@ describe('Create Video Service', () => {
 
   let subject: Subject;
 
-  let createVideoService: CreateVideo;
+  let createVideoService: CreateVideoService;
 
   let videosRepository: IVideosRepository;
   let channelsRepository: IChannelRepository;
@@ -44,7 +44,7 @@ describe('Create Video Service', () => {
       title: 'fake subject'
     });
 
-    createVideoService = new CreateVideo(
+    createVideoService = new CreateVideoService(
       videosRepository,
       channelsRepository,
       subjectsRepository,

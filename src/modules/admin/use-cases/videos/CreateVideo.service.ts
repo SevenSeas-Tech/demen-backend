@@ -20,7 +20,7 @@ interface IRequestDto {
 }
 
 @injectable()
-class CreateVideo {
+class CreateVideoService {
   constructor(
     @inject('VideosRepository')
     private videosRepository: IVideosRepository,
@@ -80,4 +80,4 @@ class CreateVideo {
   }
 }
 
-export default CreateVideo;
+export { CreateVideoService };
