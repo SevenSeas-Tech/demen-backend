@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import accountsRouter from '@accounts:routes/index.routes';
-import adminRouter from '@admin:routes/index.routes';
+import { adminRouter } from '@admin:routes/index.routes';
 
 // ---------------------------------------------------------------------------------------------- //
 
