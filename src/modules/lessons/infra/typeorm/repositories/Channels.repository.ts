@@ -2,11 +2,11 @@ import { getRepository, Repository } from 'typeorm';
 
 import { CreateChannelDto } from '@lessons:dtos/CreateChannel.dto';
 import Channel from '@lessons:entities/Channel';
-import IChannelRepositories from '@lessons:irepos/IChannels.repository';
+import IChannelRepository from '@lessons:irepos/IChannels.repository';
 
 // ---------------------------------------------------------------------------------------------- //
 
-class ChannelsRepository implements IChannelRepositories {
+class ChannelsRepository implements IChannelRepository {
   private repository: Repository<Channel>;
 
   constructor() {

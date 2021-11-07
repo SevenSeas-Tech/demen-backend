@@ -4,7 +4,7 @@ import IApiProvider from '@admin:containers/providers/API/IApi.provider';
 import VideoAlreadyExistsError from '@admin:errors/VideoAlreadyExists.error';
 import Video from '@lessons:entities/Video';
 import SubjectNotFoundError from '@lessons:errors/SubjectNotFound.error';
-import IChannelRepositories from '@lessons:irepos/IChannels.repository';
+import IChannelRepository from '@lessons:irepos/IChannels.repository';
 import ISubjectsRepository from '@lessons:irepos/ISubjects.repository';
 import IVideosRepository from '@lessons:irepos/IVideos.repository';
 import { Uuid } from '@shared/@types/Uuid';
@@ -26,7 +26,7 @@ class CreateVideo {
     private videosRepository: IVideosRepository,
 
     @inject('ChannelsRepository')
-    private channelsRepository: IChannelRepositories,
+    private channelsRepository: IChannelRepository,
 
     @inject('SubjectsRepository')
     private subjectsRepository: ISubjectsRepository,
