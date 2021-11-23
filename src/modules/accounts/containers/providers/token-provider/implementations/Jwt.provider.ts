@@ -8,7 +8,7 @@ import { ITokenProvider } from '../IToken.provider';
 
 // ---------------------------------------------------------------------------------------------  //
 
-class Jwt implements ITokenProvider {
+class JwtProvider implements ITokenProvider {
   private secret?: string;
   private expiresIn?: string;
 
@@ -60,4 +60,4 @@ class Jwt implements ITokenProvider {
   }
 }
 
-export default Jwt;
+export { JwtProvider };
