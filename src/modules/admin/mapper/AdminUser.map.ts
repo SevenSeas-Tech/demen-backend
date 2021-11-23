@@ -1,4 +1,4 @@
-import User from '@accounts:entities/User';
+import { User } from '@accounts:entities/User';
 import { AdminUserResponseDto } from '@admin:dtos/users/AdminUserResponse.dto';
 
 class AdminUserMap {
@@ -10,7 +10,6 @@ class AdminUserMap {
     name,
     lastName,
     verified,
-    videos,
     createdAt,
     updatedAt
   }: User): AdminUserResponseDto {
@@ -20,7 +19,6 @@ class AdminUserMap {
       username,
       email,
       name,
-      videos,
       verified,
       lastName,
       createdAt,

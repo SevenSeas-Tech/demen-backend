@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 
 import ITokenProvider from '@accounts:containers/providers/token-provider/IToken.provider';
-import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 import ProviderContainer from '@shared/containers/middlewares/Provider.container';
 import RepositoryContainer from '@shared/containers/middlewares/Repository.container';
 import UnauthorizedError from '@shared/infra/http/middlewares/errors/Unauthorized.error';
@@ -35,7 +35,7 @@ class AuthenticationMiddleware {
         throw new UnauthorizedError();
       }
 
-      const { username, name, lastName, admin, verified, videos, createdAt, updatedAt } = user;
+      const { username, name, lastName, admin, verified, createdAt, updatedAt } = user;
 
       request.user = {
         id,
@@ -45,7 +45,6 @@ class AuthenticationMiddleware {
         lastName,
         admin,
         verified,
-        videos,
         createdAt,
         updatedAt
       };
