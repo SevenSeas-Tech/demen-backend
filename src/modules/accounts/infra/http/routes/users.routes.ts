@@ -3,7 +3,7 @@ import { Router } from 'express';
 import CreateUserController from '@accounts:use-cases/users/create-user/CreateUser.controller';
 import ShowProfileController from '@accounts:use-cases/users/show-profile/ShowProfile.controller';
 import UpdateUserController from '@accounts:use-cases/users/update-user/UpdateUser.controller';
-import AuthenticationMiddleware from '@shared:middlewares/Authentication.middleware';
+import { AuthenticationMiddleware } from '@shared:middlewares/Authentication.middleware';
 
 // ---------------------------------------------------------------------------------------------- //
 

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
 import ListUsersController from '@admin:use-cases/users/list-users/ListUsers.controller';
-import AuthenticationMiddleware from '@shared/infra/http/middlewares/Authentication.middleware';
+import { AuthenticationMiddleware } from '@shared/infra/http/middlewares/Authentication.middleware';
 import VerifyAdminStatusMiddleware from '@shared/infra/http/middlewares/VerifyAdminStatus.middleware';
 
 // ---------------------------------------------------------------------------------------------- //

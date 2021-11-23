@@ -55,4 +55,4 @@ class AuthenticationMiddleware {
   }
 }
 
-export default AuthenticationMiddleware;
+export { AuthenticationMiddleware };
