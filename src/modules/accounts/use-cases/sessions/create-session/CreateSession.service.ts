@@ -4,10 +4,11 @@ import ITokenProvider from '@accounts:containers/providers/token-provider/IToken
 import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 import UserMap from '@accounts:mapper/User.map';
 import { LoginCredentials, SessionResponse } from '@accounts:types/sessions/Sessions';
+import { InvalidCredentialsError } from '@accounts:use-cases/sessions/errors/InvalidCredentials.error';
 import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
 import IValidationProvider from '@shared/containers/providers/validation-provider/IValidation.provider';
 
-import InvalidCredentialsError from './errors/InvalidCredentials.error';
+// ---------------------------------------------------------------------------------------------- //
 
 @injectable()
 class CreateSession {

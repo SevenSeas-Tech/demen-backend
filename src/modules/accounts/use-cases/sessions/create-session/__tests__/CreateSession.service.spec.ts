@@ -4,13 +4,13 @@ import FakeTokenProvider from '@accounts:containers/providers/token-provider/imp
 import ITokenProvider from '@accounts:containers/providers/token-provider/IToken.provider';
 import FakeUsersRepository from '@accounts:irepos/fake/FakeUsers.repository';
 import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
+import { InvalidCredentialsError } from '@accounts:use-cases/sessions/errors/InvalidCredentials.error';
 import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
 import FakeHashProvider from '@shared/containers/providers/hash-provider/implementations/FakeHash.provider';
 import FakeValidationProvider from '@shared/containers/providers/validation-provider/FakeValidation.provider';
 import IValidationProvider from '@shared/containers/providers/validation-provider/IValidation.provider';
 
 import CreateSession from '../CreateSession.service';
-import InvalidCredentialsError from '../errors/InvalidCredentials.error';
 
 // ---------------------------------------------------------------------------------------------- //
 
