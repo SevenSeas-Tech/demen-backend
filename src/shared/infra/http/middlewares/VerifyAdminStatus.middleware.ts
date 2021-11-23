@@ -14,4 +14,4 @@ class VerifyAdminStatusMiddleware {
   }
 }
 
-export default VerifyAdminStatusMiddleware;
+export { VerifyAdminStatusMiddleware };

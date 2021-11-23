@@ -2,7 +2,7 @@ import Router from 'express';
 
 import { CreateVideoController } from '@admin:use-cases/videos/CreateVideo.controller';
 import { AuthenticationMiddleware } from '@shared/infra/http/middlewares/Authentication.middleware';
-import VerifyAdminStatusMiddleware from '@shared/infra/http/middlewares/VerifyAdminStatus.middleware';
+import { VerifyAdminStatusMiddleware } from '@shared/infra/http/middlewares/VerifyAdminStatus.middleware';
 
 // ---------------------------------------------------------------------------------------------- //
 
