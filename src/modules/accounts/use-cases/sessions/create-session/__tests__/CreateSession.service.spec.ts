@@ -3,7 +3,7 @@ import { validate } from 'uuid';
 import FakeTokenProvider from '@accounts:containers/providers/token-provider/implementations/FakeToken.provider';
 import ITokenProvider from '@accounts:containers/providers/token-provider/IToken.provider';
 import FakeUsersRepository from '@accounts:irepos/fake/FakeUsers.repository';
-import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
 import FakeHashProvider from '@shared/containers/providers/hash-provider/implementations/FakeHash.provider';
 import FakeValidationProvider from '@shared/containers/providers/validation-provider/FakeValidation.provider';

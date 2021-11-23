@@ -2,7 +2,7 @@ import { inject, injectable } from 'tsyringe';
 
 import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
 import InvalidDataError from '@accounts:errors/InvalidData.error';
-import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 import IValidationProvider from '@shared:providers/validation-provider/IValidation.provider';
 
 // ---------------------------------------------------------------------------------------------- //

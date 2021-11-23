@@ -1,5 +1,5 @@
 import FakeUsersRepository from '@accounts:irepos/fake/FakeUsers.repository';
-import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 import CreateUser from '@accounts:use-cases/users/create-user/CreateUser.service';
 import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
 import FakeHashProvider from '@shared/containers/providers/hash-provider/implementations/FakeHash.provider';

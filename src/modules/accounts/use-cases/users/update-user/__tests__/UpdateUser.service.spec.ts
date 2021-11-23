@@ -1,6 +1,6 @@
-import User from '@accounts:entities/User';
+import { User } from '@accounts:entities/User';
 import FakeUsersRepository from '@accounts:irepos/fake/FakeUsers.repository';
-import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 import UpdateUser from '@accounts:use-cases/users/update-user/UpdateUser.service';
 import FakeValidationProvider from '@shared:providers/validation-provider/FakeValidation.provider';
 import IValidationProvider from '@shared:providers/validation-provider/IValidation.provider';
