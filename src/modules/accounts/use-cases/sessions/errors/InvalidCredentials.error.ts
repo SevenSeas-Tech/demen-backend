@@ -6,4 +6,4 @@ class InvalidCredentialsError extends AppError {
   }
 }
 
-export default InvalidCredentialsError;
+export { InvalidCredentialsError };
