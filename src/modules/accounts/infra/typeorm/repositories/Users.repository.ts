@@ -2,10 +2,11 @@ import { getRepository, Repository } from 'typeorm';
 
 import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
 import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
-import User from '@accounts:entities/User';
-import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import { User } from '@accounts:entities/User';
+import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 
 // ---------------------------------------------------------------------------------------------- //
+
 class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;
 
