@@ -8,7 +8,7 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 
-import User from '@accounts:entities/User';
+import { User } from '@accounts:entities/User';
 import Channel from '@lessons:entities/Channel';
 import Subject from '@lessons:entities/Subject';
 
