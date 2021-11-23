@@ -2,8 +2,8 @@ import { v4 as uuid } from 'uuid';
 
 import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
 import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
-import User from '@accounts:entities/User';
-import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import { User } from '@accounts:entities/User';
+import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 
 // ---------------------------------------------------------------------------------------------- //
 

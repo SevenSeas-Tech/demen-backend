@@ -1,5 +1,5 @@
 import { UserResponseDto } from '@accounts:dtos/users/UserResponse.dto';
-import User from '@accounts:entities/User';
+import { User } from '@accounts:entities/User';
 
 class UserMap {
   static toDto({
