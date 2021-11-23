@@ -1,7 +1,7 @@
 import { validate } from 'uuid';
 
 import FakeTokenProvider from '@accounts:containers/providers/token-provider/implementations/FakeToken.provider';
-import ITokenProvider from '@accounts:containers/providers/token-provider/IToken.provider';
+import { ITokenProvider } from '@accounts:containers/providers/token-provider/IToken.provider';
 import FakeUsersRepository from '@accounts:irepos/fake/FakeUsers.repository';
 import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 import { InvalidCredentialsError } from '@accounts:use-cases/sessions/errors/InvalidCredentials.error';

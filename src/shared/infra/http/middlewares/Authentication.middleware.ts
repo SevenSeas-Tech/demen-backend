@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 
-import ITokenProvider from '@accounts:containers/providers/token-provider/IToken.provider';
+import { ITokenProvider } from '@accounts:containers/providers/token-provider/IToken.provider';
 import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 import ProviderContainer from '@shared/containers/middlewares/Provider.container';
 import RepositoryContainer from '@shared/containers/middlewares/Repository.container';

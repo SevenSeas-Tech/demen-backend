@@ -1,6 +1,6 @@
 import { inject, injectable } from 'tsyringe';
 
-import ITokenProvider from '@accounts:containers/providers/token-provider/IToken.provider';
+import { ITokenProvider } from '@accounts:containers/providers/token-provider/IToken.provider';
 import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 import UserMap from '@accounts:mapper/User.map';
 import { LoginCredentials, SessionResponse } from '@accounts:types/sessions/Sessions';
