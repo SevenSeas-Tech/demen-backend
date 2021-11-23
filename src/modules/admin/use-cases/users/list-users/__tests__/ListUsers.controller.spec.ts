@@ -4,7 +4,8 @@ import { Connection } from 'typeorm';
 import createConnection from '@shared:typeorm/index';
 import App from '@shared/infra/http/App';
 // eslint-disable-next-line import-helpers/order-imports
-import ProviderContainer from '@shared/containers/middlewares/Provider.container'; // ! after app
+import ProviderContainer from '@shared/containers/middlewares/Provider.container';
+// ! --- Provider Container must be imported after app ---------------------------------------- ! //
 
 // ---------------------------------------------------------------------------------------------- //
 

@@ -1,5 +1,5 @@
 import FakeUsersRepository from '@accounts:irepos/fake/FakeUsers.repository';
-import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 import ListUsers from '@admin:use-cases/users/list-users/ListUsers.service';
 
 describe('List Users', () => {
