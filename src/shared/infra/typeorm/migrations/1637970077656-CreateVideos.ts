@@ -39,7 +39,7 @@ export class CreateVideos1635044704980 implements MigrationInterface {
           },
           {
             name: 'FK_video_user',
-            referencedTableName: 'users',
+            referencedTableName: 'staff_members',
             referencedColumnNames: ['id'],
             columnNames: ['user_id'],
             onDelete: 'RESTRICT',
