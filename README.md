@@ -51,13 +51,11 @@ Biblioteca gratuita de video aulas. Pensada para auxiliar estudantes de todas as
   <h2> Banco de Dados</h2>
 
   <!-- Imagem conceitual -->
-  <img height="200px" src="https://i.imgur.com/VpGvt4e.png" title="source: imgur.com" />
+  <img height="200px" src="https://i.imgur.com/YRRb9i8.png" title="source: imgur.com" />
 
 
   <!-- Imagem lógico -->
-  <img height="200px" src="https://i.imgur.com/kdUbR6Z.png" title="source: imgur.com" />
-
-  Deprecated
+  <!-- <img height="200px" src="https://i.imgur.com/kdUbR6Z.png" title="source: imgur.com" /> -->
 
 </div>
 
@@ -89,14 +87,14 @@ Biblioteca gratuita de video aulas. Pensada para auxiliar estudantes de todas as
         <td></td>
       </tr>
       <tr>
-        <td>Redis*</td>
+        <td>Redis* (Cache)</td>
         <td></td>
         <td></td>
         <td>Eslint</td>
         <td></td>
       </tr>
       <tr>
-        <td></td>
+        <td>MongoDB* (Logs)</td>
         <td></td>
         <td></td>
         <td>Prettier</td>
