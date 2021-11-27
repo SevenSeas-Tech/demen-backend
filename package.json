@@ -11,7 +11,8 @@
     "dev:server": "tsnd -r tsconfig-paths/register --inspect --transpile-only --ignore node_modules src/shared/infra/http/server.ts",
     "typeorm": "tsnd -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "NODE_ENV=test jest --detectOpenHandles",
-    "debug": "node --inspect=0.0.0.0:9229 --nolazy dist/shared/infra/http/server.js"
+    "debug": "node --inspect=0.0.0.0:9229 --nolazy dist/shared/infra/http/server.js",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {
@@ -64,7 +65,7 @@
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-import-helpers": "^1.1.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "husky": "4.3.8",
+    "husky": "^7.0.0",
     "jest": "^27.1.0",
     "lint-staged": "^11.0.0",
     "prettier": "^2.3.2",
