@@ -9,7 +9,7 @@ export class CreateVideos1637970077656 implements MigrationInterface {
           { name: 'id', type: 'varchar', isPrimary: true },
           { name: 'channel_id', type: 'varchar' },
           { name: 'subject_id', type: 'uuid' },
-          { name: 'user_id', type: 'uuid' },
+          { name: 'employee_id', type: 'uuid' },
           { name: 'description', type: 'varchar' },
           { name: 'disabled', type: 'boolean' },
           { name: 'institution', type: 'varchar', isNullable: true },
@@ -38,10 +38,10 @@ export class CreateVideos1637970077656 implements MigrationInterface {
             onUpdate: 'RESTRICT'
           },
           {
-            name: 'FK_video_user',
-            referencedTableName: 'users',
+            name: 'FK_video_employees',
+            referencedTableName: 'employees',
             referencedColumnNames: ['id'],
-            columnNames: ['user_id'],
+            columnNames: ['employee_id'],
             onDelete: 'RESTRICT',
             onUpdate: 'RESTRICT'
           }
