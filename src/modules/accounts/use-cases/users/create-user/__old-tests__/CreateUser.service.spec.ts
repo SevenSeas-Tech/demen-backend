@@ -1,13 +1,12 @@
 import FakeUsersRepository from '@accounts:irepos/fake/FakeUsers.repository';
 import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 import CreateUser from '@accounts:use-cases/users/create-user/CreateUser.service';
+import EmailInUseError from '@accounts:use-cases/users/create-user/errors/EmailInUse.error';
+import UsernameTakenError from '@accounts:use-cases/users/create-user/errors/UsernameTaken.error';
 import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
 import FakeHashProvider from '@shared/containers/providers/hash-provider/implementations/FakeHash.provider';
 import FakeValidationProvider from '@shared/containers/providers/validation-provider/FakeValidation.provider';
 import IValidationProvider from '@shared/containers/providers/validation-provider/IValidation.provider';
-
-import EmailInUseError from '../errors/EmailInUse.error';
-import UsernameTakenError from '../errors/UsernameTaken.error';
 
 // ---------------------------------------------------------------------------------------------- //
 
