@@ -1,46 +1,41 @@
 import { inject, injectable } from 'tsyringe';
 
-import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
+import { IOAuthProvider } from '@accounts:containers/providers/OAuthProvider/IOAuth.provider';
+import { OAuthTokenDto } from '@accounts:dtos/oauth/OAuthToken.dto';
 import { UserResponseDto } from '@accounts:dtos/users/UserResponse.dto';
-import InvalidDataError from '@accounts:errors/InvalidData.error';
+import { EmailInUseError } from '@accounts:errors/EmailInUse.error';
 import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
-import UserMap from '@accounts:mapper/User.map';
-import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
-import IValidationProvider from '@shared/containers/providers/validation-provider/IValidation.provider';
-
-import EmailInUseError from './errors/EmailInUse.error';
-import UsernameTakenError from './errors/UsernameTaken.error';
+import { UserMap } from '@accounts:mapper/User.map';
 
 // ---------------------------------------------------------------------------------------------- //
 @injectable()
-class CreateUser {
+class CreateUserService {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
 
-    @inject('HashProvider')
-    private hashProvider: IHashProvider,
-
-    @inject('ValidationProvider')
-    private validationProvider: IValidationProvider
+    @inject('GOAuthProvider')
+    private oauthProvider: IOAuthProvider
   ) {}
 
-  async execute(data: CreateUserDto): Promise<UserResponseDto> {
-    const isValid = await this.validationProvider.validateUserCreationData(data);
+  async execute(data: OAuthTokenDto): Promise<UserResponseDto> {
+    // const isValid = await this.validationProvider.validateUserCreationData(data);
 
-    if (!isValid) {
-      throw new InvalidDataError();
-    }
+    // if (!isValid) {
+    //   throw new InvalidDataError();
+    // }
 
-    const { username, email, name, lastName, password } = data;
+    const { idToken } = data;
+
+    const {
+      userId: googleId,
+      avatar,
+      email,
+      name,
+      lastName
+    } = await this.oauthProvider.verify(idToken);
 
     // ------------------------------------------------------------------------------------------ //
-
-    const findByUsername = await this.usersRepository.findByUsername(username);
-
-    if (findByUsername) {
-      throw new UsernameTakenError();
-    }
 
     const findByEmail = await this.usersRepository.findByEmail(email);
 
@@ -48,18 +43,16 @@ class CreateUser {
       throw new EmailInUseError();
     }
 
-    const passwordHash = await this.hashProvider.hash(password);
-
     const user = await this.usersRepository.create({
-      username: username.trim(),
       email,
       name: name.trim().toLowerCase(),
       lastName: lastName.trim().toLowerCase(),
-      password: passwordHash
+      avatar,
+      googleId
     });
 
     return UserMap.toDto(user);
   }
 }
 
-export default CreateUser;
+export { CreateUserService };
