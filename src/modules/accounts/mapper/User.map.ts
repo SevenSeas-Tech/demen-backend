@@ -4,21 +4,21 @@ import { User } from '@accounts:entities/User';
 class UserMap {
   static toDto({
     id,
-    username,
+    googleId,
     email,
+    avatar,
     name,
     lastName,
-    verified,
     createdAt,
     updatedAt
   }: User): UserResponseDto {
     const user = {
       id,
-      username,
+      googleId,
       email,
+      avatar,
       name,
       lastName,
-      verified,
       createdAt,
       updatedAt
     };
@@ -27,4 +27,4 @@ class UserMap {
   }
 }
 
-export default UserMap;
+export { UserMap };
