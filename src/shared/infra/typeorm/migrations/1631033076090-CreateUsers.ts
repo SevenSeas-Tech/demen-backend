@@ -8,6 +8,7 @@ export class CreateStudentUsers1631033076090 implements MigrationInterface {
         columns: [
           { name: 'id', type: 'uuid', isPrimary: true, default: 'uuid_generate_v4()' },
           { name: 'google_id', type: 'varchar' },
+          { name: 'avatar', type: 'varchar' },
           { name: 'name', type: 'varchar' },
           { name: 'last_name', type: 'varchar' },
           { name: 'email', type: 'varchar' },
