@@ -1,3 +1,4 @@
+import { EmailInUseError } from '@accounts:errors/EmailInUse.error';
 import { FakeEmployeesRepository } from '@accounts:irepos/fake/FakeEmployees.repository';
 import { IEmployeesRepository } from '@accounts:irepos/IEmployees.repository';
 import { IHashProvider } from '@shared/containers/providers/hash-provider/IHash.provider';
@@ -6,7 +7,6 @@ import { FakeValidationProvider } from '@shared/containers/providers/validation-
 import { IValidationProvider } from '@shared/containers/providers/validation-provider/IValidation.provider';
 
 import { CreateEmployeeService } from '../CreateEmployee.service';
-import { EmailInUseError } from '../errors/EmailInUse.error';
 import { UsernameTakenError } from '../errors/UsernameTaken.error';
 
 // ---------------------------------------------------------------------------------------------- //
@@ -81,7 +81,7 @@ describe('Create Employee Service', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create if username is taken', async () => {
+  it('should not create employee if username is taken', async () => {
     await createEmployee.execute({
       email,
       name,
@@ -105,7 +105,7 @@ describe('Create Employee Service', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create if email is already in use', async () => {
+  it('should not create employee if email is already in use', async () => {
     await createEmployee.execute({
       email,
       name,
@@ -129,8 +129,8 @@ describe('Create Employee Service', () => {
 
   // *** ------------------------- String Validation ---------------------------------------- *** //
 
-  it('should create user without spaces in names', async () => {
-    const user = await createEmployee.execute({
+  it('should create employee without spaces in names', async () => {
+    const employee = await createEmployee.execute({
       email,
       name: ' foo ',
       lastName: ' bar ',
@@ -139,15 +139,15 @@ describe('Create Employee Service', () => {
       phone
     });
 
-    expect(user.username).toEqual(username);
-    expect(user.name).toEqual(name);
-    expect(user.lastName).toEqual(lastName);
+    expect(employee.username).toEqual(username);
+    expect(employee.name).toEqual(name);
+    expect(employee.lastName).toEqual(lastName);
   });
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should create user with lower letters only in names', async () => {
-    const user = await createEmployee.execute({
+  it('should create employee with lower letters only in names', async () => {
+    const employee = await createEmployee.execute({
       email,
       name: 'Foo',
       lastName: 'Bar',
@@ -156,7 +156,7 @@ describe('Create Employee Service', () => {
       phone
     });
 
-    expect(user.name).toEqual(name);
-    expect(user.lastName).toEqual(lastName);
+    expect(employee.name).toEqual(name);
+    expect(employee.lastName).toEqual(lastName);
   });
 });

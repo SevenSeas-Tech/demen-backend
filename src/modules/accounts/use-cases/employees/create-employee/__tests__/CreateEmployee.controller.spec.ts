@@ -6,7 +6,7 @@ import App from '@shared/infra/http/App';
 
 // ---------------------------------------------------------------------------------------------- //
 
-describe('Create User Controller', () => {
+describe('Create Employee Controller', () => {
   let connection: Connection;
 
   const name = 'foo';
@@ -26,7 +26,7 @@ describe('Create User Controller', () => {
   });
 
   // *** --------------------------------- User Creation ------------------------------------ *** //
-  it('Should create a user', async () => {
+  it('Should create a employee', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
       name,
@@ -35,39 +35,39 @@ describe('Create User Controller', () => {
       password
     });
 
-    const user = response.body;
+    const employee = response.body;
 
     expect(response.status).toEqual(201);
 
-    expect(user).toHaveProperty('username');
-    expect(user.username).toEqual(username);
+    expect(employee).toHaveProperty('username');
+    expect(employee.username).toEqual(username);
 
-    expect(user).not.toHaveProperty('password');
-    expect(user).not.toHaveProperty('admin');
-    expect(user).not.toHaveProperty('videos');
+    expect(employee).not.toHaveProperty('password');
+    expect(employee).not.toHaveProperty('admin');
+    expect(employee).not.toHaveProperty('videos');
 
-    expect(user).toHaveProperty('name');
-    expect(user.name).toEqual(name);
+    expect(employee).toHaveProperty('name');
+    expect(employee.name).toEqual(name);
 
-    expect(user).toHaveProperty('lastName');
-    expect(user.lastName).toEqual(lastName);
+    expect(employee).toHaveProperty('lastName');
+    expect(employee.lastName).toEqual(lastName);
 
-    expect(user).toHaveProperty('email');
-    expect(user.email).toEqual(email);
+    expect(employee).toHaveProperty('email');
+    expect(employee.email).toEqual(email);
 
     // ! The property verified is undefined because it's generates on DB (same as id)! //
-    // expect(user).toHaveProperty('verified');
-    // expect(user.verified).toEqual(false);
+    // expect(employee).toHaveProperty('verified');
+    // expect(employee.verified).toEqual(false);
 
-    expect(user).toHaveProperty('createdAt');
-    expect(user.createdAt).toBeTruthy();
+    expect(employee).toHaveProperty('createdAt');
+    expect(employee.createdAt).toBeTruthy();
 
-    expect(user).toHaveProperty('updatedAt');
-    expect(user.updatedAt).toBeTruthy();
+    expect(employee).toHaveProperty('updatedAt');
+    expect(employee.updatedAt).toBeTruthy();
   });
 
   // *** ---------------------- Uniqueness Validation Tests --------------------------------- *** //
-  it('should not create user if username is taken', async () => {
+  it('should not create employee if username is taken', async () => {
     const response = await request(App)
       .post('/accounts/users')
       .send({
@@ -89,7 +89,7 @@ describe('Create User Controller', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create user if email is in use', async () => {
+  it('should not create employee if email is in use', async () => {
     const response = await request(App)
       .post('/accounts/users')
       .send({
@@ -110,7 +110,7 @@ describe('Create User Controller', () => {
   });
 
   // *** ------------------------- Email Validation Tests ---------------------------------- *** //
-  it('should not create user with invalid email', async () => {
+  it('should not create employee with invalid email', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
       name,
@@ -130,7 +130,7 @@ describe('Create User Controller', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create user when email has spaces', async () => {
+  it('should not create employee when email has spaces', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
       name,
@@ -149,7 +149,7 @@ describe('Create User Controller', () => {
   });
 
   // *** ------------------------- User Validation Tests ------------------------------------ *** //
-  it('should not create user with username length < 5', async () => {
+  it('should not create employee with username length < 5', async () => {
     const response = await request(App).post('/accounts/users').send({
       username: 'abcd',
       name,
@@ -169,7 +169,7 @@ describe('Create User Controller', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create user with username is bigger than 16 characters', async () => {
+  it('should not create employee with username is bigger than 16 characters', async () => {
     const response = await request(App).post('/accounts/users').send({
       username: 'foo_bar_huge_0017',
       name,
@@ -189,7 +189,7 @@ describe('Create User Controller', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create user with username containing symbols', async () => {
+  it('should not create employee with username containing symbols', async () => {
     const response = await request(App).post('/accounts/users').send({
       username: 'foobar_?',
       name,
@@ -209,7 +209,7 @@ describe('Create User Controller', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create user with username starting with number', async () => {
+  it('should not create employee with username starting with number', async () => {
     const response = await request(App).post('/accounts/users').send({
       username: '3foobar',
       name,
@@ -229,7 +229,7 @@ describe('Create User Controller', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create user when username has more than one word', async () => {
+  it('should not create employee when username has more than one word', async () => {
     const response = await request(App).post('/accounts/users').send({
       username: 'foobar bar',
       name,
@@ -248,7 +248,7 @@ describe('Create User Controller', () => {
   });
 
   // *** ------------------------- Name Validation Tests ------------------------------------ *** //
-  it('should not create user with name length < 3', async () => {
+  it('should not create employee with name length < 3', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
       name: 'ab',
@@ -268,7 +268,7 @@ describe('Create User Controller', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create user with last name length < 3', async () => {
+  it('should not create employee with last name length < 3', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
       name,
@@ -288,7 +288,7 @@ describe('Create User Controller', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should create user without spaces on names', async () => {
+  it('should create employee without spaces on names', async () => {
     const email = 'nospaces@names.com';
 
     const response = await request(App).post('/accounts/users').send({
@@ -299,16 +299,16 @@ describe('Create User Controller', () => {
       password
     });
 
-    const user = response.body;
+    const employee = response.body;
 
     expect(response.status).toEqual(201);
-    expect(user.name).toEqual(name);
-    expect(user.lastName).toEqual(lastName);
+    expect(employee.name).toEqual(name);
+    expect(employee.lastName).toEqual(lastName);
   });
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should create user using lower letters on names', async () => {
+  it('should create employee using lower letters on names', async () => {
     const username = 'foobar_cap';
     const email = 'nocapitalized@names.com';
     const response = await request(App).post('/accounts/users').send({
@@ -319,16 +319,16 @@ describe('Create User Controller', () => {
       password
     });
 
-    const user = response.body;
+    const employee = response.body;
 
     expect(response.status).toEqual(201);
 
-    expect(user.name).toEqual(name);
-    expect(user.lastName).toEqual(lastName);
+    expect(employee.name).toEqual(name);
+    expect(employee.lastName).toEqual(lastName);
   });
 
   // *** ------------------------ Password Validation --------------------------------------- *** //
-  it('should not create user when password has no numbers', async () => {
+  it('should not create employee when password has no numbers', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
       name,
@@ -348,7 +348,7 @@ describe('Create User Controller', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create user when password has no capitalized letters', async () => {
+  it('should not create employee when password has no capitalized letters', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
       name,
@@ -368,7 +368,7 @@ describe('Create User Controller', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create user when password has length < 6', async () => {
+  it('should not create employee when password has length < 6', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
       name,
@@ -388,7 +388,7 @@ describe('Create User Controller', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create user when password has length > 16', async () => {
+  it('should not create employee when password has length > 16', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
       name,
@@ -408,7 +408,7 @@ describe('Create User Controller', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should not create user when password has 3 repeated', async () => {
+  it('should not create employee when password has 3 repeated', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
       name,
