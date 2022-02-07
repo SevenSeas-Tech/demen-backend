@@ -2,11 +2,13 @@ import { validate } from 'uuid';
 import * as yup from 'yup';
 import YupPassword from 'yup-password';
 
+import { CreateEmployeeDto } from '@accounts:dtos/users/CreateEmployee.dto';
 import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
+import { UpdateEmployeeDto } from '@accounts:dtos/users/UpdateEmployee.dto';
 import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
 import { LoginCredentials } from '@accounts:types/sessions/Sessions';
 
-import IValidationProvider from '../IValidation.provider';
+import { IValidationProvider } from '../IValidation.provider';
 
 // ---------------------------------------------------------------------------------------------- //
 
@@ -26,6 +28,13 @@ class Yup implements IValidationProvider {
 
   constructor() {
     YupPassword(yup);
+  }
+
+  validateUserCreationData(_: CreateUserDto): Promise<boolean> {
+    throw new Error('Method not implemented.');
+  }
+  validateUserUpdateData(_: UpdateUserDto): Promise<boolean> {
+    throw new Error('Method not implemented.');
   }
 
   // -------------------------------------------------------------------------------------------- //
@@ -49,8 +58,8 @@ class Yup implements IValidationProvider {
 
   // -------------------------------------------------------------------------------------------- //
 
-  async validateUserCreationData(userData: CreateUserDto): Promise<boolean> {
-    const validUsername = this.usernameRegex.exec(userData.username);
+  async validateEmployeeCreationData(employeeData: CreateEmployeeDto): Promise<boolean> {
+    const validUsername = this.usernameRegex.exec(employeeData.username);
 
     if (!validUsername) {
       return false;
@@ -74,13 +83,13 @@ class Yup implements IValidationProvider {
         .required()
     });
     // console.log(await userSchema.validate(userData));
-    return userSchema.isValid(userData);
+    return userSchema.isValid(employeeData);
   }
 
   // -------------------------------------------------------------------------------------------- //
 
-  async validateUserUpdateData(userData: UpdateUserDto): Promise<boolean> {
-    const { id } = userData;
+  async validateEmployeeUpdateData(employeeData: UpdateEmployeeDto): Promise<boolean> {
+    const { id } = employeeData;
 
     const isUuid = validate(id);
 
@@ -94,7 +103,7 @@ class Yup implements IValidationProvider {
       lastName: yup.string().min(this.stringMin).required()
     });
 
-    return userSchema.isValid(userData);
+    return userSchema.isValid(employeeData);
   }
 }
 
