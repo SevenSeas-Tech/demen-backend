@@ -3,6 +3,7 @@ import { Uuid } from '@shared/@types/Uuid';
 
 export type UserResponseDto = {
   id: Uuid;
+  googleId: string;
   email: Email;
   name: string;
   avatar: string;
