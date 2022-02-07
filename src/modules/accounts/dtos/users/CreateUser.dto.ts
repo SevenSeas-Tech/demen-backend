@@ -1,9 +1,5 @@
-import { Email } from '@accounts:types/users/User';
+import { Token } from '@accounts:types/tokens/Token';
 
 export type CreateUserDto = {
-  username: string;
-  email: Email;
-  name: string;
-  lastName: string;
-  password: string;
+  idToken: Token;
 };
