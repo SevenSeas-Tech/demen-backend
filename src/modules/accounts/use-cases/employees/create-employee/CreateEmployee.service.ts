@@ -1,7 +1,7 @@
 import { inject, injectable } from 'tsyringe';
 
-import { CreateEmployeeDto } from '@accounts:dtos/users/CreateEmployee.dto';
-import { EmployeeResponseDto } from '@accounts:dtos/users/EmployeeResponse.dto';
+import { CreateEmployeeDto } from '@accounts:dtos/employees/CreateEmployee.dto';
+import { EmployeeResponseDto } from '@accounts:dtos/employees/EmployeeResponse.dto';
 import { InvalidDataError } from '@accounts:errors/InvalidData.error';
 import { IEmployeesRepository } from '@accounts:irepos/IEmployees.repository';
 import { EmployeeMap } from '@accounts:mapper/Employee.map';
