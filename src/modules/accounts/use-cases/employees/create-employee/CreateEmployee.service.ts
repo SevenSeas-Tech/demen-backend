@@ -2,13 +2,13 @@ import { inject, injectable } from 'tsyringe';
 
 import { CreateEmployeeDto } from '@accounts:dtos/employees/CreateEmployee.dto';
 import { EmployeeResponseDto } from '@accounts:dtos/employees/EmployeeResponse.dto';
+import { EmailInUseError } from '@accounts:errors/EmailInUse.error';
 import { InvalidDataError } from '@accounts:errors/InvalidData.error';
 import { IEmployeesRepository } from '@accounts:irepos/IEmployees.repository';
 import { EmployeeMap } from '@accounts:mapper/Employee.map';
 import { IHashProvider } from '@shared/containers/providers/hash-provider/IHash.provider';
 import { IValidationProvider } from '@shared/containers/providers/validation-provider/IValidation.provider';
 
-import { EmailInUseError } from './errors/EmailInUse.error';
 import { UsernameTakenError } from './errors/UsernameTaken.error';
 
 // ---------------------------------------------------------------------------------------------- //
