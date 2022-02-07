@@ -14,10 +14,10 @@ class User {
   id!: string;
 
   @Column()
-  username!: string;
+  googleId!: string;
 
   @Column()
-  password!: string;
+  username!: string;
 
   @Column()
   email!: string;
@@ -29,10 +29,7 @@ class User {
   lastName!: string;
 
   @Column()
-  admin!: boolean;
-
-  @Column()
-  verified!: boolean;
+  avatar!: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
