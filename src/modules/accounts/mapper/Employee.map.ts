@@ -1,4 +1,4 @@
-import { EmployeeResponseDto } from '@accounts:dtos/users/EmployeeResponse.dto';
+import { EmployeeResponseDto } from '@accounts:dtos/employees/EmployeeResponse.dto';
 import { Employee } from '@accounts:entities/Employee';
 
 class EmployeeMap {
