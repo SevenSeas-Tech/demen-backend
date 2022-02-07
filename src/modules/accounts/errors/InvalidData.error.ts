@@ -6,4 +6,4 @@ class InvalidDataError extends AppError {
   }
 }
 
-export default InvalidDataError;
+export { InvalidDataError };
