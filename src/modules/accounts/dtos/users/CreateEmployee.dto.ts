@@ -4,4 +4,5 @@ export type CreateEmployeeDto = {
   name: string;
   lastName: string;
   password: string;
+  phone: string;
 };
