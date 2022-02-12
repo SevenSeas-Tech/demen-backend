@@ -1,7 +1,7 @@
 import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
-import UsersRepository from '@accounts:repos/Users.repository';
+import { UsersRepository } from '@accounts:repos/Users.repository';
 
-class RepositoryContainer {
+class RepositoryFactory {
   UsersRepository: IUsersRepository;
 
   constructor() {
@@ -9,4 +9,4 @@ class RepositoryContainer {
   }
 }
 
-export default RepositoryContainer;
+export { RepositoryFactory };
