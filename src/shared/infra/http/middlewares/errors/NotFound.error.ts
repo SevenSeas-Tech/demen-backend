@@ -1,4 +1,4 @@
-import AppError from '@shared/errors/App.error';
+import { AppError } from '@shared/errors/App.error';
 
 class NotFoundError extends AppError {
   constructor() {
@@ -6,4 +6,4 @@ class NotFoundError extends AppError {
   }
 }
 
-export default NotFoundError;
+export { NotFoundError };

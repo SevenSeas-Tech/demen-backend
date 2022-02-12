@@ -1,4 +1,4 @@
-import AppError from '@shared/errors/App.error';
+import { AppError } from '@shared/errors/App.error';
 
 class UnauthorizedError extends AppError {
   constructor() {
@@ -6,4 +6,4 @@ class UnauthorizedError extends AppError {
   }
 }
 
-export default UnauthorizedError;
+export { UnauthorizedError };
