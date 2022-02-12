@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import accountsRouter from '@accounts:routes/index.routes';
+import { accountsRouter } from '@accounts:routes/index.routes';
 import { lessonsRouter } from '@lessons:routes/index.routes';
 
 // ---------------------------------------------------------------------------------------------- //
