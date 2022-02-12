@@ -8,10 +8,10 @@ import 'express-async-errors';
 import swaggerUi from 'swagger-ui-express';
 import YAML from 'yamljs';
 
-import AppError from '@shared/errors/App.error';
+import { AppError } from '@shared/errors/App.error';
 import createConnection from '@shared/infra/typeorm';
 
-import routes from './routes/index.routes';
+import { routes } from './routes/index.routes';
 
 // ---------------------------------------------------------------------------------------------- //
 
