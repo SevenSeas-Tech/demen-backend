@@ -58,8 +58,6 @@ export class CreateEmployeeService {
       phone
     });
 
-    console.log(employee);
-
     return EmployeeMap.toDto(employee);
   }
 }
