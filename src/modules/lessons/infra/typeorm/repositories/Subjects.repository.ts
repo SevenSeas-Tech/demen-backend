@@ -1,12 +1,12 @@
 import { getRepository, Repository } from 'typeorm';
 
-import { CreateSubjectDto } from '@lessons:dtos/CreateSubject.dto';
-import Subject from '@lessons:entities/Subject';
-import ISubjectsRepository from '@lessons:irepos/ISubjects.repository';
+import { CreateSubjectDto } from '@lessons:dtos/subject/CreateSubject.dto';
+import { Subject } from '@lessons:entities/Subject';
+import { ISubjectsRepository } from '@lessons:irepos/ISubjects.repository';
 
 // ---------------------------------------------------------------------------------------------- //
 
-class SubjectsRepository implements ISubjectsRepository {
+export class SubjectsRepository implements ISubjectsRepository {
   private repository: Repository<Subject>;
 
   constructor() {
@@ -27,7 +27,3 @@ class SubjectsRepository implements ISubjectsRepository {
     return subject;
   }
 }
-
-// ---------------------------------------------------------------------------------------------- //
-
-export default SubjectsRepository;

@@ -1,12 +1,12 @@
 import { getRepository, Repository } from 'typeorm';
 
-import { CreateChannelDto } from '@lessons:dtos/CreateChannel.dto';
-import Channel from '@lessons:entities/Channel';
-import IChannelRepository from '@lessons:irepos/IChannels.repository';
+import { CreateChannelDto } from '@lessons:dtos/channels/CreateChannel.dto';
+import { Channel } from '@lessons:entities/Channel';
+import { IChannelsRepository } from '@lessons:irepos/IChannels.repository';
 
 // ---------------------------------------------------------------------------------------------- //
 
-class ChannelsRepository implements IChannelRepository {
+export class ChannelsRepository implements IChannelsRepository {
   private repository: Repository<Channel>;
 
   constructor() {
@@ -25,7 +25,3 @@ class ChannelsRepository implements IChannelRepository {
     return this.repository.findOne(id);
   }
 }
-
-// ---------------------------------------------------------------------------------------------- //
-
-export default ChannelsRepository;
