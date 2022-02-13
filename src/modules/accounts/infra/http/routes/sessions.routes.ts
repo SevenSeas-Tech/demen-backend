@@ -13,7 +13,7 @@ const createEmployeeSessionController = new CreateEmployeeSessionController();
 // *** -------------------- Routes ---------------------------------------------------------- *** //
 
 sessionsRouter.post('/user', createUserSessionController.execute);
-sessionsRouter.post('/employee', createEmployeeSessionController.execute);
+sessionsRouter.post('/employees', createEmployeeSessionController.execute);
 
 // ---------------------------------------------------------------------------------------------- //
 
