@@ -1,19 +1,18 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 import { ShowUserProfileService } from './ShowUserProfile.service';
 
 // ---------------------------------------------------------------------------------------------- //
 
-class ShowUserProfileController {
+export class ShowUserProfileController {
   async execute(request: Request, response: Response): Promise<Response> {
-    const { user } = request;
+    const { id } = request.params;
 
-    const showProfile = new ShowUserProfileService();
+    const showProfile = container.resolve(ShowUserProfileService);
 
-    const alteredUser = await showProfile.execute({ user });
+    const alteredUser = await showProfile.execute({ id });
 
     return response.status(201).json(alteredUser);
   }
 }
-
-export { ShowUserProfileController };
