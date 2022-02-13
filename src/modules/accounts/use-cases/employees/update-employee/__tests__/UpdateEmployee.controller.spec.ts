@@ -2,6 +2,7 @@ import request from 'supertest';
 import { Connection } from 'typeorm';
 
 import createConnection from '@shared:typeorm/index';
+import { BcryptProvider } from '@shared/containers/providers/hash-provider/implementations/Bcrypt.provider';
 import App from '@shared/infra/http/App';
 
 // ---------------------------------------------------------------------------------------------- //
@@ -10,24 +11,35 @@ import App from '@shared/infra/http/App';
 describe('Update Employee Controller', () => {
   let connection: Connection;
 
+  const hashProvider = new BcryptProvider();
+
   const name = 'foo';
   const email = 'foo@bar.com';
   const lastName = 'bar';
   const password = 'Password12';
   const username = 'foobar';
+  const phone = '99 99999 9999';
+
+  const authorize = async () => {
+    const session = await request(App)
+      .post('/accounts/sessions/employees')
+      .send({ email, password });
+
+    const authorization = `Bearer ${session.body.token}`;
+    const { employee } = session.body;
+
+    return { authorization, employee };
+  };
 
   // -------------------------------------------------------------------------------------------- //
   beforeAll(async () => {
     connection = await createConnection();
     await connection.runMigrations();
 
-    await request(App).post('/accounts/users').send({
-      username,
-      name,
-      lastName,
-      email,
-      password
-    });
+    const passwordHash = await hashProvider.hash(password);
+
+    await connection.query(`INSERT INTO employees (username, email, name, last_name, password, phone)
+    VALUES ('${username}', '${email}', '${name}', '${lastName}', '${passwordHash}', '${phone}')`);
   });
 
   afterAll(async () => {
@@ -40,18 +52,14 @@ describe('Update Employee Controller', () => {
   it('should update employee name', async () => {
     const name = 'foo2';
 
-    const session = await request(App).post('/accounts/sessions').send({ email, password });
-
-    const { employee, token } = session.body;
+    const { authorization, employee } = await authorize();
 
     const response = await request(App)
-      .patch('/accounts/users/profile')
+      .patch('/accounts/employees/profile')
       .send({ name, lastName })
-      .set({ Authorization: `Bearer ${token}` });
+      .set({ authorization });
 
-    const profile = await request(App)
-      .get('/accounts/users/profile')
-      .set({ Authorization: `Bearer ${token}` });
+    const profile = await request(App).get('/accounts/employees/profile').set({ authorization });
 
     const { body } = profile;
 
@@ -72,18 +80,14 @@ describe('Update Employee Controller', () => {
     const name = 'foo2'; // * Modified on last test * //
     const lastName = 'bar2';
 
-    const session = await request(App).post('/accounts/sessions').send({ email, password });
-
-    const { employee, token } = session.body;
+    const { authorization, employee } = await authorize();
 
     const response = await request(App)
-      .patch('/accounts/users/profile')
+      .patch('/accounts/employees/profile')
       .send({ name, lastName })
-      .set({ Authorization: `Bearer ${token}` });
+      .set({ authorization });
 
-    const profile = await request(App)
-      .get('/accounts/users/profile')
-      .set({ Authorization: `Bearer ${token}` });
+    const profile = await request(App).get('/accounts/employees/profile').set({ authorization });
 
     const { body } = profile;
 
@@ -98,10 +102,13 @@ describe('Update Employee Controller', () => {
     expect(body.updatedAt).not.toEqual(employee.updatedAt);
   });
 
-  // *** ---------------------- Session Validation ------------------------------------------ *** //
+  // *** ---- Session Validation ------------------------------------------------------------ *** //
 
   it('should not update unauthenticated employee', async () => {
-    const response = await request(App).patch('/accounts/users/profile').send({ name, lastName });
+    const response = await request(App)
+      .patch('/accounts/employees/profile')
+      .send({ name, lastName });
+
     const { body } = response;
 
     expect(response.status).toEqual(401);
@@ -112,19 +119,17 @@ describe('Update Employee Controller', () => {
     expect(body.status).toEqual('error');
   });
 
-  // *** ------------------------ Missing Data ---------------------------------------------- *** //
+  // *** ---- Missing Data ------------------------------------------------------------------ *** //
 
   it('should not update employee when name is missing', async () => {
     const lastName = 'bar3';
 
-    const session = await request(App).post('/accounts/sessions').send({ email, password });
-
-    const { token } = session.body;
+    const { authorization } = await authorize();
 
     const response = await request(App)
-      .patch('/accounts/users/profile')
+      .patch('/accounts/employees/profile')
       .send({ lastName })
-      .set({ Authorization: `Bearer ${token}` });
+      .set({ authorization });
 
     const { body } = response;
 
@@ -140,14 +145,12 @@ describe('Update Employee Controller', () => {
   it('should not update employee when last name is missing', async () => {
     const name = 'foo3';
 
-    const session = await request(App).post('/accounts/sessions').send({ email, password });
-
-    const { token } = session.body;
+    const { authorization } = await authorize();
 
     const response = await request(App)
-      .patch('/accounts/users/profile')
+      .patch('/accounts/employees/profile')
       .send({ name })
-      .set({ Authorization: `Bearer ${token}` });
+      .set({ authorization });
 
     const { body } = response;
 
@@ -158,24 +161,20 @@ describe('Update Employee Controller', () => {
     expect(body.status).toEqual('error');
   });
 
-  // *** ------------------------ Data Correction ------------------------------------------- *** //
+  // *** ---- Data Correction --------------------------------------------------------------- *** //
 
   it('should update employee without spaces in names', async () => {
     const name = ' foo3 ';
     const lastName = ' bar3 ';
 
-    const session = await request(App).post('/accounts/sessions').send({ email, password });
-
-    const { employee, token } = session.body;
+    const { authorization, employee } = await authorize();
 
     const response = await request(App)
-      .patch('/accounts/users/profile')
+      .patch('/accounts/employees/profile')
       .send({ name, lastName })
-      .set({ Authorization: `Bearer ${token}` });
+      .set({ authorization });
 
-    const profile = await request(App)
-      .get('/accounts/users/profile')
-      .set({ Authorization: `Bearer ${token}` });
+    const profile = await request(App).get('/accounts/employees/profile').set({ authorization });
 
     const { body } = profile;
 
@@ -192,18 +191,14 @@ describe('Update Employee Controller', () => {
     const name = 'Foo4';
     const lastName = 'Bar4';
 
-    const session = await request(App).post('/accounts/sessions').send({ email, password });
-
-    const { employee, token } = session.body;
+    const { authorization, employee } = await authorize();
 
     const response = await request(App)
-      .patch('/accounts/users/profile')
+      .patch('/accounts/employees/profile')
       .send({ name, lastName })
-      .set({ Authorization: `Bearer ${token}` });
+      .set({ authorization });
 
-    const profile = await request(App)
-      .get('/accounts/users/profile')
-      .set({ Authorization: `Bearer ${token}` });
+    const profile = await request(App).get('/accounts/employees/profile').set({ authorization });
 
     const { body } = profile;
 
@@ -214,17 +209,15 @@ describe('Update Employee Controller', () => {
     expect(body.updatedAt).not.toEqual(employee.updatedAt);
   });
 
-  // *** ------------------------ Data Validation ------------------------------------------- *** //
+  // *** ---- Data Validation --------------------------------------------------------------- *** //
 
   it('should not update employee with name length < 3', async () => {
-    const session = await request(App).post('/accounts/sessions').send({ email, password });
-
-    const { token } = session.body;
+    const { authorization } = await authorize();
 
     const response = await request(App)
-      .patch('/accounts/users/profile')
+      .patch('/accounts/employees/profile')
       .send({ name: 'ab', lastName })
-      .set({ Authorization: `Bearer ${token}` });
+      .set({ authorization });
 
     const { body } = response;
 
@@ -238,14 +231,12 @@ describe('Update Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should not update employee with last name length < 3', async () => {
-    const session = await request(App).post('/accounts/sessions').send({ email, password });
-
-    const { token } = session.body;
+    const { authorization } = await authorize();
 
     const response = await request(App)
-      .patch('/accounts/users/profile')
+      .patch('/accounts/employees/profile')
       .send({ name, lastName: 'ab' })
-      .set({ Authorization: `Bearer ${token}` });
+      .set({ authorization });
 
     const { body } = response;
 
