@@ -27,13 +27,17 @@ describe('List Users', () => {
 
     expect(users.length).toEqual(1);
     expect(users[0]).toHaveProperty('id');
+    expect(users[0]).toHaveProperty('googleId');
 
     expect(users[0]).not.toHaveProperty('password');
-    expect(users[0]).toHaveProperty('admin');
+
+    expect(users[0]).toHaveProperty('email');
+
+    expect(users[0]).toHaveProperty('avatar');
+    expect(users[0]).toHaveProperty('name');
+    expect(users[0]).toHaveProperty('lastName');
 
     expect(users[0]).toHaveProperty('createdAt');
     expect(users[0]).toHaveProperty('updatedAt');
   });
-
-  // -------------------------------------------------------------------------------------------- //
 });
