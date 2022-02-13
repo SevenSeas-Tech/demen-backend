@@ -2,50 +2,52 @@ import { validate } from 'uuid';
 
 import FakeTokenProvider from '@accounts:containers/providers/token-provider/implementations/FakeToken.provider';
 import { ITokenProvider } from '@accounts:containers/providers/token-provider/IToken.provider';
-import FakeUsersRepository from '@accounts:irepos/fake/FakeUsers.repository';
-import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
+import { FakeEmployeesRepository } from '@accounts:irepos/fake/FakeEmployees.repository';
+import { IEmployeesRepository } from '@accounts:irepos/IEmployees.repository';
 import { InvalidCredentialsError } from '@accounts:use-cases/sessions/errors/InvalidCredentials.error';
-import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
-import FakeHashProvider from '@shared/containers/providers/hash-provider/implementations/FakeHash.provider';
-import FakeValidationProvider from '@shared/containers/providers/validation-provider/FakeValidation.provider';
-import IValidationProvider from '@shared/containers/providers/validation-provider/IValidation.provider';
+import { IHashProvider } from '@shared/containers/providers/hash-provider/IHash.provider';
+import { FakeHashProvider } from '@shared/containers/providers/hash-provider/implementations/FakeHash.provider';
+import { FakeValidationProvider } from '@shared/containers/providers/validation-provider/FakeValidation.provider';
+import { IValidationProvider } from '@shared/containers/providers/validation-provider/IValidation.provider';
 
-import CreateSession from '../CreateSession.service';
+import { CreateEmployeeSessionService } from '../CreateEmployeeSession.service';
 
 // ---------------------------------------------------------------------------------------------- //
 
 describe('Create session', () => {
-  let usersRepository: IUsersRepository;
+  let employeesRepository: IEmployeesRepository;
   let tokenProvider: ITokenProvider;
   let hashProvider: IHashProvider;
   let validationProvider: IValidationProvider;
-  let createSession: CreateSession;
+  let createSession: CreateEmployeeSessionService;
 
   const username = 'foobar';
   const name = 'Foo';
   const lastName = 'Bar';
   const email = 'foobar@example.com';
   const password = 'Password12';
+  const phone = '99 99999 9999';
 
   beforeEach(async () => {
-    usersRepository = new FakeUsersRepository();
+    employeesRepository = new FakeEmployeesRepository();
     tokenProvider = new FakeTokenProvider();
     hashProvider = new FakeHashProvider();
     validationProvider = new FakeValidationProvider();
 
-    createSession = new CreateSession(
-      usersRepository,
+    createSession = new CreateEmployeeSessionService(
+      employeesRepository,
       tokenProvider,
       hashProvider,
       validationProvider
     );
 
-    await usersRepository.create({
+    await employeesRepository.create({
       username,
       name,
       lastName,
       email,
-      password
+      password,
+      phone
     });
   });
 
@@ -57,8 +59,8 @@ describe('Create session', () => {
 
     const session = await createSession.execute({ email, password });
 
-    const { user, token } = session;
-    const isUuid = validate(session.user.id);
+    const { employee, token } = session;
+    const isUuid = validate(session.employee.id);
 
     expect(validateCredentials).toHaveBeenCalled();
     expect(match).toHaveBeenCalled();
@@ -67,28 +69,28 @@ describe('Create session', () => {
     expect(session).toHaveProperty('token');
     expect(token).toBeTruthy();
 
-    expect(user).toHaveProperty('id');
+    expect(employee).toHaveProperty('id');
     expect(isUuid).toBeTruthy();
 
-    expect(user).not.toHaveProperty('password');
-    expect(user).not.toHaveProperty('admin');
+    expect(employee).not.toHaveProperty('password');
+    expect(employee).not.toHaveProperty('admin');
 
-    expect(user).toHaveProperty('username');
-    expect(user.username).toEqual(username);
+    expect(employee).toHaveProperty('username');
+    expect(employee.username).toEqual(username);
 
-    expect(user).toHaveProperty('name');
-    expect(user.name).toEqual(name);
+    expect(employee).toHaveProperty('name');
+    expect(employee.name).toEqual(name);
 
-    expect(user).toHaveProperty('lastName');
-    expect(user.lastName).toEqual(lastName);
+    expect(employee).toHaveProperty('lastName');
+    expect(employee.lastName).toEqual(lastName);
 
-    expect(user).toHaveProperty('email');
-    expect(user.email).toEqual(email);
+    expect(employee).toHaveProperty('email');
+    expect(employee.email).toEqual(email);
 
-    expect(user).toHaveProperty('createdAt');
-    expect(user.createdAt).toBeTruthy();
-    expect(user).toHaveProperty('updatedAt');
-    expect(user.updatedAt).toBeTruthy();
+    expect(employee).toHaveProperty('createdAt');
+    expect(employee.createdAt).toBeTruthy();
+    expect(employee).toHaveProperty('updatedAt');
+    expect(employee.updatedAt).toBeTruthy();
   });
 
   // -------------------------------------------------------------------------------------------- //

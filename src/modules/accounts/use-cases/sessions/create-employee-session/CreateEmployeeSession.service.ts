@@ -1,20 +1,20 @@
 import { inject, injectable } from 'tsyringe';
 
 import { ITokenProvider } from '@accounts:containers/providers/token-provider/IToken.provider';
-import UserMap from '@accounts:mapper/User.map';
-import { LoginCredentials, SessionResponse } from '@accounts:types/sessions/Sessions';
+import { IEmployeesRepository } from '@accounts:irepos/IEmployees.repository';
+import { EmployeeMap } from '@accounts:mapper/Employee.map';
+import { EmployeeCredentials, EmployeeSessionResponse } from '@accounts:types/sessions/Sessions';
 import { InvalidCredentialsError } from '@accounts:use-cases/sessions/errors/InvalidCredentials.error';
-import { IStaffMembersRepository } from '@admin:irepos/IStaffMembers.repository';
-import IHashProvider from '@shared/containers/providers/hash-provider/IHash.provider';
-import IValidationProvider from '@shared/containers/providers/validation-provider/IValidation.provider';
+import { IHashProvider } from '@shared/containers/providers/hash-provider/IHash.provider';
+import { IValidationProvider } from '@shared/containers/providers/validation-provider/IValidation.provider';
 
 // ---------------------------------------------------------------------------------------------- //
 
 @injectable()
-class CreateStaffSessionService {
+export class CreateEmployeeSessionService {
   constructor(
     @inject('UsersRepository')
-    private staffMembersRepository: IStaffMembersRepository,
+    private employeesRepository: IEmployeesRepository,
 
     @inject('TokenProvider')
     private TokenProvider: ITokenProvider,
@@ -26,7 +26,7 @@ class CreateStaffSessionService {
     private validationProvider: IValidationProvider
   ) {}
 
-  async execute(data: LoginCredentials): Promise<SessionResponse> {
+  async execute(data: EmployeeCredentials): Promise<EmployeeSessionResponse> {
     const isValid = await this.validationProvider.validateLogin(data);
 
     if (!isValid) {
@@ -35,28 +35,26 @@ class CreateStaffSessionService {
 
     const { email, password } = data;
 
-    const user = await this.staffMembersRepository.findByEmail(email);
+    const employee = await this.employeesRepository.findByEmail(email);
 
-    if (!user) {
+    if (!employee) {
       throw new InvalidCredentialsError();
     }
 
-    const passwordMatch = await this.hashProvider.match(password, user.password);
+    const passwordMatch = await this.hashProvider.match(password, employee.password);
 
     if (!passwordMatch) {
       throw new InvalidCredentialsError();
     }
 
-    const { id } = user;
+    const { id } = employee;
     const token = this.TokenProvider.sign({ id, email }, 'jwt');
 
     const response = {
-      user: UserMap.toDto(user),
+      employee: EmployeeMap.toDto(employee),
       token
     };
 
     return response;
   }
 }
-
-export { CreateStaffSessionService };
