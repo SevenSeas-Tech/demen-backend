@@ -27,7 +27,7 @@ usersRouter.post('/', createUserController.execute);
 // *** ---- Admin routes -------------------------------------------------------------------- *** //
 usersRouter.use(employeeAuthenticationMiddleware.execute);
 
-usersRouter.get('/dashboard/profile', showProfileController.execute);
+usersRouter.get('/:id', showProfileController.execute);
 
 usersRouter.get('/', listUsersController.execute);
 
