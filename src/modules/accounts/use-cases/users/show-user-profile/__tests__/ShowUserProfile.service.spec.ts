@@ -1,29 +1,32 @@
-// ---------------------------------------------------------------------------------------------- //
-
-import { ShowUserProfileService } from '../ShowUserProfile.service';
+import { User } from '@accounts:entities/User';
+import { FakeUsersRepository } from '@accounts:irepos/fake/FakeUsers.repository';
+import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
+import { UserNotFoundError } from '@accounts:use-cases/users/show-user-profile/errors/UserNotFound.error';
+import { ShowUserProfileService } from '@accounts:use-cases/users/show-user-profile/ShowUserProfile.service';
 
 describe('Show Profile Service', () => {
   let showUserProfile: ShowUserProfileService;
+  let usersRepository: IUsersRepository;
 
-  const user = {
-    id: 'id',
-    googleId: 'googleId',
-    avatar: 'avatar',
-    name: 'foo',
-    lastName: 'bar',
-    email: 'foobar@example.com',
-    createdAt: new Date(),
-    updatedAt: new Date()
-  };
+  const googleId = 'googleId';
+  const avatar = 'avatar';
+  const name = 'foo';
+  const lastName = 'bar';
+  const email = 'foobar@example.com';
+
+  let user: User;
 
   beforeEach(async () => {
-    showUserProfile = new ShowUserProfileService();
+    usersRepository = new FakeUsersRepository();
+    showUserProfile = new ShowUserProfileService(usersRepository);
+
+    user = await usersRepository.create({ name, lastName, avatar, email, googleId });
   });
 
   // -------------------------------------------------------------------------------------------- //
 
   it('should return user profile', async () => {
-    const profile = await showUserProfile.execute({ user });
+    const profile = await showUserProfile.execute({ id: user.id });
 
     expect(profile).toHaveProperty('id');
     expect(profile.id).toEqual(user.id);
@@ -39,5 +42,11 @@ describe('Show Profile Service', () => {
 
     expect(profile).toHaveProperty('createdAt');
     expect(profile).toHaveProperty('updatedAt');
+  });
+
+  it('should not show profile of inexistent user', async () => {
+    expect(async () => {
+      await showUserProfile.execute({ id: 'id' });
+    }).rejects.toEqual(new UserNotFoundError());
   });
 });
