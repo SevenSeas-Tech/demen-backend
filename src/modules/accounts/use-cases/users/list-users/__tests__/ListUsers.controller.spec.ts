@@ -12,11 +12,15 @@ describe('List Users Integration tests', () => {
 
   const hashProvider = new ProviderFactory().HashProvider;
 
-  const username = 'admin';
-  const name = 'admin';
-  const lastName = 'admin';
-  const email = 'admin@example.com';
+  const username = 'foobar';
+  const name = 'foo';
+  const lastName = 'bar';
+  const email = 'foobar@example.com';
   const password = 'Password12';
+  const phone = '99 99999 9999';
+
+  const googleId = 'googleId';
+  const avatar = 'avatar';
 
   // -------------------------------------------------------------------------------------------- //
 
@@ -27,10 +31,13 @@ describe('List Users Integration tests', () => {
     const passwordHash = await hashProvider.hash(password);
 
     await connection.query(
-      `INSERT INTO USERS (name, last_name, password, admin, email, username)
-        values('${name}', '${lastName}', '${passwordHash}', true, '${email}', '${username}')
+      `INSERT INTO users (name, last_name, google_id, email, avatar)
+        values('${name}', '${lastName}', '${googleId}', '${email}', '${avatar}')
       `
     );
+
+    await connection.query(`INSERT INTO employees (username, email, name, last_name, password, phone)
+    VALUES ('${username}', '${email}', '${name}', '${lastName}', '${passwordHash}', '${phone}')`);
   });
 
   afterAll(async () => {
@@ -41,59 +48,34 @@ describe('List Users Integration tests', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should list all users', async () => {
-    const session = await request(App).post('/accounts/sessions').send({
+    const session = await request(App).post('/accounts/sessions/employees').send({
       email,
       password
     });
 
-    const { token } = session.body;
+    const authorization = `Bearer ${session.body.token}`;
 
-    const response = await request(App)
-      .get('/admin/users')
-      .set({ authorization: `Bearer ${token}` });
+    const response = await request(App).get('/accounts/users').set({ authorization });
 
     const { body } = response;
 
     expect(response.status).toEqual(201);
     expect(body.length).toEqual(1);
     expect(body[0]).not.toHaveProperty('password');
-    expect(body[0]).toHaveProperty('admin');
+    expect(body[0]).toHaveProperty('googleId');
+    expect(body[0]).toHaveProperty('avatar');
+    expect(body[0]).toHaveProperty('name');
+    expect(body[0]).toHaveProperty('lastName');
   });
 
   // -------------------------------------------------------------------------------------------- //
-
-  it('should not list users to non admin user', async () => {
-    const email = 'foobar@example.com';
-
-    await request(App).post('/accounts/users').send({
-      name: 'foo',
-      lastName: 'bar',
-      email,
-      username: 'foobar',
-      password
-    });
-
-    const session = await request(App).post('/accounts/sessions').send({
-      email,
-      password
-    });
-
-    const { token } = session.body;
-
-    const response = await request(App)
-      .get('/admin/users')
-      .set({ authorization: `Bearer ${token}` });
-
-    const { body } = response;
-
-    expect(response.status).toEqual(404);
-    expect(body.status).toEqual('error');
-    expect(body.message).toEqual('Not Found!');
+  it('TODO: should not list users to another user', async () => {
+    expect(true);
   });
 
   // -------------------------------------------------------------------------------------------- //
-  it('should not list users to unauthenticated user', async () => {
-    const response = await request(App).get('/admin/users');
+  it('should not list users to unauthenticated employee', async () => {
+    const response = await request(App).get('/accounts/users');
 
     const { body } = response;
 
