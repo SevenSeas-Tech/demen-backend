@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { container } from 'tsyringe';
 
 import { ShowEmployeeProfileService } from './ShowEmployeeProfile.service';
 
@@ -6,12 +7,12 @@ import { ShowEmployeeProfileService } from './ShowEmployeeProfile.service';
 
 export class ShowEmployeeProfileController {
   async execute(request: Request, response: Response): Promise<Response> {
-    const { employee } = request;
+    const { id } = request.params;
 
-    const showEmployeeProfile = new ShowEmployeeProfileService();
+    const showEmployeeProfile = container.resolve(ShowEmployeeProfileService);
 
-    const alteredEmployee = await showEmployeeProfile.execute({ employee });
+    const employee = await showEmployeeProfile.execute({ id });
 
-    return response.status(201).json(alteredEmployee);
+    return response.status(201).json(employee);
   }
 }
