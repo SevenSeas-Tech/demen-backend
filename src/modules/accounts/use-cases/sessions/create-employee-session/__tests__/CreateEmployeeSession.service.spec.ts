@@ -1,6 +1,6 @@
 import { validate } from 'uuid';
 
-import FakeTokenProvider from '@accounts:containers/providers/token-provider/implementations/FakeToken.provider';
+import { FakeTokenProvider } from '@accounts:containers/providers/token-provider/implementations/FakeToken.provider';
 import { ITokenProvider } from '@accounts:containers/providers/token-provider/IToken.provider';
 import { FakeEmployeesRepository } from '@accounts:irepos/fake/FakeEmployees.repository';
 import { IEmployeesRepository } from '@accounts:irepos/IEmployees.repository';
@@ -14,7 +14,7 @@ import { CreateEmployeeSessionService } from '../CreateEmployeeSession.service';
 
 // ---------------------------------------------------------------------------------------------- //
 
-describe('Create session', () => {
+describe('Create employee session service', () => {
   let employeesRepository: IEmployeesRepository;
   let tokenProvider: ITokenProvider;
   let hashProvider: IHashProvider;
@@ -53,7 +53,7 @@ describe('Create session', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should create a session', async () => {
+  it('should create a employee session', async () => {
     const validateCredentials = jest.spyOn(validationProvider, 'validateLogin');
     const match = jest.spyOn(hashProvider, 'match');
 
@@ -65,7 +65,7 @@ describe('Create session', () => {
     expect(validateCredentials).toHaveBeenCalled();
     expect(match).toHaveBeenCalled();
 
-    expect(session).toHaveProperty('user');
+    expect(session).toHaveProperty('employee');
     expect(session).toHaveProperty('token');
     expect(token).toBeTruthy();
 
@@ -73,10 +73,12 @@ describe('Create session', () => {
     expect(isUuid).toBeTruthy();
 
     expect(employee).not.toHaveProperty('password');
-    expect(employee).not.toHaveProperty('admin');
 
     expect(employee).toHaveProperty('username');
     expect(employee.username).toEqual(username);
+
+    expect(employee).toHaveProperty('phone');
+    expect(employee.phone).toEqual(phone);
 
     expect(employee).toHaveProperty('name');
     expect(employee.name).toEqual(name);
@@ -95,7 +97,7 @@ describe('Create session', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should create session with invalid email', async () => {
+  it('should not create session with invalid email', async () => {
     const email = 'invalid-email';
 
     expect(async () => {
@@ -105,7 +107,7 @@ describe('Create session', () => {
 
   // -------------------------------------------------------------------------------------------- //
 
-  it('should create session with invalid password', async () => {
+  it('should not create session with invalid password', async () => {
     const password = 'invalid-password';
 
     expect(async () => {
