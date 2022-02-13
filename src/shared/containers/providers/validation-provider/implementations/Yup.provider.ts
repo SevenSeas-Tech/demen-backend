@@ -6,13 +6,13 @@ import { CreateEmployeeDto } from '@accounts:dtos/employees/CreateEmployee.dto';
 import { UpdateEmployeeDto } from '@accounts:dtos/employees/UpdateEmployee.dto';
 import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
 import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
-import { LoginCredentials } from '@accounts:types/sessions/Sessions';
+import { EmployeeCredentials } from '@accounts:types/sessions/Sessions';
 
 import { IValidationProvider } from '../IValidation.provider';
 
 // ---------------------------------------------------------------------------------------------- //
 
-class Yup implements IValidationProvider {
+export class Yup implements IValidationProvider {
   private usernameRegex = /^[A-Za-z]\w{5,15}$/;
 
   private passwordMin = 6;
@@ -30,16 +30,17 @@ class Yup implements IValidationProvider {
     YupPassword(yup);
   }
 
-  validateUserCreationData(_: CreateUserDto): Promise<boolean> {
+  async validateUserCreationData(_: CreateUserDto): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
-  validateUserUpdateData(_: UpdateUserDto): Promise<boolean> {
+
+  async validateUserUpdateData(_: UpdateUserDto): Promise<boolean> {
     throw new Error('Method not implemented.');
   }
 
   // -------------------------------------------------------------------------------------------- //
 
-  async validateLogin(credentials: LoginCredentials): Promise<boolean> {
+  async validateLogin(credentials: EmployeeCredentials): Promise<boolean> {
     const loginSchema = yup.object().shape({
       email: yup.string().email().required(),
       password: yup
@@ -106,5 +107,3 @@ class Yup implements IValidationProvider {
     return userSchema.isValid(employeeData);
   }
 }
-
-export { Yup };
