@@ -31,7 +31,12 @@ describe('List Employees', () => {
     expect(employees[0]).toHaveProperty('id');
 
     expect(employees[0]).not.toHaveProperty('password');
-    expect(employees[0]).toHaveProperty('admin');
+
+    expect(employees[0]).toHaveProperty('phone');
+    expect(employees[0]).toHaveProperty('username');
+    expect(employees[0]).toHaveProperty('email');
+    expect(employees[0]).toHaveProperty('name');
+    expect(employees[0]).toHaveProperty('lastName');
 
     expect(employees[0]).toHaveProperty('createdAt');
     expect(employees[0]).toHaveProperty('updatedAt');
