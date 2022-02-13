@@ -10,7 +10,7 @@ import { IValidationProvider } from '@shared:providers/validation-provider/IVali
 @injectable()
 export class UpdateEmployeeService {
   constructor(
-    @inject('UsersRepository')
+    @inject('EmployeesRepository')
     private usersRepository: IUsersRepository,
     @inject('ValidationProvider')
     private validationProvider: IValidationProvider
@@ -21,7 +21,7 @@ export class UpdateEmployeeService {
 
     // ------------------------------------------------------------------------------------------ //
 
-    const isValid = await this.validationProvider.validateUserUpdateData(data);
+    const isValid = await this.validationProvider.validateEmployeeUpdateData(data);
 
     if (!isValid) {
       throw new InvalidDataError();
