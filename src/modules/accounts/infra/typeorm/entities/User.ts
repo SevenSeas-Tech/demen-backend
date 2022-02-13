@@ -13,7 +13,7 @@ export class User {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column()
+  @Column({ name: 'google_id' })
   googleId!: string;
 
   @Column()
