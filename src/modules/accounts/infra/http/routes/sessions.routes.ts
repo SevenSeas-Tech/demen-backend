@@ -1,17 +1,20 @@
 import { Router } from 'express';
 
-import CreateSessionController from '@accounts:use-cases/sessions/create-session/CreateSession.controller';
+import { CreateEmployeeSessionController } from '@accounts:use-cases/sessions/create-employee-session/CreateEmployeeSession.controller';
+import { CreateUserSessionController } from '@accounts:use-cases/sessions/create-user-session/CreateUserSession.controller';
 
 const sessionsRouter = Router();
 
 // *** -------------------- Controllers ----------------------------------------------------- *** //
 
-const createSessionController = new CreateSessionController();
+const createUserSessionController = new CreateUserSessionController();
+const createEmployeeSessionController = new CreateEmployeeSessionController();
 
 // *** -------------------- Routes ---------------------------------------------------------- *** //
 
-sessionsRouter.post('/', createSessionController.execute);
+sessionsRouter.post('/user', createUserSessionController.execute);
+sessionsRouter.post('/employee', createEmployeeSessionController.execute);
 
 // ---------------------------------------------------------------------------------------------- //
 
-export default sessionsRouter;
+export { sessionsRouter };
