@@ -1,4 +1,5 @@
 import { inject, injectable } from 'tsyringe';
+import { validate } from 'uuid';
 
 import { UserResponseDto } from '@accounts:dtos/users/UserResponse.dto';
 import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
@@ -22,6 +23,13 @@ export class ShowUserProfileService {
 
   async execute(data: IRequestDto): Promise<UserResponseDto> {
     const { id } = data;
+
+    const isUuid = validate(id);
+
+    if (!isUuid) {
+      throw new UserNotFoundError();
+    }
+
     const user = await this.usersRepository.findById(id);
 
     if (!user) {
