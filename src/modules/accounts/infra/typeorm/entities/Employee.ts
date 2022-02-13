@@ -2,14 +2,17 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
 
+import { Video } from '@lessons:entities/Video';
+
 // ---------------------------------------------------------------------------------------------- //
 
 @Entity('users')
-class Employee {
+export class Employee {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
@@ -28,12 +31,11 @@ class Employee {
   @Column({ name: 'last_name' })
   lastName!: string;
 
-  // @Column()
-  // admin!: boolean;
   @Column()
   phone!: string;
-  // @Column()
-  // verified!: boolean;
+
+  @OneToMany(() => Video, video => video.user)
+  videos!: Video[];
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
@@ -41,5 +43,3 @@ class Employee {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
 }
-
-export { Employee };

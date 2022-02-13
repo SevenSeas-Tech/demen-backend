@@ -9,15 +9,12 @@ import {
 // ---------------------------------------------------------------------------------------------- //
 
 @Entity('users')
-class User {
+export class User {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
 
   @Column()
   googleId!: string;
-
-  @Column()
-  username!: string;
 
   @Column()
   email!: string;
@@ -37,5 +34,3 @@ class User {
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
 }
-
-export { User };
