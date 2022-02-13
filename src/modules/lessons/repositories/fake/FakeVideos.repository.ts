@@ -1,9 +1,9 @@
-import { CreateVideoDto } from '@lessons:dtos/CreateVideo.dto';
-import Video from '@lessons:entities/Video';
-import IVideosRepository from '@lessons:irepos/IVideos.repository';
+import { CreateVideoDto } from '@lessons:dtos/videos/CreateVideo.dto';
+import { Video } from '@lessons:entities/Video';
+import { IVideosRepository } from '@lessons:irepos/IVideos.repository';
 
 // ---------------------------------------------------------------------------------------------- //
-class FakeVideosRepository implements IVideosRepository {
+export class FakeVideosRepository implements IVideosRepository {
   private videos: Video[] = [];
 
   async create(data: CreateVideoDto): Promise<Video> {
@@ -45,5 +45,3 @@ class FakeVideosRepository implements IVideosRepository {
     return this.videos.find(video => video.id === id);
   }
 }
-
-export default FakeVideosRepository;

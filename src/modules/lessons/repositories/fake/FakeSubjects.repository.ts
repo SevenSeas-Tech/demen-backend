@@ -1,12 +1,12 @@
 import { v4 as uuid } from 'uuid';
 
-import { CreateSubjectDto } from '@lessons:dtos/CreateSubject.dto';
-import Subject from '@lessons:entities/Subject';
-import ISubjectsRepository from '@lessons:irepos/ISubjects.repository';
+import { CreateSubjectDto } from '@lessons:dtos/subject/CreateSubject.dto';
+import { Subject } from '@lessons:entities/Subject';
+import { ISubjectsRepository } from '@lessons:irepos/ISubjects.repository';
 
 // ---------------------------------------------------------------------------------------------- //
 
-class FakeSubjectsRepository implements ISubjectsRepository {
+export class FakeSubjectsRepository implements ISubjectsRepository {
   private subjects: Subject[] = [];
 
   async create(data: CreateSubjectDto): Promise<Subject> {
@@ -32,7 +32,3 @@ class FakeSubjectsRepository implements ISubjectsRepository {
     return this.subjects.find(subject => subject.id === id);
   }
 }
-
-// ---------------------------------------------------------------------------------------------- //
-
-export default FakeSubjectsRepository;
