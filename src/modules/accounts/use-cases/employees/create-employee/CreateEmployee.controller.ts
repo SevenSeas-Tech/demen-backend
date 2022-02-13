@@ -4,13 +4,13 @@ import { container } from 'tsyringe';
 import { CreateEmployeeService } from './CreateEmployee.service';
 
 // ---------------------------------------------------------------------------------------------- //
-class CreateEmployeeController {
+export class CreateEmployeeController {
   async execute(request: Request, response: Response): Promise<Response> {
     const { username, name, lastName, email, phone, password } = request.body;
 
     const createEmployeeService = container.resolve(CreateEmployeeService);
 
-    const employee = createEmployeeService.execute({
+    const employee = await createEmployeeService.execute({
       username,
       email,
       name,
@@ -22,5 +22,3 @@ class CreateEmployeeController {
     return response.status(201).json(employee);
   }
 }
-
-export { CreateEmployeeController };
