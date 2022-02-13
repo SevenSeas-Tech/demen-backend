@@ -1,8 +1,8 @@
 import { inject, injectable } from 'tsyringe';
 
-import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
+import { UpdateEmployeeDto } from '@accounts:dtos/employees/UpdateEmployee.dto';
 import { InvalidDataError } from '@accounts:errors/InvalidData.error';
-import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
+import { IEmployeesRepository } from '@accounts:irepos/IEmployees.repository';
 import { IValidationProvider } from '@shared:providers/validation-provider/IValidation.provider';
 
 // ---------------------------------------------------------------------------------------------- //
@@ -11,12 +11,12 @@ import { IValidationProvider } from '@shared:providers/validation-provider/IVali
 export class UpdateEmployeeService {
   constructor(
     @inject('EmployeesRepository')
-    private usersRepository: IUsersRepository,
+    private employeesRepository: IEmployeesRepository,
     @inject('ValidationProvider')
     private validationProvider: IValidationProvider
   ) {}
 
-  async execute(data: UpdateUserDto): Promise<void> {
+  async execute(data: UpdateEmployeeDto): Promise<void> {
     const { id, name, lastName } = data;
 
     // ------------------------------------------------------------------------------------------ //
@@ -29,7 +29,7 @@ export class UpdateEmployeeService {
 
     // ------------------------------------------------------------------------------------------ //
 
-    await this.usersRepository.update({
+    await this.employeesRepository.update({
       id,
       name: name.trim().toLowerCase(),
       lastName: lastName.trim().toLowerCase()
