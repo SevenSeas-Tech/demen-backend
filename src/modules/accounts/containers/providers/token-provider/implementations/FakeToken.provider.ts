@@ -3,7 +3,7 @@ import { TokenResponse } from '@accounts:types/tokens/Token';
 
 import { ITokenProvider } from '../IToken.provider';
 
-class FakeTokenProvider implements ITokenProvider {
+export class FakeTokenProvider implements ITokenProvider {
   sign(data: SignTokenDto, _: string): string {
     const { id, email } = data;
 
@@ -15,5 +15,3 @@ class FakeTokenProvider implements ITokenProvider {
     return { id, email };
   }
 }
-
-export default FakeTokenProvider;
