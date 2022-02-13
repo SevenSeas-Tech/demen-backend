@@ -5,7 +5,7 @@ import { CreateUserSessionService } from '../CreateUserSession.service';
 
 // ---------------------------------------------------------------------------------------------- //
 
-describe('Create session', () => {
+describe('Create user session', () => {
   let usersRepository: IUsersRepository;
   let createSession: CreateUserSessionService;
 
@@ -19,7 +19,9 @@ describe('Create session', () => {
     usersRepository = new FakeUsersRepository();
 
     createSession = new CreateUserSessionService(usersRepository);
-    console.log(createSession);
+
+    expect(createSession).toEqual(createSession);
+
     await usersRepository.create({
       name,
       lastName,
