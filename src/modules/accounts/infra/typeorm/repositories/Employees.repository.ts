@@ -17,12 +17,13 @@ export class EmployeesRepository implements IEmployeesRepository {
   // -------------------------------------------------------------------------------------------- //
 
   async create(data: CreateEmployeeDto): Promise<Employee> {
-    const { username, name, lastName, email, password } = data;
-    const user = this.repository.create({ username, name, lastName, email, password });
+    const { username, name, lastName, email, password, phone } = data;
 
-    await this.repository.save(user);
+    const employee = this.repository.create({ username, name, lastName, email, password, phone });
 
-    return user;
+    await this.repository.save(employee);
+
+    return employee;
   }
 
   // -------------------------------------------------------------------------------------------- //
