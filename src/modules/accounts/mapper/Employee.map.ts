@@ -1,14 +1,13 @@
 import { EmployeeResponseDto } from '@accounts:dtos/employees/EmployeeResponse.dto';
 import { Employee } from '@accounts:entities/Employee';
 
-class EmployeeMap {
+export class EmployeeMap {
   static toDto({
     id,
     username,
     email,
     name,
     lastName,
-    // verified,
     phone,
     createdAt,
     updatedAt
@@ -19,7 +18,6 @@ class EmployeeMap {
       email,
       name,
       lastName,
-      // verified,
       phone,
       createdAt,
       updatedAt
@@ -28,5 +26,3 @@ class EmployeeMap {
     return employee;
   }
 }
-
-export { EmployeeMap };
