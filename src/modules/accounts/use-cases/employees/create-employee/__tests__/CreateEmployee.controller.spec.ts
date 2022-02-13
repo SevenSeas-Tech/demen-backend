@@ -2,16 +2,16 @@ import request from 'supertest';
 import { Connection } from 'typeorm';
 
 import createConnection from '@shared:typeorm/index';
-import { BcryptProvider } from '@shared/containers/providers/hash-provider/implementations/Bcrypt.provider';
 import App from '@shared/infra/http/App';
-
-// ---------------------------------------------------------------------------------------------- //
+// eslint-disable-next-line import-helpers/order-imports
+import { ProviderFactory } from '@shared/containers/factories/Provider.factory';
+// ! ---- Provider Factory must be imported after app ------------------------------------------- //
 
 // TODO: Create tests for phone validation
 
 describe('Create Employee Controller', () => {
   let connection: Connection;
-  const hashProvider = new BcryptProvider();
+  const hashProvider = new ProviderFactory().HashProvider;
 
   const name = 'foo';
   const email = 'foo@bar.com';
