@@ -15,7 +15,7 @@ import { UsernameTakenError } from './errors/UsernameTaken.error';
 @injectable()
 export class CreateEmployeeService {
   constructor(
-    @inject('UsersRepository')
+    @inject('EmployeesRepository')
     private employeesRepository: IEmployeesRepository,
 
     @inject('HashProvider')
