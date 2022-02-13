@@ -8,7 +8,7 @@ import { UpdateEmployeeService } from './UpdateEmployee.service';
 export class UpdateEmployeeController {
   async execute(request: Request, response: Response): Promise<Response> {
     const { name, lastName } = request.body;
-    const { id } = request.user;
+    const { id } = request.employee;
 
     const updateEmployee = container.resolve(UpdateEmployeeService);
 
