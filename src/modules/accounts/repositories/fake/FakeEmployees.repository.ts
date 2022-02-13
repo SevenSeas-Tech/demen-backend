@@ -1,13 +1,13 @@
 import { v4 as uuid } from 'uuid';
 
-import { CreateEmployeeDto } from '@accounts:dtos/users/CreateEmployee.dto';
+import { CreateEmployeeDto } from '@accounts:dtos/employees/CreateEmployee.dto';
 import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
 import { Employee } from '@accounts:entities/Employee';
 import { IEmployeesRepository } from '@accounts:irepos/IEmployees.repository';
 
 // ---------------------------------------------------------------------------------------------- //
 
-class FakeEmployeesRepository implements IEmployeesRepository {
+export class FakeEmployeesRepository implements IEmployeesRepository {
   private employees: Employee[] = [];
 
   async create(data: CreateEmployeeDto): Promise<Employee> {
@@ -71,5 +71,3 @@ class FakeEmployeesRepository implements IEmployeesRepository {
     return this.employees[index];
   }
 }
-
-export { FakeEmployeesRepository };

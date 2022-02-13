@@ -1,4 +1,4 @@
-import { CreateEmployeeDto } from '@accounts:dtos/users/CreateEmployee.dto';
+import { CreateEmployeeDto } from '@accounts:dtos/employees/CreateEmployee.dto';
 import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
 import { Employee } from '@accounts:entities/Employee';
 import { Email } from '@accounts:types/users/User';

@@ -10,7 +10,8 @@ export interface IUsersRepository {
   create(data: CreateUserDto): Promise<User>;
   findAll(): Promise<User[]>;
   findById(id: Uuid): Promise<User | undefined>;
+  findByGoogleId(googleId: string): Promise<User | undefined>;
+  findByFullName(name: string, lastName: string): Promise<User[]>;
   findByEmail(email: Email): Promise<User | undefined>;
-  findByUsername(username: string): Promise<User | undefined>;
   update(data: UpdateUserDto): Promise<User>;
 }
