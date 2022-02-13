@@ -7,12 +7,12 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 
-import Video from '@lessons:entities/Video';
+import { Video } from '@lessons:entities/Video';
 
 // ---------------------------------------------------------------------------------------------- //
 
 @Entity('channels')
-class Channel {
+export class Channel {
   @PrimaryColumn()
   id!: string;
 
@@ -36,5 +36,3 @@ class Channel {
   @OneToMany(() => Video, video => video.channel)
   videos!: Video[];
 }
-
-export default Channel;
