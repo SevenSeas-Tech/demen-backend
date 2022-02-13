@@ -1,9 +1,9 @@
 import { User } from '@accounts:entities/User';
-import FakeUsersRepository from '@accounts:irepos/fake/FakeUsers.repository';
+import { FakeUsersRepository } from '@accounts:irepos/fake/FakeUsers.repository';
 import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
-import UpdateUser from '@accounts:use-cases/users/update-user/UpdateUser.service';
-import FakeValidationProvider from '@shared:providers/validation-provider/FakeValidation.provider';
-import IValidationProvider from '@shared:providers/validation-provider/IValidation.provider';
+import { UpdateUserService } from '@accounts:use-cases/users/update-user/UpdateUser.service';
+import { FakeValidationProvider } from '@shared:providers/validation-provider/FakeValidation.provider';
+import { IValidationProvider } from '@shared:providers/validation-provider/IValidation.provider';
 
 // ---------------------------------------------------------------------------------------------- //
 
@@ -13,12 +13,12 @@ describe('User Update', () => {
   const lastName = 'bar';
   const newName = 'foot';
   const newLastName = 'barr';
-  const password = 'Password12';
-  const username = 'foobar';
+  const avatar = 'avatar';
+  const googleId = 'googleId';
 
   let usersRepository: IUsersRepository;
   let validationProvider: IValidationProvider;
-  let updateUser: UpdateUser;
+  let updateUser: UpdateUserService;
   let user: User;
 
   // -------------------------------------------------------------------------------------------- //
@@ -27,9 +27,9 @@ describe('User Update', () => {
     usersRepository = new FakeUsersRepository();
     validationProvider = new FakeValidationProvider();
 
-    updateUser = new UpdateUser(usersRepository, validationProvider);
+    updateUser = new UpdateUserService(usersRepository, validationProvider);
 
-    user = await usersRepository.create({ name, lastName, email, username, password });
+    user = await usersRepository.create({ name, lastName, email, avatar, googleId });
   });
 
   // -------------------------------------------------------------------------------------------- //
