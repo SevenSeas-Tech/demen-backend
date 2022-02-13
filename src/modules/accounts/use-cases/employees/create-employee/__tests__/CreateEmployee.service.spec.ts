@@ -42,7 +42,7 @@ describe('Create Employee Service', () => {
 
   it('Should create a employee', async () => {
     const hash = jest.spyOn(hashProvider, 'hash');
-    const validateUser = jest.spyOn(validationProvider, 'validateUserCreationData');
+    const validateUser = jest.spyOn(validationProvider, 'validateEmployeeCreationData');
 
     const employee = await createEmployee.execute({
       email,
