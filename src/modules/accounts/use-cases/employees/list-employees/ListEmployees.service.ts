@@ -9,7 +9,7 @@ import { EmployeeMap } from '@accounts:mapper/Employee.map';
 @injectable()
 export class ListEmployeesService {
   constructor(
-    @inject('UsersRepository')
+    @inject('EmployeesRepository')
     private employeesRepository: IEmployeesRepository
   ) {}
 
