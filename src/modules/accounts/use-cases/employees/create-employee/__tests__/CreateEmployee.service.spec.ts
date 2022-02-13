@@ -11,6 +11,8 @@ import { UsernameTakenError } from '../errors/UsernameTaken.error';
 
 // ---------------------------------------------------------------------------------------------- //
 
+// Todo: Create a tests for phone validation
+
 describe('Create Employee Service', () => {
   let createEmployee: CreateEmployeeService;
   let hashProvider: IHashProvider;
@@ -54,7 +56,6 @@ describe('Create Employee Service', () => {
     expect(employee).toHaveProperty('id');
 
     expect(employee).not.toHaveProperty('password');
-    expect(employee).not.toHaveProperty('admin');
     expect(employee).not.toHaveProperty('videos');
 
     expect(employee).toHaveProperty('username');
@@ -65,6 +66,9 @@ describe('Create Employee Service', () => {
 
     expect(employee).toHaveProperty('lastName');
     expect(employee.lastName).toEqual(lastName);
+
+    expect(employee).toHaveProperty('phone');
+    expect(employee.phone).toEqual(phone);
 
     expect(employee).toHaveProperty('email');
     expect(employee.email).toEqual(email);
@@ -127,7 +131,7 @@ describe('Create Employee Service', () => {
     }).rejects.toEqual(new EmailInUseError());
   });
 
-  // *** ------------------------- String Validation ---------------------------------------- *** //
+  // *** ---- String Validation ------------------------------------------------------------- *** //
 
   it('should create employee without spaces in names', async () => {
     const employee = await createEmployee.execute({

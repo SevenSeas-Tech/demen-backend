@@ -25,7 +25,7 @@ describe('Create Employee Controller', () => {
     await connection.close();
   });
 
-  // *** --------------------------------- User Creation ------------------------------------ *** //
+  // *** ----  Employee Creation ------------------------------------------------------------ *** //
   it('Should create a employee', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
@@ -55,10 +55,6 @@ describe('Create Employee Controller', () => {
     expect(employee).toHaveProperty('email');
     expect(employee.email).toEqual(email);
 
-    // ! The property verified is undefined because it's generates on DB (same as id)! //
-    // expect(employee).toHaveProperty('verified');
-    // expect(employee.verified).toEqual(false);
-
     expect(employee).toHaveProperty('createdAt');
     expect(employee.createdAt).toBeTruthy();
 
@@ -66,7 +62,7 @@ describe('Create Employee Controller', () => {
     expect(employee.updatedAt).toBeTruthy();
   });
 
-  // *** ---------------------- Uniqueness Validation Tests --------------------------------- *** //
+  // *** ---- Uniqueness Validation Tests --------------------------------------------------- *** //
   it('should not create employee if username is taken', async () => {
     const response = await request(App)
       .post('/accounts/users')
@@ -109,7 +105,7 @@ describe('Create Employee Controller', () => {
     expect(body.status).toEqual('error');
   });
 
-  // *** ------------------------- Email Validation Tests ---------------------------------- *** //
+  // *** ---- Email Validation Tests -------------------------------------------------------- *** //
   it('should not create employee with invalid email', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
@@ -148,7 +144,7 @@ describe('Create Employee Controller', () => {
     expect(body.status).toEqual('error');
   });
 
-  // *** ------------------------- User Validation Tests ------------------------------------ *** //
+  // *** ---- User Validation Tests --------------------------------------------------------- *** //
   it('should not create employee with username length < 5', async () => {
     const response = await request(App).post('/accounts/users').send({
       username: 'abcd',
@@ -247,7 +243,7 @@ describe('Create Employee Controller', () => {
     expect(body.status).toEqual('error');
   });
 
-  // *** ------------------------- Name Validation Tests ------------------------------------ *** //
+  // *** ---- Name Validation Tests --------------------------------------------------------- *** //
   it('should not create employee with name length < 3', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
@@ -327,7 +323,7 @@ describe('Create Employee Controller', () => {
     expect(employee.lastName).toEqual(lastName);
   });
 
-  // *** ------------------------ Password Validation --------------------------------------- *** //
+  // *** ---- Password Validation ----------------------------------------------------------- *** //
   it('should not create employee when password has no numbers', async () => {
     const response = await request(App).post('/accounts/users').send({
       username,
