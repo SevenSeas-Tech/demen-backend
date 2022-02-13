@@ -3,10 +3,10 @@ import { OAuth2Client } from 'google-auth-library';
 import { IOAuthProvider } from '@accounts:containers/providers/OAuthProvider/IOAuth.provider';
 import { OAuthResponse } from '@accounts:types/Oauth/OAuthResponse';
 import { Token } from '@accounts:types/tokens/Token';
-import AppError from '@shared/errors/App.error';
+import { AppError } from '@shared/errors/App.error';
 
 // ---------------------------------------------------------------------------------------------- //
-class GoogleAuthProvider implements IOAuthProvider {
+export class GoogleAuthProvider implements IOAuthProvider {
   private client: OAuth2Client;
   private clientId = process.env.G_CLIENT_ID;
 
@@ -41,6 +41,3 @@ class GoogleAuthProvider implements IOAuthProvider {
     };
   }
 }
-
-// ---------------------------------------------------------------------------------------------- //
-export { GoogleAuthProvider };
