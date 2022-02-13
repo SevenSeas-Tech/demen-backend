@@ -13,7 +13,7 @@ import { UsernameTakenError } from './errors/UsernameTaken.error';
 
 // ---------------------------------------------------------------------------------------------- //
 @injectable()
-class CreateEmployeeService {
+export class CreateEmployeeService {
   constructor(
     @inject('UsersRepository')
     private employeesRepository: IEmployeesRepository,
@@ -35,7 +35,6 @@ class CreateEmployeeService {
     const { username, email, name, lastName, password, phone } = data;
 
     // ------------------------------------------------------------------------------------------ //
-
     const findByUsername = await this.employeesRepository.findByUsername(username);
 
     if (findByUsername) {
@@ -59,8 +58,8 @@ class CreateEmployeeService {
       phone
     });
 
+    console.log(employee);
+
     return EmployeeMap.toDto(employee);
   }
 }
-
-export { CreateEmployeeService };
