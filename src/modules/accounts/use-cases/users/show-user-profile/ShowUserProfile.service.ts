@@ -4,8 +4,7 @@ import { validate } from 'uuid';
 import { UserResponseDto } from '@accounts:dtos/users/UserResponse.dto';
 import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 import { UserMap } from '@accounts:mapper/User.map';
-
-import { UserNotFoundError } from './errors/UserNotFound.error';
+import { NotFoundError } from '@shared/infra/http/middlewares/errors/NotFound.error';
 
 // ---------------------------------------------------------------------------------------------- //
 
@@ -27,13 +26,13 @@ export class ShowUserProfileService {
     const isUuid = validate(id);
 
     if (!isUuid) {
-      throw new UserNotFoundError();
+      throw new NotFoundError();
     }
 
     const user = await this.usersRepository.findById(id);
 
     if (!user) {
-      throw new UserNotFoundError();
+      throw new NotFoundError();
     }
 
     return UserMap.toDto(user);

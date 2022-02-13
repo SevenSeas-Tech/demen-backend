@@ -1,8 +1,8 @@
 import { User } from '@accounts:entities/User';
 import { FakeUsersRepository } from '@accounts:irepos/fake/FakeUsers.repository';
 import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
-import { UserNotFoundError } from '@accounts:use-cases/users/show-user-profile/errors/UserNotFound.error';
 import { ShowUserProfileService } from '@accounts:use-cases/users/show-user-profile/ShowUserProfile.service';
+import { NotFoundError } from '@shared/infra/http/middlewares/errors/NotFound.error';
 
 describe('Show Profile Service', () => {
   let showUserProfile: ShowUserProfileService;
@@ -47,6 +47,6 @@ describe('Show Profile Service', () => {
   it('should not show profile of inexistent user', async () => {
     expect(async () => {
       await showUserProfile.execute({ id: 'id' });
-    }).rejects.toEqual(new UserNotFoundError());
+    }).rejects.toEqual(new NotFoundError());
   });
 });

@@ -91,7 +91,7 @@ describe('Show user profile controller', () => {
     const { body } = response;
 
     expect(response.status).toEqual(404);
-    expect(body.message).toEqual('User not found!');
+    expect(body.message).toEqual('Not Found!');
   });
 
   it('should not show profile of invalid uuid', async () => {
@@ -107,7 +107,7 @@ describe('Show user profile controller', () => {
     const { body } = response;
 
     expect(response.status).toEqual(404);
-    expect(body.message).toEqual('User not found!');
+    expect(body.message).toEqual('Not Found!');
   });
 
   it('TODO: should show users profile to user', async () => {
