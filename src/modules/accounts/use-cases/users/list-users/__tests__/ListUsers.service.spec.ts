@@ -3,7 +3,7 @@ import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 
 import { ListUsersService } from '../ListUsers.service';
 
-describe('List Users', () => {
+describe('List Users Service', () => {
   const email = 'foobar@example.com';
   const name = 'foo';
   const lastName = 'bar';
