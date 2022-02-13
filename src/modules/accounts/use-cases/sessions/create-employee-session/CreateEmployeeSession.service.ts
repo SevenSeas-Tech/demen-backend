@@ -13,7 +13,7 @@ import { IValidationProvider } from '@shared/containers/providers/validation-pro
 @injectable()
 export class CreateEmployeeSessionService {
   constructor(
-    @inject('UsersRepository')
+    @inject('EmployeesRepository')
     private employeesRepository: IEmployeesRepository,
 
     @inject('TokenProvider')
