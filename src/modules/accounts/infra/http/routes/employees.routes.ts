@@ -20,7 +20,7 @@ const listEmployeesController = new ListEmployeesController();
 // ---------------------------------------------------------------------------------------------- //
 employeesRouter.use(employeeAuthenticationMiddleware.execute);
 
-employeesRouter.get('/profile', showEmployeeProfileController.execute);
+employeesRouter.get('/:id', showEmployeeProfileController.execute);
 
 employeesRouter.patch('/profile', updateEmployeeController.execute);
 
