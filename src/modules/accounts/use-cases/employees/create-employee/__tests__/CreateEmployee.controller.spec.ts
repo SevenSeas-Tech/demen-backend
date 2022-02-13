@@ -2,22 +2,42 @@ import request from 'supertest';
 import { Connection } from 'typeorm';
 
 import createConnection from '@shared:typeorm/index';
+import { BcryptProvider } from '@shared/containers/providers/hash-provider/implementations/Bcrypt.provider';
 import App from '@shared/infra/http/App';
 
 // ---------------------------------------------------------------------------------------------- //
 
+// TODO: Create tests for phone validation
+
 describe('Create Employee Controller', () => {
   let connection: Connection;
+  const hashProvider = new BcryptProvider();
 
   const name = 'foo';
   const email = 'foo@bar.com';
   const lastName = 'bar';
   const password = 'Password12';
   const username = 'foobar';
+  const phone = '99 99999 9999';
+
+  const adminEmail = 'admin@admin.com';
+
+  const authorize = async () => {
+    const session = await request(App)
+      .post('/accounts/sessions/employees')
+      .send({ email: adminEmail, password });
+    const authorization = `Bearer ${session.body.token}`;
+
+    return authorization;
+  };
 
   beforeAll(async () => {
     connection = await createConnection();
     await connection.runMigrations();
+    const adminPassword = await hashProvider.hash(password);
+
+    await connection.query(`INSERT INTO employees (username, email, name, last_name, password, phone)
+    VALUES ('admin', '${adminEmail}', 'admin', 'admin', '${adminPassword}', '${phone}')`);
   });
 
   afterAll(async () => {
@@ -27,13 +47,19 @@ describe('Create Employee Controller', () => {
 
   // *** ----  Employee Creation ------------------------------------------------------------ *** //
   it('Should create a employee', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username,
-      name,
-      lastName,
-      email,
-      password
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username,
+        name,
+        lastName,
+        email,
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const employee = response.body;
 
@@ -43,7 +69,6 @@ describe('Create Employee Controller', () => {
     expect(employee.username).toEqual(username);
 
     expect(employee).not.toHaveProperty('password');
-    expect(employee).not.toHaveProperty('admin');
     expect(employee).not.toHaveProperty('videos');
 
     expect(employee).toHaveProperty('name');
@@ -55,6 +80,9 @@ describe('Create Employee Controller', () => {
     expect(employee).toHaveProperty('email');
     expect(employee.email).toEqual(email);
 
+    expect(employee).toHaveProperty('phone');
+    expect(employee.phone).toEqual(phone);
+
     expect(employee).toHaveProperty('createdAt');
     expect(employee.createdAt).toBeTruthy();
 
@@ -64,15 +92,19 @@ describe('Create Employee Controller', () => {
 
   // *** ---- Uniqueness Validation Tests --------------------------------------------------- *** //
   it('should not create employee if username is taken', async () => {
+    const authorization = await authorize();
+
     const response = await request(App)
-      .post('/accounts/users')
+      .post('/accounts/employees')
       .send({
         username,
         name,
         lastName,
         email: `2${email}`,
-        password
-      });
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -86,15 +118,19 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should not create employee if email is in use', async () => {
+    const authorization = await authorize();
+
     const response = await request(App)
-      .post('/accounts/users')
+      .post('/accounts/employees')
       .send({
         username: `${username}2`,
         name,
         lastName,
         email,
-        password
-      });
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -107,13 +143,19 @@ describe('Create Employee Controller', () => {
 
   // *** ---- Email Validation Tests -------------------------------------------------------- *** //
   it('should not create employee with invalid email', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username,
-      name,
-      lastName,
-      email: 'invalid-email',
-      password
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username,
+        name,
+        lastName,
+        email: 'invalid-email',
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -127,13 +169,19 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should not create employee when email has spaces', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username,
-      name,
-      lastName,
-      email: ' foobar@example.com ',
-      password
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username,
+        name,
+        lastName,
+        email: ' foobar@example.com ',
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -146,13 +194,19 @@ describe('Create Employee Controller', () => {
 
   // *** ---- User Validation Tests --------------------------------------------------------- *** //
   it('should not create employee with username length < 5', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username: 'abcd',
-      name,
-      lastName,
-      email,
-      password
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username: 'abcd',
+        name,
+        lastName,
+        email,
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -166,13 +220,19 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should not create employee with username is bigger than 16 characters', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username: 'foo_bar_huge_0017',
-      name,
-      lastName,
-      email,
-      password
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username: 'foo_bar_huge_0017',
+        name,
+        lastName,
+        email,
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -186,13 +246,19 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should not create employee with username containing symbols', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username: 'foobar_?',
-      name,
-      lastName,
-      email,
-      password
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username: 'foobar_?',
+        name,
+        lastName,
+        email,
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -206,13 +272,19 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should not create employee with username starting with number', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username: '3foobar',
-      name,
-      lastName,
-      email,
-      password
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username: '3foobar',
+        name,
+        lastName,
+        email,
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -226,13 +298,18 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should not create employee when username has more than one word', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username: 'foobar bar',
-      name,
-      lastName,
-      email,
-      password
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username: 'foobar bar',
+        name,
+        lastName,
+        email,
+        password
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -245,13 +322,19 @@ describe('Create Employee Controller', () => {
 
   // *** ---- Name Validation Tests --------------------------------------------------------- *** //
   it('should not create employee with name length < 3', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username,
-      name: 'ab',
-      lastName,
-      email,
-      password
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username,
+        name: 'ab',
+        lastName,
+        email,
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -265,13 +348,19 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should not create employee with last name length < 3', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username,
-      name,
-      lastName: 'ab',
-      email,
-      password
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username,
+        name,
+        lastName: 'ab',
+        email,
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -285,15 +374,21 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should create employee without spaces on names', async () => {
+    const authorization = await authorize();
+
     const email = 'nospaces@names.com';
 
-    const response = await request(App).post('/accounts/users').send({
-      username: 'foobar_space',
-      name: ' foo ',
-      lastName: ' bar ',
-      email,
-      password
-    });
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username: 'foobar_space',
+        name: ' foo ',
+        lastName: ' bar ',
+        email,
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const employee = response.body;
 
@@ -305,15 +400,21 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should create employee using lower letters on names', async () => {
+    const authorization = await authorize();
+
     const username = 'foobar_cap';
     const email = 'nocapitalized@names.com';
-    const response = await request(App).post('/accounts/users').send({
-      username,
-      name: 'Foo',
-      lastName: 'Bar',
-      email,
-      password
-    });
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username,
+        name: 'Foo',
+        lastName: 'Bar',
+        email,
+        password,
+        phone
+      })
+      .set({ authorization });
 
     const employee = response.body;
 
@@ -325,13 +426,19 @@ describe('Create Employee Controller', () => {
 
   // *** ---- Password Validation ----------------------------------------------------------- *** //
   it('should not create employee when password has no numbers', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username,
-      name,
-      lastName,
-      email,
-      password: 'Password'
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username,
+        name,
+        lastName,
+        email,
+        password: 'Password',
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -345,13 +452,19 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should not create employee when password has no capitalized letters', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username,
-      name,
-      lastName,
-      email,
-      password: 'password14'
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username,
+        name,
+        lastName,
+        email,
+        password: 'password14',
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -365,13 +478,19 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should not create employee when password has length < 6', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username,
-      name,
-      lastName,
-      email,
-      password: 'Less6'
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username,
+        name,
+        lastName,
+        email,
+        password: 'Less6',
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -385,13 +504,19 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should not create employee when password has length > 16', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username,
-      name,
-      lastName,
-      email,
-      password: 'HugePassword00017'
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username,
+        name,
+        lastName,
+        email,
+        password: 'HugePassword00017',
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
@@ -405,13 +530,19 @@ describe('Create Employee Controller', () => {
   // -------------------------------------------------------------------------------------------- //
 
   it('should not create employee when password has 3 repeated', async () => {
-    const response = await request(App).post('/accounts/users').send({
-      username,
-      name,
-      lastName,
-      email,
-      password: 'Password111'
-    });
+    const authorization = await authorize();
+
+    const response = await request(App)
+      .post('/accounts/employees')
+      .send({
+        username,
+        name,
+        lastName,
+        email,
+        password: 'Password111',
+        phone
+      })
+      .set({ authorization });
 
     const { body } = response;
 
