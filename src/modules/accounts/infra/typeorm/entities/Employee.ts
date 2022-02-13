@@ -11,7 +11,7 @@ import { Video } from '@lessons:entities/Video';
 
 // ---------------------------------------------------------------------------------------------- //
 
-@Entity('users')
+@Entity('employees')
 export class Employee {
   @PrimaryGeneratedColumn('uuid')
   id!: string;
