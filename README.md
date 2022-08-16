@@ -48,7 +48,23 @@ Biblioteca gratuita de video aulas. Pensada para auxiliar estudantes de todas as
 
 <br>
 
+<a id="ancora6"></a>
+
+# Menu
+
+* [Rodando a aplicação](#ancora1).
+* [API](#ancora2).
+* [Banco de Dados](#ancora3).
+  * [Dicionário de dados](https://github.com/SevenSeas-Tech/demen-backend/blob/main/DATABASE.MD).
+* [Tecnologias](#ancora4).
+* [Colaboradores](#ancora5).
+
+<br><br>
+
 <!-- DOCUMENTAÇÃO ----------------------------------------------------------- -->
+
+<a id="ancora1"></a>
+
 # Rodando a  aplicação
 ## Gerando os containers
 
@@ -135,6 +151,8 @@ MIGRATIONS_DIR="./dist/shared/infra/typeorm/migrations"
 
 <br>
 
+<a id="ancora2"></a>
+
 # API
 
 <div align="center" style="padding:50px 0 50px 0;">
@@ -147,20 +165,25 @@ MIGRATIONS_DIR="./dist/shared/infra/typeorm/migrations"
 
 </div>
 
+
+<a id="ancora3"></a>
+
 # Banco de Dados
+> [Dicionário de dados](https://github.com/SevenSeas-Tech/demen-backend/blob/main/DATABASE.MD)
 
 <div align="center" style="padding: 0px 0px 50px 0;">
 
   <!-- Imagem conceitual -->
-  <!-- <img height="200px" src="https://i.imgur.com/YRRb9i8.png" title="source: imgur.com" /> -->
 
   <img height="200px" src="https://i.imgur.com/imrpA2W.png" title="source: imgur.com" />
 
 
   <!-- Imagem lógico -->
-  <!-- <img height="200px" src="https://i.imgur.com/kdUbR6Z.png" title="source: imgur.com" /> -->
+  <img width="250" src="https://i.imgur.com/s3sg9n4.png" title="source: imgur.com" />
 
 </div>
+
+<a id="ancora4"></a>
 
 # Tecnologias
 <div align="center">
@@ -210,5 +233,12 @@ MIGRATIONS_DIR="./dist/shared/infra/typeorm/migrations"
       * Ainda não implementado
 </div>
 
+<a id="ancora5"></a>
+
 # Colaboradores
 ![GitHub Contributors Image](https://contrib.rocks/image?repo=SevenSeas-Tech/demen-backend)
+
+<br><br>
+<hr>
+
+>[Voltar ao menu](#ancora6)
