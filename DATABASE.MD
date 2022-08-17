@@ -6,7 +6,7 @@
 <br><br>
 
 ## Modelo Lógico
-<img  src="https://i.imgur.com/s3sg9n4.png" />
+<img  src="https://i.imgur.com/eNwAXTC.png" />
 
 <br><br>
 
@@ -18,7 +18,7 @@
 
 
 ## Usuários
-<img  src="https://i.imgur.com/QcugOiy.png" />
+<img  src="https://i.imgur.com/xXSb2jg.png" />
 
 <br><br>
 
