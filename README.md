@@ -195,7 +195,7 @@ MIGRATIONS_DIR="./dist/shared/infra/typeorm/migrations"
 
 
   <!-- Imagem lógico -->
-  <img width="250" src="https://i.imgur.com/s3sg9n4.png" title="source: imgur.com" />
+  <img width="250" src="https://i.imgur.com/eNwAXTC.png" title="source: imgur.com" />
 
 </div>
 
