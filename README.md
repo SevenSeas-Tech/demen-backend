@@ -44,7 +44,22 @@
 
 <!-- TÍTULO -------------------------------------------------------------------- -->
 # Democratizando o Ensino
-Biblioteca gratuita de video aulas. Pensada para auxiliar estudantes de todas as áreas.
+
+<p>
+É um projeto pessoal de cunho social. Serve como uma biblioteca de video aulas e materiais de apoio para estudantes do Brasil inteiro.
+<P>
+
+O fundamento é de que existe muito conteúdo educacional gratuito na internet, mas extremamente descentralizado. Além disso, as vezes conteúdos bons não são privilegiados por algoritmos de busca como o do youtube.
+
+Um canal de Youtube pode ter uma aula de qualidade, mas ter o conteúdo muito nichado. Ou as thumbnails não são muito chamativas. Assim o Youtube não indicaria esse canal para o público.
+
+Um professor mesmo sendo muito bom, pode não entender de marketing digital o suficiente para que o vídeo ganhe repercussão.
+
+Então o democratizando o ensino vai ser um centralizador de conteúdo, com um banco de dados próprio que é alimentado por humanos, e só busca os vídeos na api do youtube na hora de reproduzir.
+
+Como os vídeos ainda são hospedados no Youtube, a monetização vai para o criador original. O "Demen" não lucra com o contéudo dos outros. Além disso as aulas serão sempre creditadas corretamente.
+
+É um projeto ambicioso e eu construo ele sozinho e aos poucos. E mesmo que ele fracasse, serve para eu por em prática as minhas habilidades para criar projetos, modelar bancos de dados, e programar para multiplataformas.
 
 <br>
 
@@ -54,6 +69,7 @@ Biblioteca gratuita de video aulas. Pensada para auxiliar estudantes de todas as
 
 * [Rodando a aplicação](#ancora1).
 * [API](#ancora2).
+  * [Projeto das Rotas](https://hbenvenutti.notion.site/Rotas-API-6382e85ba2b744b7ac597c0dac32e5ee)
 * [Banco de Dados](#ancora3).
   * [Dicionário de dados](https://github.com/SevenSeas-Tech/demen-backend/blob/main/DATABASE.MD).
 * [Tecnologias](#ancora4).
@@ -175,7 +191,7 @@ MIGRATIONS_DIR="./dist/shared/infra/typeorm/migrations"
 
   <!-- Imagem conceitual -->
 
-  <img height="200px" src="https://i.imgur.com/imrpA2W.png" title="source: imgur.com" />
+  <img height="200px" src="https://i.imgur.com/KUBBn3m.png" title="source: imgur.com" />
 
 
   <!-- Imagem lógico -->
