@@ -13,28 +13,7 @@ services:
     volumes:
       - pgdata:/data/postgres
 
-  app-dev:
-    build:
-      context: .
-      target: development
-    container_name: demen-dev-server
-    ports:
-      - 3333:3333
-      - 9229:9229
-    environment:
-      - NODE_ENV=development
-      - PORT=3333
-      - TYPEORM_ENTITIES=./dist/modules/**/infra/typeorm/entities/*.js
-      - TYPEORM_MIGRATIONS=./dist/shared/infra/typeorm/migrations/*.js
-      - MIGRATIONS_DIR=./dist/shared/infra/typeorm/migrations
-    volumes:
-      - .:/usr/app
-    links:
-      - database
-    depends_on:
-      - database
-
-  app-prod:
+  app:
     build:
       context: .
       target: production
