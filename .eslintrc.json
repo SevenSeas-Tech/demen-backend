@@ -5,14 +5,15 @@
         "jest": true
     },
     "extends": [
-        "airbnb-base",
-        "plugin:@typescript-eslint/recommended",
-        "prettier",
-        "plugin:prettier/recommended"
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:@typescript-eslint/recommended-requiring-type-checking",
+      "plugin:import/recommended",
+      "plugin:import/typescript"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "ecmaVersion": 12,
+        "ecmaVersion": "latest",
         "sourceType": "module"
     },
     "plugins": [
@@ -21,30 +22,63 @@
         "prettier"
     ],
     "rules": {
-      "prettier/prettier": "error",
-      "camelcase": "off",
-      "import/no-unresolved": "error",
-      "class-methods-use-this": "off",
-      "import/prefer-default-export": "off",
-      "no-shadow": "off",
-      "no-console": "off",
-      "no-useless-constructor": "off",
-      "no-empty-function": "off",
-      "lines-between-class-members": "off",
+      "prettier/prettier": ["error", {"usePrettierrc": true}],
+
+      // *** TYPESCRIPT -------------------------------------------- *** //
       "@typescript-eslint/no-unused-vars": ["error", {
-        "argsIgnorePattern": "_"
+          "argsIgnorePattern": "_"
       }],
-      "@typescript-eslint/naming-convention": [
+      "@typescript-eslint/array-type": ["error", {"default": "array"}],
+      "@typescript-eslint/consistent-type-exports": "error",
+      "@typescript-eslint/explicit-function-return-type": [
         "error",
-        {
-          "selector": "interface",
-          "format": ["PascalCase"],
-          "custom": {
-            "regex": "^I[A-Z]",
-            "match": true
-          }
-        }
+        {"allowExpressions": true}
       ],
+      "@typescript-eslint/consistent-type-imports": "error",
+
+      // *** Regular ESLINT
+
+      "arrow-spacing": ["error", {"before": true, "after": true}],
+      "comma-spacing": ["error", {"before": false, "after": true}],
+      "comma-style": ["error"],
+
+      "array-bracket-newline": ["error", "consistent"],
+      "array-element-newline": ["error", "consistent"],
+
+      "block-spacing": ["error", "always"],
+      "space-before-blocks": ["error", "always"],
+      "padded-blocks": ["error", "never"],
+      "brace-style": ["error", "stroustrup"],
+
+      "padding-line-between-statements": ["error", {
+          "blankLine": "always",
+          "prev": "*",
+          "next": "return"
+      }],
+
+      "object-curly-newline": ["error", {"minProperties": 3}],
+
+
+      "rest-spread-spacing": ["error", "never"],
+
+      "computed-property-spacing": ["error", "never"],
+
+      "dot-location": ["error", "property"],
+
+      "eol-last": ["error", "always"],
+
+      "func-call-spacing": ["error", "never"],
+      "function-call-argument-newline": ["error", "consistent"],
+
+      "no-multi-spaces": 2,
+      "no-whitespace-before-property": 2,
+
+      "nonblock-statement-body-position": ["error", "beside"],
+      "space-unary-ops": [2, {"words": true, "nonwords": false}],
+      "wrap-regex": 2,
+
+      // * ---- Import Helper Rules ----------------------------------------------------------- * //
+
       "import/extensions": [
         "error",
         "ignorePackages",
