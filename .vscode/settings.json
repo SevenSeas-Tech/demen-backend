@@ -1,0 +1,35 @@
+{
+  "cSpell.ignoreWords": [
+    "IAPI"
+  ],
+  "material-icon-theme.folders.associations": {
+    // Demen use-cases
+    "create-user": "controller",
+    "update-user": "controller",
+    "show-user-profile": "controller",
+    "list-users": "controller",
+    "create-user-session": "controller",
+
+    "create-employee": "controller",
+    "update-employee": "controller",
+    "show-employee-profile": "controller",
+    "list-employees": "controller",
+    "create-employee-session": "controller",
+
+    "create-video": "controller",
+
+    // Demen Modules
+    "accounts": "context",
+    "admin": "context",
+    "lessons": "context",
+    "videos": ""
+
+  },
+  "cSpell.words": [
+    "commitlint",
+    "demen",
+    "tsnd",
+    "tsyringe",
+    "typeorm"
+  ]
+}

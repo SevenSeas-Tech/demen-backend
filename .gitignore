@@ -1,7 +1,7 @@
 # DemEn
 
 # VSCODE Debbuger
-.vscode/*
+# .vscode/*
 !.vscode/launch.json
 !.vscode/tasks.json
 
