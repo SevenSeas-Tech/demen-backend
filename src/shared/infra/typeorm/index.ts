@@ -1,4 +1,8 @@
-import { Connection, createConnection, getConnectionOptions } from 'typeorm';
+import { createConnection, getConnectionOptions } from 'typeorm';
+
+import type { Connection } from 'typeorm';
+
+// * ------------------------------------------------------------------------------------------ * //
 
 export default async (host = process.env.DATABASE_URL): Promise<Connection> => {
   const defaultOptions = await getConnectionOptions();
