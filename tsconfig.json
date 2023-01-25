@@ -2,11 +2,10 @@
   "compilerOptions": {
     "allowJs": true,
     "target": "ESNext",
-    "module": "ESNext",
     "noEmit": true,
     "strict": true,
     "sourceMap": true,
-
+    "lib": ["ESNext"],
     "moduleResolution": "node",
     "baseUrl": "./src",
     "paths": {
