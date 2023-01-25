@@ -11,8 +11,9 @@ export class SubjectsCreation1674629056168 implements MigrationInterface {
       columns: [
         {
           name: 'id',
-          type: 'varchar',
-          isPrimary: true
+          type: 'uuid',
+          isPrimary: true,
+          default: 'uuid_generate_v4()'
         },
         {
           name: 'name',
@@ -20,7 +21,8 @@ export class SubjectsCreation1674629056168 implements MigrationInterface {
         },
         {
           name: 'description',
-          type: 'varchar'
+          type: 'varchar',
+          isNullable: true
         },
         {
           name: 'created_at',

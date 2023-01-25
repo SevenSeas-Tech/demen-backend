@@ -21,7 +21,8 @@ export class PhonesCreation1674627511080 implements MigrationInterface {
         },
         {
           name: 'international_code',
-          type: 'varchar'
+          type: 'varchar',
+          default: '+55'
         },
         {
           name: 'region_code',

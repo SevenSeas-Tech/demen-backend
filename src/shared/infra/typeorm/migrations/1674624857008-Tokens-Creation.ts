@@ -25,7 +25,8 @@ export class TokensCreation1674624857008 implements MigrationInterface {
         },
         {
           name: 'expired',
-          type: 'boolean'
+          type: 'boolean',
+          default: false
         },
         {
           name: 'valid_until',

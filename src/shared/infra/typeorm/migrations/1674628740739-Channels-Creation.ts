@@ -20,7 +20,8 @@ export class ChannelsCreation1674628740739 implements MigrationInterface {
         },
         {
           name: 'description',
-          type: 'varchar'
+          type: 'varchar',
+          isNullable: true
         },
         {
           name: 'thumbnail',

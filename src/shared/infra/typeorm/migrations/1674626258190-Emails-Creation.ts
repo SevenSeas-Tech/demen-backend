@@ -25,7 +25,8 @@ export class EmailsCreation1674626258190 implements MigrationInterface {
         },
         {
           name: 'verified',
-          type: 'boolean'
+          type: 'boolean',
+          default: false
         },
         {
           name: 'email',

@@ -25,7 +25,8 @@ export class UsersCreation1674624444628 implements MigrationInterface {
         },
         {
           name: 'is_active',
-          type: 'boolean'
+          type: 'boolean',
+          default: true
         },
 
         {
