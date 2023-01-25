@@ -1,5 +1,8 @@
 # DemEn
 
+# Drawio
+*.bkp
+
 # VSCODE Debbuger
 # .vscode/*
 !.vscode/launch.json
