@@ -4,7 +4,7 @@ import type { MigrationInterface, QueryRunner } from 'typeorm';
 
 // * ------------------------------------------------------------------------------------------ * //
 
-export class TokenCreation1674624857008 implements MigrationInterface {
+export class TokensCreation1674624857008 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     const tokens = new Table({
       name: 'tokens',
