@@ -152,7 +152,7 @@ yarn debug
 
 
   <!-- Imagem lógico -->
-  <img width="250" src="https://i.imgur.com/JKZZyXH.png" title="source: imgur.com" />
+  <img width="250" src="https://i.imgur.com/ObKPIO5.png" title="source: imgur.com" />
 
 </div>
 
