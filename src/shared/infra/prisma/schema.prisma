@@ -15,14 +15,76 @@ datasource db {
 // ? --- Prisma does not support multiple files for models yet ------------ ? //
 // TODO: When it does, change it to multiple files. ------------------------- //
 
-model TokenTypes {
-  /// ? --- Prisma generates the uuid - to make it generate on postgre use:
-  // ? --- id String   @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+// ? --- Prisma generates the uuid - to make it generate on postgres use:
+// ? --- id String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
 
-  id         String   @id @default(uuid()) @db.Uuid
-  name       String
-  created_at DateTime @default(now()) @db.Timestamp()
-  updated_at DateTime @default(now()) @db.Timestamp()
+model Email {
+  id        String    @id @default(uuid()) @db.Uuid
+  email     String    @db.VarChar(50)
+  userId    String    @map("user_id") @db.Uuid
+  typeId    String    @map("type_id") @db.Uuid
+  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp()
+  emailType EmailType @relation(fields: [typeId], references: [id], map: "FK_email_type", onDelete: Restrict, onUpdate: Cascade)
+  user      Manager   @relation(fields: [userId], references: [id], map: "FK_email_user", onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("emails")
+}
+
+// -------------------------------------------------------------------------- //
+
+model EmailType {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @db.VarChar(15)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  email     Email[]
+
+  @@map("email_types")
+}
+
+// -------------------------------------------------------------------------- //
+
+model Manager {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @db.VarChar(15)
+  lastName  String   @map("last_name") @db.VarChar(15)
+  isActive  Boolean  @default(true) @map("is_active") @db.Boolean
+  password  String
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  tokens    Token[]
+  emails    Email[]
+
+  @@map("managers")
+}
+
+// -------------------------------------------------------------------------- //
+
+model Token {
+  id         String    @id @default(uuid()) @db.Uuid
+  validUntil DateTime  @map("valid_until") @db.Timestamp()
+  isExpired  Boolean   @map("is_expired") @db.Boolean
+  userId     String    @map("user_id") @db.Uuid
+  typeId     String    @map("type_id") @db.Uuid
+  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp()
+  tokenType  TokenType @relation(fields: [typeId], references: [id], map: "FK_token_type", onDelete: Restrict, onUpdate: Cascade)
+  user       Manager   @relation(fields: [userId], references: [id], map: "FK_token_user", onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("tokens")
+}
+
+// -------------------------------------------------------------------------- //
+
+model TokenType {
+  id   String @id @default(uuid()) @db.Uuid
+  name String @db.VarChar(15)
+
+  tokens Token[]
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
 
   @@map("token_types")
 }
