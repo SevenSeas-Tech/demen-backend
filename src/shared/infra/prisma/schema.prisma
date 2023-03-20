@@ -19,12 +19,13 @@ datasource db {
 // ? --- id String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
 
 model Email {
-  id        String    @id @default(uuid()) @db.Uuid
-  email     String    @db.VarChar(50)
-  userId    String    @map("user_id") @db.Uuid
-  typeId    String    @map("type_id") @db.Uuid
-  createdAt DateTime  @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime  @default(now()) @map("updated_at") @db.Timestamp()
+  id        String   @id @default(uuid()) @db.Uuid
+  email     String   @db.VarChar(50)
+  userId    String   @map("user_id") @db.Uuid
+  typeId    String   @map("type_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
   emailType EmailType @relation(fields: [typeId], references: [id], map: "FK_email_type", onDelete: Restrict, onUpdate: Cascade)
   user      Manager   @relation(fields: [userId], references: [id], map: "FK_email_user", onDelete: Restrict, onUpdate: Cascade)
 
@@ -55,22 +56,39 @@ model Manager {
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
   tokens    Token[]
   emails    Email[]
+  phones    Phone[]
 
   @@map("managers")
 }
 
 // -------------------------------------------------------------------------- //
 
+model Phone {
+  id                String   @id @default(uuid()) @db.Uuid
+  userId            String   @map("user_id") @db.Uuid
+  internationalCode String   @default("+55") @map("international_code") @db.VarChar(10)
+  phone             String   @db.VarChar(50)
+  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt         DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  user Manager @relation(fields: [userId], references: [id], map: "FK_phone_user", onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("phones")
+}
+
+// -------------------------------------------------------------------------- //
+
 model Token {
-  id         String    @id @default(uuid()) @db.Uuid
-  validUntil DateTime  @map("valid_until") @db.Timestamp()
-  isExpired  Boolean   @default(false) @map("is_expired") @db.Boolean
-  userId     String    @map("user_id") @db.Uuid
-  typeId     String    @map("type_id") @db.Uuid
-  createdAt  DateTime  @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt  DateTime  @default(now()) @map("updated_at") @db.Timestamp()
-  tokenType  TokenType @relation(fields: [typeId], references: [id], map: "FK_token_type", onDelete: Restrict, onUpdate: Cascade)
-  user       Manager   @relation(fields: [userId], references: [id], map: "FK_token_user", onDelete: Restrict, onUpdate: Cascade)
+  id         String   @id @default(uuid()) @db.Uuid
+  validUntil DateTime @map("valid_until") @db.Timestamp()
+  isExpired  Boolean  @default(false) @map("is_expired") @db.Boolean
+  userId     String   @map("user_id") @db.Uuid
+  typeId     String   @map("type_id") @db.Uuid
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  tokenType TokenType @relation(fields: [typeId], references: [id], map: "FK_token_type", onDelete: Restrict, onUpdate: Cascade)
+  user      Manager   @relation(fields: [userId], references: [id], map: "FK_token_user", onDelete: Restrict, onUpdate: Cascade)
 
   @@map("tokens")
 }
