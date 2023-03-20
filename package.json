@@ -41,6 +41,7 @@
     "google-auth-library": "^7.11.0",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.6.0",
+    "prisma": "^4.11.0",
     "reflect-metadata": "^0.1.13",
     "swagger-ui-express": "^4.1.6",
     "tsyringe": "^4.6.0",
