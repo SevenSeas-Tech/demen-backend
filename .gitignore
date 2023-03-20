@@ -3,6 +3,9 @@
 # Drawio
 *.bkp
 
+# VSCODE CSPELL
+.cspell
+
 # VSCODE Debbuger
 # .vscode/*
 !.vscode/launch.json

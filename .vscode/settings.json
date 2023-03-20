@@ -1,7 +1,4 @@
 {
-  "cSpell.ignoreWords": [
-    "IAPI"
-  ],
   "material-icon-theme.folders.associations": {
     // Demen use-cases
     "create-user": "controller",
@@ -25,11 +22,12 @@
     "videos": ""
 
   },
-  "cSpell.words": [
-    "commitlint",
-    "demen",
-    "tsnd",
-    "tsyringe",
-    "typeorm"
-  ]
+  "cSpell.customDictionaries": {
+    "custom-dictionary-workspace": {
+      "name": "custom-dictionary-workspace",
+      "path": "${workspaceFolder:demen-backend}/.vscode/.cspell/custom-dictionary-workspace.txt",
+      "addWords": true,
+      "scope": "workspace"
+    }
+  }
 }
