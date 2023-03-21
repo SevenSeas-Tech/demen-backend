@@ -128,7 +128,7 @@ model Student {
 
 model Channel {
   id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name        String   @db.VarChar(50)
+  name        String   @unique @db.VarChar(50)
   description String?  @db.Text
   imageUrl    String   @map("image_url") @db.Text
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp()
@@ -188,6 +188,7 @@ model Teacher {
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
 
   videos Video[]
+  links  TeacherLink[]
 
   @@map("teachers")
 }
@@ -204,4 +205,31 @@ model Subject {
   videos Video[]
 
   @@map("subjects")
+}
+
+// -------------------------------------------------------------------------- //
+
+model TeacherLink {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String   @db.VarChar(20)
+  link      String   @db.Text
+  teacherId String   @map("teacher_id") @db.Uuid
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  teacher Teacher @relation(fields: [teacherId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("teacher_links")
+}
+
+// -------------------------------------------------------------------------- //
+
+model Disciplines {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @db.VarChar(20)
+  description String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  @@map("disciplines")
 }
