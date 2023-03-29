@@ -15,7 +15,7 @@
     "prepare": "husky install"
   },
   "prisma": {
-    "schema": "src/shared/infra/prisma/schema.prisma"
+    "schema": "src/shared/infra/database/prisma/schema.prisma"
   },
   "husky": {
     "hooks": {
