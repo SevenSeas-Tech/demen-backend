@@ -51,6 +51,9 @@
     "arrow-parens": ["error", "as-needed"],
     "max-len": ["error", { "code": 80 }],
     "comma-dangle": ["error", "never"],
+    "semi": ["error", "always"],
+    "object-curly-spacing": ["error", "always"],
+    "array-bracket-spacing": ["error", "always"],
 
     // *** --- Import --------------------------------------------------- *** //
     "@typescript-eslint/consistent-type-imports": "error",
