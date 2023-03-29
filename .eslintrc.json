@@ -30,7 +30,10 @@
     "prettier"
 ],
   "rules": {
-    "prettier/prettier": ["error", {"usePrettierrc": true}],
+    // *** --- Prittier ------------------------------------------------- *** //
+    // "prettier/prettier": ["error", {"usePrettierrc": true}],
+
+    // *** --- Typescript ----------------------------------------------- *** //
     "@typescript-eslint/no-unused-vars": ["error", {
         "argsIgnorePattern": "_"
     }],
@@ -40,6 +43,16 @@
       "error",
       {"allowExpressions": true}
     ],
+
+    // *** --- Prittier Equivalent -------------------------------------- *** //
+    "indent": ["error", 2],
+    "linebreak-style": ["error","unix"],
+    "quotes": ["error","single"],
+    "arrow-parens": ["error", "as-needed"],
+    "max-len": ["error", { "code": 80 }],
+    "comma-dangle": ["error", "never"],
+
+    // *** --- Import --------------------------------------------------- *** //
     "@typescript-eslint/consistent-type-imports": "error",
     "import/order": ["error", {
         "groups": [
@@ -49,6 +62,7 @@
         "newlines-between": "always"
     }],
     "import/newline-after-import": "error",
+
     "arrow-spacing": ["error", {"before": true, "after": true}],
     "semi-spacing": ["error", {"before": false, "after": false}],
     "comma-spacing": ["error", {"before": false, "after": true}],
@@ -74,6 +88,8 @@
     "no-whitespace-before-property": 2,
     "nonblock-statement-body-position": ["error", "beside"],
     "space-unary-ops": [2, {"words": true, "nonwords": false}],
-    "wrap-regex": 2
+    "wrap-regex": 2,
+
+    "no-multiple-empty-lines": ["error", {"max": 1}]
   }
 }
