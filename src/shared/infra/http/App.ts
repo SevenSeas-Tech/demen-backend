@@ -19,7 +19,7 @@ import type { JsonObject } from 'swagger-ui-express';
 import type { Request, Response, NextFunction } from 'express';
 
 import { AppError } from '@shared/errors/App.error';
-import createConnection from '@shared/infra/typeorm';
+import { database } from '@shared/infra/database';
 
 // * ---------------------------------------------------------------------- * //
 
@@ -31,7 +31,7 @@ class App {
   // ------------------------------------------------------------------------ //
 
   constructor() {
-    void createConnection();
+    void database.createConnection();
     this.middlewares();
     this.routes();
     this.exceptionHandler();
