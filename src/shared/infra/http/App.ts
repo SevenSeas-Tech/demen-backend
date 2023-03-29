@@ -9,7 +9,9 @@ import 'express-async-errors';
 import express from 'express';
 
 import { serve, setup } from 'swagger-ui-express';
-import { load } from 'yamljs';
+import Yaml from 'yamljs';
+
+// ! --- import { load } from 'yamljs' - Does not work -------------------- ! //
 
 import { routes } from './routes/index.routes';
 
@@ -23,7 +25,8 @@ import createConnection from '@shared/infra/typeorm';
 
 class App {
   server = express();
-  swaggerDocument = load('./swagger.yml') as JsonObject;
+  // eslint-disable-next-line import/no-named-as-default-member
+  swaggerDocument = Yaml.load('./swagger.yml') as JsonObject;
 
   // ------------------------------------------------------------------------ //
 
