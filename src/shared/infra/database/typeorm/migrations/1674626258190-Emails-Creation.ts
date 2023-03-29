@@ -2,12 +2,12 @@ import { Table } from 'typeorm';
 
 import type { MigrationInterface, QueryRunner } from 'typeorm';
 
-// * ------------------------------------------------------------------------------------------ * //
+// * ---------------------------------------------------------------------- * //
 
-export class PhonesCreation1674627511080 implements MigrationInterface {
+export class EmailsCreation1674626258190 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const phones = new Table({
-      name: 'phones',
+    const emails = new Table({
+      name: 'emails',
       columns: [
         {
           name: 'id',
@@ -20,16 +20,16 @@ export class PhonesCreation1674627511080 implements MigrationInterface {
           type: 'uuid'
         },
         {
-          name: 'international_code',
-          type: 'varchar',
-          default: '+55'
+          name: 'type_id',
+          type: 'uuid'
         },
         {
-          name: 'region_code',
-          type: 'varchar'
+          name: 'verified',
+          type: 'boolean',
+          default: false
         },
         {
-          name: 'phone',
+          name: 'email',
           type: 'varchar'
         },
         {
@@ -45,22 +45,30 @@ export class PhonesCreation1674627511080 implements MigrationInterface {
       ],
       foreignKeys: [
         {
-          name: 'FK_phone_user',
+          name: 'FK_email_user',
           referencedTableName: 'users',
-          referencedColumnNames: ['id'],
-          columnNames: ['user_id'],
+          referencedColumnNames: [ 'id' ],
+          columnNames: [ 'user_id' ],
+          onDelete: 'CASCADE',
+          onUpdate: 'CASCADE'
+        },
+        {
+          name: 'FK_email_type',
+          referencedTableName: 'email_types',
+          referencedColumnNames: [ 'id' ],
+          columnNames: [ 'type_id' ],
           onDelete: 'CASCADE',
           onUpdate: 'CASCADE'
         }
       ]
     });
 
-    await queryRunner.createTable(phones);
+    await queryRunner.createTable(emails);
   }
 
-  // -------------------------------------------------------------------------------------------- //
+  // ------------------------------------------------------------------------ //
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('phones');
+    await queryRunner.dropTable('emails');
   }
 }

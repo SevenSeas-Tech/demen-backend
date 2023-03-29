@@ -2,7 +2,7 @@ import { Table } from 'typeorm';
 
 import type { MigrationInterface, QueryRunner } from 'typeorm';
 
-// * ------------------------------------------------------------------------------------------ * //
+// * ---------------------------------------------------------------------- * //
 
 export class VideosCreation1674631642657 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -76,40 +76,40 @@ export class VideosCreation1674631642657 implements MigrationInterface {
         {
           name: 'FK_video_teacher',
           referencedTableName: 'teachers',
-          referencedColumnNames: ['id'],
-          columnNames: ['teacher_id'],
+          referencedColumnNames: [ 'id' ],
+          columnNames: [ 'teacher_id' ],
           onDelete: 'SET NULL',
           onUpdate: 'CASCADE'
         },
         {
           name: 'FK_video_institution',
           referencedTableName: 'institutions',
-          referencedColumnNames: ['id'],
-          columnNames: ['institution_id'],
+          referencedColumnNames: [ 'id' ],
+          columnNames: [ 'institution_id' ],
           onDelete: 'SET NULL',
           onUpdate: 'CASCADE'
         },
         {
           name: 'FK_video_user',
           referencedTableName: 'users',
-          referencedColumnNames: ['id'],
-          columnNames: ['added_by'],
+          referencedColumnNames: [ 'id' ],
+          columnNames: [ 'added_by' ],
           onDelete: 'RESTRICT',
           onUpdate: 'RESTRICT'
         },
         {
           name: 'FK_video_channel',
           referencedTableName: 'channels',
-          referencedColumnNames: ['id'],
-          columnNames: ['channel_id'],
+          referencedColumnNames: [ 'id' ],
+          columnNames: [ 'channel_id' ],
           onDelete: 'RESTRICT',
           onUpdate: 'RESTRICT'
         },
         {
           name: 'FK_video_subject',
           referencedTableName: 'subjects',
-          referencedColumnNames: ['id'],
-          columnNames: ['subject_id'],
+          referencedColumnNames: [ 'id' ],
+          columnNames: [ 'subject_id' ],
           onDelete: 'RESTRICT',
           onUpdate: 'RESTRICT'
         }
@@ -119,7 +119,7 @@ export class VideosCreation1674631642657 implements MigrationInterface {
     await queryRunner.createTable(videos);
   }
 
-  // ------------------------------------------------------------------------------------------ //
+  // ------------------------------------------------------------------------ //
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable('videos');

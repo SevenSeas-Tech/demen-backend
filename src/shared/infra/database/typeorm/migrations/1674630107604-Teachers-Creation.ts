@@ -2,29 +2,25 @@ import { Table } from 'typeorm';
 
 import type { MigrationInterface, QueryRunner } from 'typeorm';
 
-// * ------------------------------------------------------------------------------------------ * //
+// * ---------------------------------------------------------------------- * //
 
-export class ChannelsCreation1674628740739 implements MigrationInterface {
+export class TeachersCreation1674630107604 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const channels = new Table({
-      name: 'channels',
+    const teachers = new Table({
+      name: 'teachers',
       columns: [
         {
           name: 'id',
-          type: 'varchar',
-          isPrimary: true
+          type: 'uuid',
+          isPrimary: true,
+          default: 'uuid_generate_v4()'
         },
         {
           name: 'name',
           type: 'varchar'
         },
         {
-          name: 'description',
-          type: 'varchar',
-          isNullable: true
-        },
-        {
-          name: 'thumbnail',
+          name: 'last_name',
           type: 'varchar'
         },
         {
@@ -40,12 +36,12 @@ export class ChannelsCreation1674628740739 implements MigrationInterface {
       ]
     });
 
-    await queryRunner.createTable(channels);
+    await queryRunner.createTable(teachers);
   }
 
-  // -------------------------------------------------------------------------------------------- //
+  // ------------------------------------------------------------------------ //
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('channels');
+    await queryRunner.dropTable('teachers');
   }
 }

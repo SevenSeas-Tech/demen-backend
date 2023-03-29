@@ -2,12 +2,12 @@ import { Table } from 'typeorm';
 
 import type { MigrationInterface, QueryRunner } from 'typeorm';
 
-// * ------------------------------------------------------------------------------------------ * //
+// * ---------------------------------------------------------------------- * //
 
-export class SubjectsCreation1674629056168 implements MigrationInterface {
+export class TokenTypesCreation1674623392303 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const subjects = new Table({
-      name: 'subjects',
+    const tokenTypes = new Table({
+      name: 'token_types',
       columns: [
         {
           name: 'id',
@@ -16,13 +16,8 @@ export class SubjectsCreation1674629056168 implements MigrationInterface {
           default: 'uuid_generate_v4()'
         },
         {
-          name: 'name',
+          name: 'type',
           type: 'varchar'
-        },
-        {
-          name: 'description',
-          type: 'varchar',
-          isNullable: true
         },
         {
           name: 'created_at',
@@ -37,12 +32,10 @@ export class SubjectsCreation1674629056168 implements MigrationInterface {
       ]
     });
 
-    await queryRunner.createTable(subjects);
+    await queryRunner.createTable(tokenTypes);
   }
 
-  // -------------------------------------------------------------------------------------------- //
-
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('subjects');
+    await queryRunner.dropTable('token_types');
   }
 }

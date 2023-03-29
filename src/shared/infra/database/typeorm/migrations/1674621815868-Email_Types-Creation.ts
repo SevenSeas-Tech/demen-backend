@@ -2,12 +2,12 @@ import { Table } from 'typeorm';
 
 import type { MigrationInterface, QueryRunner } from 'typeorm';
 
-// * ------------------------------------------------------------------------------------------ * //
+// * ---------------------------------------------------------------------- * //
 
-export class InstitutionsCreation1674629760403 implements MigrationInterface {
+export class EmailTypesCreation1674621815868 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const institutions = new Table({
-      name: 'institutions',
+    const emailTypes = new Table({
+      name: 'email_types',
       columns: [
         {
           name: 'id',
@@ -16,13 +16,8 @@ export class InstitutionsCreation1674629760403 implements MigrationInterface {
           default: 'uuid_generate_v4()'
         },
         {
-          name: 'name',
+          name: 'type',
           type: 'varchar'
-        },
-        {
-          name: 'website',
-          type: 'varchar',
-          isNullable: true
         },
         {
           name: 'created_at',
@@ -37,12 +32,10 @@ export class InstitutionsCreation1674629760403 implements MigrationInterface {
       ]
     });
 
-    await queryRunner.createTable(institutions);
+    await queryRunner.createTable(emailTypes);
   }
 
-  // -------------------------------------------------------------------------------------------- //
-
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('institutions');
+    await queryRunner.dropTable('email_types');
   }
 }

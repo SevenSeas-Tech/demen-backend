@@ -2,7 +2,7 @@ import { Table } from 'typeorm';
 
 import type { MigrationInterface, QueryRunner } from 'typeorm';
 
-// * ------------------------------------------------------------------------------------------ * //
+// * ---------------------------------------------------------------------- * //
 
 export class TokensCreation1674624857008 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -47,16 +47,16 @@ export class TokensCreation1674624857008 implements MigrationInterface {
         {
           name: 'FK_token_user',
           referencedTableName: 'users',
-          referencedColumnNames: ['id'],
-          columnNames: ['user_id'],
+          referencedColumnNames: [ 'id' ],
+          columnNames: [ 'user_id' ],
           onDelete: 'CASCADE',
           onUpdate: 'CASCADE'
         },
         {
           name: 'FK_token_type',
           referencedTableName: 'token_types',
-          referencedColumnNames: ['id'],
-          columnNames: ['type_id'],
+          referencedColumnNames: [ 'id' ],
+          columnNames: [ 'type_id' ],
           onDelete: 'CASCADE',
           onUpdate: 'CASCADE'
         }
@@ -66,7 +66,7 @@ export class TokensCreation1674624857008 implements MigrationInterface {
     await queryRunner.createTable(tokens);
   }
 
-  // -------------------------------------------------------------------------------------------- //
+  // ------------------------------------------------------------------------ //
 
   public async down(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.dropTable('tokens');
