@@ -23,6 +23,7 @@
       "@management:entities/*": ["modules/management/infra/typeorm/entities/*"],
       "@management:errors/*": ["modules/management/errors/*"],
       "@management:mapper/*": ["modules/management/mapper/*"],
+      "@management:providers/*": ["modules/management/providers/*"],
       "@management:repos/*": ["modules/management/infra/typeorm/repositories/*"],
       "@management:irepos/*": ["modules/management/repositories/*"],
       "@management:routes/*": ["modules/management/infra/http/routes/*"],
