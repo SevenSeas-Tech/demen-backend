@@ -17,6 +17,7 @@
 
     // Demen Modules
     "accounts": "context",
+    "management": "context",
     "admin": "context",
     "lessons": "context",
     "education": "context",

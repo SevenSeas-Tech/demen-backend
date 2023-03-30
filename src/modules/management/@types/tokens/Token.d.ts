@@ -1,4 +1,4 @@
-import { Email, Uuid } from '@accounts:types/users/User';
+import type { Email, Uuid } from '@accounts:types/users/User';
 
 export type Token = string;
 
