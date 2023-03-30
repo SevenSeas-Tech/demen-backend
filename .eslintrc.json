@@ -49,7 +49,7 @@
     "linebreak-style": ["error","unix"],
     "quotes": ["error","single"],
     "arrow-parens": ["error", "as-needed"],
-    "max-len": ["error", { "code": 80 }],
+    "max-len": ["error", { "code": 100 }],
     "comma-dangle": ["error", "never"],
     "semi": ["error", "always"],
     "object-curly-spacing": ["error", "always"],
