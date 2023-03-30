@@ -1,0 +1,352 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// * --- models ----------------------------------------------------------- * //
+
+// ? --- Prisma does not support multiple files for models yet ------------ ? //
+// TODO: When it does, change it to multiple files. ------------------------- //
+
+// ? --- Prisma generates the uuid - to make it generate on postgres use:
+// ? --- id String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+
+// *** --- management --------------------------------------------------- *** //
+
+model Email {
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId String @map("user_id") @db.Uuid
+  typeId String @map("type_id") @db.Uuid
+
+  email    String  @unique @db.VarChar(50)
+  verified Boolean @default(false) @db.Boolean
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  emailType EmailType @relation(fields: [typeId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  user      Manager   @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("emails")
+}
+
+// -------------------------------------------------------------------------- //
+
+model EmailType {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String   @unique @db.VarChar(15)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  email Email[]
+
+  @@map("email_types")
+}
+
+// -------------------------------------------------------------------------- //
+
+model Issue {
+  id        String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  typeId    String @map("type_id") @db.VarChar(20)
+  managerId String @map("managers_id") @db.Uuid
+  studentId String @map("student_id") @db.Uuid
+  videoId   String @map("video_id")
+
+  description String?  @db.Text
+  review      String?  @db.Text
+  isOpen      Boolean  @default(true) @map("is_open") @db.Boolean
+  closedAt    DateTime @default(now()) @map("closed_at") @db.Timestamp()
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  closedBy Manager   @relation(fields: [managerId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  openedBy Student   @relation(fields: [studentId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  type     IssueType @relation(fields: [typeId], references: [name], onDelete: Restrict, onUpdate: Cascade)
+  video    Video     @relation(fields: [videoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("issues")
+}
+
+// -------------------------------------------------------------------------- //
+
+model IssueType {
+  name      String   @id @db.VarChar(20)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  issue Issue[]
+
+  @@map("issue_types")
+}
+
+// -------------------------------------------------------------------------- //
+
+model Manager {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String   @db.VarChar(15)
+  lastName  String   @map("last_name") @db.VarChar(15)
+  isActive  Boolean  @default(true) @map("is_active") @db.Boolean
+  password  String
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  issues Issue[]
+  emails Email[]
+  phones Phone[]
+  tokens Token[]
+  videos Video[]
+
+  @@map("managers")
+}
+
+// -------------------------------------------------------------------------- //
+
+model Phone {
+  id                String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId            String   @map("user_id") @db.Uuid
+  internationalCode String   @default("+55") @map("international_code") @db.VarChar(10)
+  phone             String   @db.VarChar(50)
+  createdAt         DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt         DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  user Manager @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("phones")
+}
+
+// -------------------------------------------------------------------------- //
+
+model Token {
+  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  userId String @map("user_id") @db.Uuid
+  typeId String @map("type_id") @db.Uuid
+
+  validUntil DateTime @map("valid_until") @db.Timestamp()
+  isExpired  Boolean  @default(false) @map("is_expired") @db.Boolean
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  tokenType TokenType @relation(fields: [typeId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  user      Manager   @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("tokens")
+}
+
+// -------------------------------------------------------------------------- //
+
+model TokenType {
+  id   String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name String @db.VarChar(15)
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  tokens Token[]
+
+  @@map("token_types")
+}
+
+// *** --- students ----------------------------------------------------- *** //
+
+model Student {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String   @db.VarChar(20)
+  lastName  String   @map("last_name") @db.VarChar(20)
+  isActive  Boolean  @default(true) @map("is_active") @db.Boolean
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  issues Issue[]
+
+  @@map("students")
+}
+
+// *** --- content ------------------------------------------------------ *** //
+
+model Channel {
+  id          String   @id
+  name        String   @unique @db.VarChar(50)
+  description String?  @db.Text
+  imageUrl    String   @map("image_url") @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  videos Video[]
+
+  @@map("channels")
+}
+
+// -------------------------------------------------------------------------- //
+
+model Video {
+  id            String  @id
+  channelId     String  @map("channel_id")
+  institutionId String? @map("institution_id") @db.Uuid
+  subjectId     String  @map("subject_id") @db.Uuid
+  teacherId     String? @map("teacher_id") @db.Uuid
+  userId        String  @map("user_id") @db.Uuid
+
+  description String?  @db.Text
+  disabled    Boolean  @default(false) @db.Boolean
+  title       String   @db.VarChar(100)
+  thumbnail   String   @db.Text
+  publishedAy DateTime @map("published_at") @db.Timestamp()
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  addedBy     Manager      @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  channel     Channel      @relation(fields: [channelId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  institution Institution? @relation(fields: [institutionId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  teacher     Teacher?     @relation(fields: [teacherId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  subject     Subject      @relation(fields: [subjectId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  issues Issue[]
+
+  @@map("videos")
+}
+
+// *** --- education ---------------------------------------------------- *** //
+
+model Course {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  levelId     String   @map("level_id") @db.Uuid
+  name        String   @db.VarChar(100)
+  description String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  level Level @relation(fields: [levelId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  disciplines CourseDiscipline[]
+
+  @@map("courses")
+}
+
+// -------------------------------------------------------------------------- //
+
+model CourseDiscipline {
+  courseId     String   @map("course_id") @db.Uuid
+  disciplineId String   @map("discipline_id") @db.Uuid
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt    DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  course     Course     @relation(fields: [courseId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  discipline Discipline @relation(fields: [disciplineId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@id([courseId, disciplineId])
+  @@map("course_disciplines")
+}
+
+// -------------------------------------------------------------------------- //
+
+model Discipline {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @db.VarChar(20)
+  description String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  subjects DisciplineSubject[]
+  courses  CourseDiscipline[]
+
+  @@map("disciplines")
+}
+
+// -------------------------------------------------------------------------- //
+
+model DisciplineSubject {
+  disciplineId String   @map("discipline_id") @db.Uuid
+  subjectId    String   @map("subject_id") @db.Uuid
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt    DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  subject    Subject    @relation(fields: [subjectId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  discipline Discipline @relation(fields: [disciplineId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@id([disciplineId, subjectId])
+  @@map("discipline_subjects")
+}
+
+// -------------------------------------------------------------------------- //
+
+model Institution {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String   @db.VarChar(100)
+  website   String?  @db.Text
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  videos Video[]
+
+  @@map("institutions")
+}
+
+model Level {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @unique @db.VarChar(20)
+  description String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  courses Course[]
+
+  @@map("levels")
+}
+
+// -------------------------------------------------------------------------- //
+
+model Teacher {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String?  @db.VarChar(20)
+  lastName  String   @map("last_name") @db.VarChar(20)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  videos Video[]
+  links  TeacherLink[]
+
+  @@map("teachers")
+}
+
+// -------------------------------------------------------------------------- //
+
+model TeacherLink {
+  id        String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  teacherId String @map("teacher_id") @db.Uuid
+
+  name String @db.VarChar(20)
+  link String @db.Text
+
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  teacher Teacher @relation(fields: [teacherId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+
+  @@map("teacher_links")
+}
+
+// -------------------------------------------------------------------------- //
+model Subject {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @db.VarChar(20)
+  description String?  @db.Text
+  createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp()
+  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamp()
+
+  videos      Video[]
+  disciplines DisciplineSubject[]
+
+  @@map("subjects")
+}
+
+// -------------------------------------------------------------------------- //

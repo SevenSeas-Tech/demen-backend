@@ -1,10 +1,10 @@
-import { CreateChannelDto } from '@lessons:dtos/CreateChannelDto';
-import Channel from '@lessons:entities/Channel';
-import IChannelRepositories from '@lessons:irepos/IChannels.repository';
+import { CreateChannelDto } from '@lessons:dtos/channels/CreateChannel.dto';
+import { Channel } from '@lessons:entities/Channel';
+import { IChannelsRepository } from '@lessons:irepos/IChannels.repository';
 
 // ---------------------------------------------------------------------------------------------- //
 
-class FakeChannelsRepository implements IChannelRepositories {
+export class FakeChannelsRepository implements IChannelsRepository {
   private channels: Channel[] = [];
 
   async create(data: CreateChannelDto): Promise<Channel> {
@@ -26,8 +26,8 @@ class FakeChannelsRepository implements IChannelRepositories {
 
     return channel;
   }
+
+  async findById(id: string): Promise<Channel | undefined> {
+    return this.channels.find(channel => channel.id === id);
+  }
 }
-
-// ---------------------------------------------------------------------------------------------- //
-
-export default FakeChannelsRepository;

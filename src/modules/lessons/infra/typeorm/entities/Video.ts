@@ -8,14 +8,14 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 
-import User from '@accounts:entities/User';
-import Channel from '@lessons:entities/Channel';
-import Subject from '@lessons:entities/Subject';
+import { User } from '@accounts:entities/User';
+import { Channel } from '@lessons:entities/Channel';
+import { Subject } from '@lessons:entities/Subject';
 
 // ---------------------------------------------------------------------------------------------- //
 
 @Entity('videos')
-class Video {
+export class Video {
   @PrimaryColumn()
   id!: string;
 
@@ -66,5 +66,3 @@ class Video {
   @JoinColumn({ name: 'subjectId' })
   subject!: Subject;
 }
-
-export default Video;

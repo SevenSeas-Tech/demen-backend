@@ -2,15 +2,17 @@ import { validate } from 'uuid';
 import * as yup from 'yup';
 import YupPassword from 'yup-password';
 
+import { CreateEmployeeDto } from '@accounts:dtos/employees/CreateEmployee.dto';
+import { UpdateEmployeeDto } from '@accounts:dtos/employees/UpdateEmployee.dto';
 import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
 import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
-import { LoginCredentials } from '@accounts:types/sessions/Sessions';
+import { EmployeeCredentials } from '@accounts:types/sessions/Sessions';
 
-import IValidationProvider from '../IValidation.provider';
+import { IValidationProvider } from '../IValidation.provider';
 
 // ---------------------------------------------------------------------------------------------- //
 
-class Yup implements IValidationProvider {
+export class Yup implements IValidationProvider {
   private usernameRegex = /^[A-Za-z]\w{5,15}$/;
 
   private passwordMin = 6;
@@ -28,9 +30,17 @@ class Yup implements IValidationProvider {
     YupPassword(yup);
   }
 
+  async validateUserCreationData(_: CreateUserDto): Promise<boolean> {
+    throw new Error('Method not implemented.');
+  }
+
+  async validateUserUpdateData(_: UpdateUserDto): Promise<boolean> {
+    throw new Error('Method not implemented.');
+  }
+
   // -------------------------------------------------------------------------------------------- //
 
-  async validateLogin(credentials: LoginCredentials): Promise<boolean> {
+  async validateLogin(credentials: EmployeeCredentials): Promise<boolean> {
     const loginSchema = yup.object().shape({
       email: yup.string().email().required(),
       password: yup
@@ -49,8 +59,8 @@ class Yup implements IValidationProvider {
 
   // -------------------------------------------------------------------------------------------- //
 
-  async validateUserCreationData(userData: CreateUserDto): Promise<boolean> {
-    const validUsername = this.usernameRegex.exec(userData.username);
+  async validateEmployeeCreationData(employeeData: CreateEmployeeDto): Promise<boolean> {
+    const validUsername = this.usernameRegex.exec(employeeData.username);
 
     if (!validUsername) {
       return false;
@@ -74,13 +84,13 @@ class Yup implements IValidationProvider {
         .required()
     });
     // console.log(await userSchema.validate(userData));
-    return userSchema.isValid(userData);
+    return userSchema.isValid(employeeData);
   }
 
   // -------------------------------------------------------------------------------------------- //
 
-  async validateUserUpdateData(userData: UpdateUserDto): Promise<boolean> {
-    const { id } = userData;
+  async validateEmployeeUpdateData(employeeData: UpdateEmployeeDto): Promise<boolean> {
+    const { id } = employeeData;
 
     const isUuid = validate(id);
 
@@ -94,8 +104,6 @@ class Yup implements IValidationProvider {
       lastName: yup.string().min(this.stringMin).required()
     });
 
-    return userSchema.isValid(userData);
+    return userSchema.isValid(employeeData);
   }
 }
-
-export default Yup;

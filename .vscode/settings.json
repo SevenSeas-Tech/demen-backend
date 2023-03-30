@@ -1,0 +1,33 @@
+{
+  "material-icon-theme.folders.associations": {
+    // Demen use-cases
+    "create-user": "controller",
+    "update-user": "controller",
+    "show-user-profile": "controller",
+    "list-users": "controller",
+    "create-user-session": "controller",
+
+    "create-employee": "controller",
+    "update-employee": "controller",
+    "show-employee-profile": "controller",
+    "list-employees": "controller",
+    "create-employee-session": "controller",
+
+    "create-video": "controller",
+
+    // Demen Modules
+    "accounts": "context",
+    "admin": "context",
+    "lessons": "context",
+    "videos": ""
+
+  },
+  "cSpell.customDictionaries": {
+    "custom-dictionary-workspace": {
+      "name": "custom-dictionary-workspace",
+      "path": "${workspaceFolder:demen-backend}/.vscode/.cspell/custom-dictionary-workspace.txt",
+      "addWords": true,
+      "scope": "workspace"
+    }
+  }
+}

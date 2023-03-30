@@ -4,11 +4,11 @@ import { SignTokenDto } from '@accounts:dtos/tokens/SignToken.dto';
 import { Token, TokenPayload, TokenResponse } from '@accounts:types/tokens/Token';
 import authConfig from '@config/auth/auth.config';
 
-import ITokenProvider from '../IToken.provider';
+import { ITokenProvider } from '../IToken.provider';
 
 // ---------------------------------------------------------------------------------------------  //
 
-class Jwt implements ITokenProvider {
+class JwtProvider implements ITokenProvider {
   private secret?: string;
   private expiresIn?: string;
 
@@ -60,4 +60,4 @@ class Jwt implements ITokenProvider {
   }
 }
 
-export default Jwt;
+export { JwtProvider };

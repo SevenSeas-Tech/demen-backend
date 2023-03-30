@@ -1,14 +1,23 @@
 declare namespace Express {
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   export interface Request {
     user: {
+      id: string;
+      googleId: string;
+      avatar: string;
+      email: string;
+      name: string;
+      lastName: string;
+      createdAt: Date;
+      updatedAt: Date;
+    };
+
+    employee: {
       id: string;
       username: string;
       email: string;
       name: string;
       lastName: string;
-      admin: boolean;
-      verified: boolean;
+      phone: string;
       videos?: Video[];
       createdAt: Date;
       updatedAt: Date;

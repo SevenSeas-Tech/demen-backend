@@ -1,7 +1,7 @@
 import { Router } from 'express';
 
-import accountsRouter from '@accounts:routes/index.routes';
-import adminRouter from '@admin:routes/index.routes';
+import { accountsRouter } from '@accounts:routes/index.routes';
+import { lessonsRouter } from '@lessons:routes/index.routes';
 
 // ---------------------------------------------------------------------------------------------- //
 
@@ -10,8 +10,8 @@ const routes = Router();
 // ---------------------------------------------------------------------------------------------- //
 
 routes.use('/accounts', accountsRouter);
-routes.use('/admin', adminRouter);
+routes.use('/lessons', lessonsRouter);
 
 // ---------------------------------------------------------------------------------------------- //
 
-export default routes;
+export { routes };

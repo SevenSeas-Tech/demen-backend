@@ -1,12 +1,12 @@
 import { getRepository, Repository } from 'typeorm';
 
-import { CreateVideoDto } from '@lessons:dtos/CreateVideo.dto';
-import Video from '@lessons:entities/Video';
-import IVideosRepository from '@lessons:irepos/IVideos.repository';
+import { CreateVideoDto } from '@lessons:dtos/videos/CreateVideo.dto';
+import { Video } from '@lessons:entities/Video';
+import { IVideosRepository } from '@lessons:irepos/IVideos.repository';
 
 // ---------------------------------------------------------------------------------------------- //
 
-class VideosRepository implements IVideosRepository {
+export class VideosRepository implements IVideosRepository {
   private repository: Repository<Video>;
 
   constructor() {
@@ -42,8 +42,8 @@ class VideosRepository implements IVideosRepository {
 
     return video;
   }
+
+  async findById(id: string): Promise<Video | undefined> {
+    return this.repository.findOne(id);
+  }
 }
-
-// ---------------------------------------------------------------------------------------------- //
-
-export default VideosRepository;

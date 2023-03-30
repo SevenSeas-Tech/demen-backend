@@ -7,12 +7,12 @@ import {
   UpdateDateColumn
 } from 'typeorm';
 
-import Video from '@lessons:entities/Video';
+import { Video } from '@lessons:entities/Video';
 
 // ---------------------------------------------------------------------------------------------- //
 
 @Entity('subjects')
-class Subject {
+export class Subject {
   @PrimaryColumn()
   id!: string;
 
@@ -33,5 +33,3 @@ class Subject {
   @OneToMany(() => Video, video => video.subject)
   videos!: Video[];
 }
-
-export default Subject;

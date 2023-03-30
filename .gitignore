@@ -1,7 +1,13 @@
 # DemEn
 
+# Drawio
+*.bkp
+
+# VSCODE CSPELL
+.cspell
+
 # VSCODE Debbuger
-.vscode/*
+# .vscode/*
 !.vscode/launch.json
 !.vscode/tasks.json
 

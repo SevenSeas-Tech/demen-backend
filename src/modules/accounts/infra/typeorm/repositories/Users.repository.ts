@@ -2,11 +2,12 @@ import { getRepository, Repository } from 'typeorm';
 
 import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
 import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
-import User from '@accounts:entities/User';
-import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import { User } from '@accounts:entities/User';
+import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 
 // ---------------------------------------------------------------------------------------------- //
-class UsersRepository implements IUsersRepository {
+
+export class UsersRepository implements IUsersRepository {
   private repository: Repository<User>;
 
   constructor() {
@@ -16,8 +17,8 @@ class UsersRepository implements IUsersRepository {
   // -------------------------------------------------------------------------------------------- //
 
   async create(data: CreateUserDto): Promise<User> {
-    const { username, name, lastName, email, password } = data;
-    const user = this.repository.create({ username, name, lastName, email, password });
+    const { name, lastName, email, avatar, googleId } = data;
+    const user = this.repository.create({ name, lastName, email, avatar, googleId });
 
     await this.repository.save(user);
 
@@ -52,11 +53,11 @@ class UsersRepository implements IUsersRepository {
     return this.repository.findOne({ email });
   }
 
-  async findByUsername(username: string): Promise<User | undefined> {
-    return this.repository.findOne({ username });
+  async findByGoogleId(googleId: string): Promise<User | undefined> {
+    return this.repository.findOne({ googleId });
+  }
+
+  async findByFullName(name: string, lastName: string): Promise<User[]> {
+    return this.repository.find({ name, lastName });
   }
 }
-
-// ---------------------------------------------------------------------------------------------- //
-
-export default UsersRepository;

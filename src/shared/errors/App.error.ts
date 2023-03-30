@@ -10,4 +10,4 @@ class AppError {
   }
 }
 
-export default AppError;
+export { AppError };

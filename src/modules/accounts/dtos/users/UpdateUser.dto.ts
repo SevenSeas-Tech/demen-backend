@@ -1,4 +1,4 @@
-import { Uuid } from '@accounts:types/users/User';
+import { Uuid } from '@shared/@types/Uuid';
 
 export type UpdateUserDto = {
   id: Uuid;

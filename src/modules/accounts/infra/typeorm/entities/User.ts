@@ -2,25 +2,19 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn
 } from 'typeorm';
-
-import Video from '@lessons:entities/Video';
 
 // ---------------------------------------------------------------------------------------------- //
 
 @Entity('users')
-class User {
-  @PrimaryColumn('uuid')
+export class User {
+  @PrimaryGeneratedColumn('uuid')
   id!: string;
 
-  @Column()
-  username!: string;
-
-  @Column()
-  password!: string;
+  @Column({ name: 'google_id' })
+  googleId!: string;
 
   @Column()
   email!: string;
@@ -32,21 +26,11 @@ class User {
   lastName!: string;
 
   @Column()
-  admin!: boolean;
-
-  @Column()
-  verified!: boolean;
+  avatar!: string;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;
 
   @UpdateDateColumn({ name: 'updated_at' })
   updatedAt!: Date;
-
-  // * ---- Foreign Keys ------------------------------------------------------------------------ //
-
-  @OneToMany(() => Video, video => video.user)
-  videos!: Video[];
 }
-
-export default User;

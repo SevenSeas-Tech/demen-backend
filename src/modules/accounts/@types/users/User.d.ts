@@ -1,4 +1,4 @@
-export type Uuid = string;
+import { Uuid } from '@shared/@types/Uuid';
 
 export type Email = string;
 

@@ -2,28 +2,23 @@ import { v4 as uuid } from 'uuid';
 
 import { CreateUserDto } from '@accounts:dtos/users/CreateUser.dto';
 import { UpdateUserDto } from '@accounts:dtos/users/UpdateUser.dto';
-import User from '@accounts:entities/User';
-import IUsersRepository from '@accounts:irepos/IUsers.repository';
+import { User } from '@accounts:entities/User';
+import { IUsersRepository } from '@accounts:irepos/IUsers.repository';
 
 // ---------------------------------------------------------------------------------------------- //
 
-class FakeUsersRepository implements IUsersRepository {
+export class FakeUsersRepository implements IUsersRepository {
   private users: User[] = [];
 
   async create(data: CreateUserDto): Promise<User> {
-    const { username, name, lastName, email, password } = data;
+    const { name, lastName, email } = data;
     const user = new User();
 
     Object.assign(user, {
       id: uuid(),
-      username,
-      admin: false,
       name,
       lastName,
       email,
-      password,
-      verified: false,
-      videos: [],
       createdAt: Date.now(),
       updatedAt: Date.now()
     });
@@ -47,14 +42,20 @@ class FakeUsersRepository implements IUsersRepository {
 
   // -------------------------------------------------------------------------------------------- //
 
-  async findByEmail(email: string): Promise<User | undefined> {
-    return this.users.find(user => user.email === email);
+  async findByGoogleId(googleId: string): Promise<User | undefined> {
+    return this.users.find(user => user.googleId === googleId);
   }
 
   // -------------------------------------------------------------------------------------------- //
 
-  async findByUsername(username: string): Promise<User | undefined> {
-    return this.users.find(user => user.username === username);
+  async findByFullName(name: string, lastName: string): Promise<User[]> {
+    return this.users.filter(user => user.name === name && user.lastName === lastName);
+  }
+
+  // -------------------------------------------------------------------------------------------- //
+
+  async findByEmail(email: string): Promise<User | undefined> {
+    return this.users.find(user => user.email === email);
   }
 
   // -------------------------------------------------------------------------------------------- //
@@ -70,5 +71,3 @@ class FakeUsersRepository implements IUsersRepository {
     return this.users[index];
   }
 }
-
-export default FakeUsersRepository;
