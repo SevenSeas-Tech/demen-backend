@@ -19,6 +19,8 @@
     "accounts": "context",
     "admin": "context",
     "lessons": "context",
+    "education": "context",
+    "students": "context",
     "videos": ""
 
   },
