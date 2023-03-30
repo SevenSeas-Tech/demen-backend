@@ -93,9 +93,12 @@ docker-compose up -d
 cp .env.dev .env
 ```
 
-## Rodando as Migrations
+## Prisma | Banco de dados
 ```
-yarn typeorm migration:run
+yarn prisma generate
+
+yarn prisma migrate reset
+
 ```
 
 ## Rodando os Testes
@@ -118,51 +121,6 @@ yarn prod:server
 ## Debug
 ```shell
 yarn debug
-```
-
->Para rodar o debugger é preciso mudar o caminho das migrations no .env para a build gerada pelo babel. Executar o debugger apontando para arquivos typescript gera erro:
-
-```shell
-yarn run v1.22.19
-$ node --inspect=0.0.0.0:9229 --nolazy dist/shared/infra/http/server.js
-Debugger listening on ws://0.0.0.0:9229/a8e7a5dc-3527-4f1f-b54f-bdd0ec2df371
-For help, see: https://nodejs.org/en/docs/inspector
-Listening at port: 3333
-    Environment: development
-
-/home/sindba/Documentos/7 Seas/Democratizando o Ensino/Backend/demen-backend/src/modules/accounts/infra/typeorm/entities/Employee.ts:1
-import {
-^^^^^^
-
-SyntaxError: Cannot use import statement outside a module
-    at Object.compileFunction (node:vm:352:18)
-    at wrapSafe (node:internal/modules/cjs/loader:1033:15)
-    at Module._compile (node:internal/modules/cjs/loader:1069:27)
-    at Object..js (node:internal/modules/cjs/loader:1159:10)
-    at Module.load (node:internal/modules/cjs/loader:981:32)
-    at Function._load (node:internal/modules/cjs/loader:822:12)
-    at Module.require (node:internal/modules/cjs/loader:1005:19)
-    at require (node:internal/modules/cjs/helpers:102:18)
-    at /home/sindba/Documentos/7 Seas/Democratizando o Ensino/Backend/demen-backend/node_modules/typeorm/util/DirectoryExportedClassesLoader.js:42:39
-    at Array.map (<anonymous>)
-error Command failed with exit code 1.
-info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.
-```
->Para corrigir o erro basta editar o arquivo .env:
-
-De
-```.env
-# TYPEORM
-TYPEORM_ENTITIES="./src/modules/**/infra/typeorm/entities/*.ts"
-TYPEORM_MIGRATIONS="./src/shared/infra/typeorm/migrations/*.ts"
-MIGRATIONS_DIR="./src/shared/infra/typeorm/migrations"
-```
-
-Para
-```.env
-TYPEORM_ENTITIES=TYPEORM_ENTITIES="./dist/modules/**/infra/typeorm/entities/*.js"
-TYPEORM_MIGRATIONS="./dist/shared/infra/typeorm/migrations/*.js"
-MIGRATIONS_DIR="./dist/shared/infra/typeorm/migrations"
 ```
 
 <br>
@@ -191,11 +149,11 @@ MIGRATIONS_DIR="./dist/shared/infra/typeorm/migrations"
 
   <!-- Imagem conceitual -->
 
-  <img height="200px" src="https://i.imgur.com/KUBBn3m.png" title="source: imgur.com" />
+  <img height="200px" src="https://i.imgur.com/qtju2AS.png" title="source: imgur.com" />
 
 
   <!-- Imagem lógico -->
-  <img width="250" src="https://i.imgur.com/eNwAXTC.png" title="source: imgur.com" />
+  <img width="250" src="https://i.imgur.com/ObKPIO5.png" title="source: imgur.com" />
 
 </div>
 
@@ -222,7 +180,7 @@ MIGRATIONS_DIR="./dist/shared/infra/typeorm/migrations"
         <td>Babel</td>
       </tr>
       <tr>
-        <td>Typeorm</td>
+        <td>Prisma</td>
         <td>Supertest</td>
         <td></td>
         <td>Commitlint</td>
