@@ -98,6 +98,7 @@ cp .env.dev .env
 yarn prisma generate
 
 yarn prisma migrate reset
+
 ```
 
 ## Rodando os Testes
@@ -193,7 +194,7 @@ yarn debug
         <td></td>
       </tr>
       <tr>
-        <td></td>
+        <td>MongoDB* (Logs)</td>
         <td></td>
         <td></td>
         <td>Prettier</td>
