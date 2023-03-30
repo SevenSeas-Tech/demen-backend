@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 
-import type { Database } from '../@types';
+import type { Database } from '@shared/@types/database';
 
 // * ---------------------------------------------------------------------- * //
 

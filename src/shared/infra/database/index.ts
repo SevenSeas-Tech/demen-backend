@@ -1,7 +1,7 @@
 
 import { PrismaDatabase } from './prisma/Prisma-Database';
 
-import type { Database } from './@types';
+import type { Database } from '@shared/@types/database';
 
 // * ---------------------------------------------------------------------- * //
 
