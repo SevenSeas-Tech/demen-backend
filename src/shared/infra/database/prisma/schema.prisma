@@ -57,7 +57,7 @@ model Issue {
   typeId    String @map("type_id") @db.VarChar(20)
   managerId String @map("managers_id") @db.Uuid
   studentId String @map("student_id") @db.Uuid
-  videoId   String @map("video_id") @db.Uuid
+  videoId   String @map("video_id")
 
   description String?  @db.Text
   review      String?  @db.Text
@@ -173,7 +173,7 @@ model Student {
 // *** --- content ------------------------------------------------------ *** //
 
 model Channel {
-  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id          String   @id
   name        String   @unique @db.VarChar(50)
   description String?  @db.Text
   imageUrl    String   @map("image_url") @db.Text
@@ -188,17 +188,18 @@ model Channel {
 // -------------------------------------------------------------------------- //
 
 model Video {
-  id            String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  userId        String  @map("user_id") @db.Uuid
-  channelId     String  @map("channel_id") @db.Uuid
-  teacherId     String? @map("teacher_id") @db.Uuid
-  subjectId     String  @map("subject_id") @db.Uuid
+  id            String  @id
+  channelId     String  @map("channel_id")
   institutionId String? @map("institution_id") @db.Uuid
+  subjectId     String  @map("subject_id") @db.Uuid
+  teacherId     String? @map("teacher_id") @db.Uuid
+  userId        String  @map("user_id") @db.Uuid
 
-  title       String  @db.VarChar(100)
-  description String? @db.Text
-  thumbnail   String  @db.Text
-  disabled    Boolean @default(false) @db.Boolean
+  description String?  @db.Text
+  disabled    Boolean  @default(false) @db.Boolean
+  title       String   @db.VarChar(100)
+  thumbnail   String   @db.Text
+  publishedAy DateTime @map("published_at") @db.Timestamp()
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
