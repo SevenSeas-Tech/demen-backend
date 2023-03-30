@@ -1,7 +1,7 @@
-export default {
-  expiresInJwt: '1d',
-  expiresInRefresh: '30d',
-  expiresInPassword: '20m',
+export const authConfig = {
+  expiresJwt: '1d',
+  expiresRefresh: '30d',
+  expiresPassword: '20m',
 
   secretJwt: process.env.JWT_SECRET as string,
   secretRefresh: process.env.JWT_REFRESH_SECRET as string,
