@@ -1,6 +1,9 @@
 import { container } from 'tsyringe';
 
-import { JwtProvider } from './token-provider/implementations/Jwt.provider';
-import { ITokenProvider } from './token-provider/IToken.provider';
+import type { TokenProvider } from '@management:types/providers/token';
 
-container.registerSingleton<ITokenProvider>('TokenProvider', JwtProvider);
+import { JsonWebTokenProvider } from '@management:providers/token/jwt';
+
+// * ---------------------------------------------------------------------- * //
+
+container.registerSingleton<TokenProvider>('TokenProvider', JsonWebTokenProvider);
