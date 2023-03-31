@@ -3,13 +3,13 @@ import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface Email {
+export interface Token {
   id: Uuid;
   typeId: Uuid;
   userId: Uuid;
 
-  email: string;
-  verified: boolean;
+  validUntil: Date;
+  isExpired: boolean;
 
   createdAt: Date;
   updatedAt: Date;
@@ -17,14 +17,14 @@ export interface Email {
 
 // -------------------------------------------------------------------------- //
 
-export interface EmailWithUser extends Email {
-  emailType: EmailType;
+export interface TokenFullData extends Token {
+  tokenType: TokenType;
   user: Manager;
 }
 
 // * ---------------------------------------------------------------------- * //
 
-export interface EmailType {
+export interface TokenType {
   id: Uuid;
   name: string;
 
@@ -34,6 +34,6 @@ export interface EmailType {
 
 // -------------------------------------------------------------------------- //
 
-export interface EmailTypeWithEmails extends EmailType {
-  emails: Email[];
+export interface TypeWithTokens extends TokenType {
+  tokens: Token[];
 }
