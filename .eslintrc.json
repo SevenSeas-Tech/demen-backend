@@ -55,6 +55,17 @@
     "object-curly-spacing": ["error", "always"],
     "array-bracket-spacing": ["error", "always"],
 
+    "@typescript-eslint/member-delimiter-style": [ "error", {
+      "multiline": {
+        "delimiter": "semi",
+        "requireLast": true
+      },
+      "singleline": {
+        "delimiter": "semi",
+        "requireLast": false
+      }
+    }],
+
     // *** --- Import --------------------------------------------------- *** //
     "@typescript-eslint/consistent-type-imports": "error",
     "import/order": ["error", {
