@@ -13,22 +13,14 @@ export interface Manager {
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
-}
 
-// -------------------------------------------------------------------------- //
-
-export interface ManagerWithPhoneAndEmail extends Manager {
-  emails: Email[];
-  phones: Phone[];
-}
-
-// -------------------------------------------------------------------------- //
-
-export interface ManagerFullData extends ManagerWithPhoneAndEmail {
-  issues: Issue[];
+  // *** --- relations -------------------------------------------------- *** //
+  emails?: Email[];
+  issues?: Issue[];
+  phones?: Phone[];
 
   // todo: create and import models:
-  tokens: Token[];
-  videos: Video[];
+  tokens?: Token[];
+  videos?: Video[];
 }
 
