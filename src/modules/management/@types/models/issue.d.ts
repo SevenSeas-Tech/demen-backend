@@ -5,34 +5,26 @@ import type { Uuid } from '@types';
 
 export interface Issue {
   id: Uuid;
-  managerId: Uuid;
+  managerId?: Uuid;
   studentId: Uuid;
   typeId: Uuid;
   videoId: Uuid;
 
   closedAt?: Date;
-  description?: string;
+  description: string;
   isOpen: boolean;
   review?: string;
 
   createdAt: Date;
   updatedAt: Date;
-}
 
-// -------------------------------------------------------------------------- //
+  // *** --- relations -------------------------------------------------- *** //
+  closedBy?: Manager;
+  type?: IssueType;
 
-export interface IssueWithType extends Issue {
-  type: IssueType;
-}
-
-// -------------------------------------------------------------------------- //
-
-export interface IssueFullData extends IssueWithType {
-  closedBy: Manager;
-
-  // todo: create and import models;
-  openedBy: Student;
-  video: Video;
+  // todo: create and import models:
+  openedBy?: Student;
+  video?: Video;
 }
 
 // * ---------------------------------------------------------------------- * //
@@ -42,10 +34,8 @@ export interface IssueType {
 
   createdAt: Date;
   updatedAt: Date;
-}
 
-// -------------------------------------------------------------------------- //
+  // *** --- relations -------------------------------------------------- *** //
 
-export interface TypeWithIssues extends IssueType {
-  issues: Issue[];
+  issues?: Issue[];
 }
