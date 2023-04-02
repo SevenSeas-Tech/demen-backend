@@ -59,7 +59,7 @@ model Issue {
   studentId String  @map("student_id") @db.Uuid
   videoId   String  @map("video_id")
 
-  description String?   @db.Text
+  description String   @db.Text
   review      String?   @db.Text
   isOpen      Boolean   @default(true) @map("is_open") @db.Boolean
   closedAt    DateTime? @map("closed_at") @db.Timestamp()
