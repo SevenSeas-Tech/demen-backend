@@ -13,13 +13,10 @@ export interface Email {
 
   createdAt: Date;
   updatedAt: Date;
-}
 
-// -------------------------------------------------------------------------- //
-
-export interface EmailWithUser extends Email {
-  emailType: EmailType;
-  user: Manager;
+  // *** --- relations -------------------------------------------------- *** //
+  emailType?: EmailType;
+  user?: Manager;
 }
 
 // * ---------------------------------------------------------------------- * //
@@ -30,10 +27,7 @@ export interface EmailType {
 
   createdAt: Date;
   updatedAt: Date;
-}
 
-// -------------------------------------------------------------------------- //
-
-export interface EmailTypeWithEmails extends EmailType {
-  emails: Email[];
+  // *** --- relations -------------------------------------------------- *** //
+  emails?: Email[];
 }
