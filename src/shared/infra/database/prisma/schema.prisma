@@ -1,6 +1,10 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
+// ? --- Prisma does not support multiple files for models yet ------------ ? //
+// TODO: When it does, change into multiple files. -------------------------- //
+
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,12 +15,6 @@ datasource db {
 }
 
 // * --- models ----------------------------------------------------------- * //
-
-// ? --- Prisma does not support multiple files for models yet ------------ ? //
-// TODO: When it does, change it to multiple files. ------------------------- //
-
-// ? --- Prisma generates the uuid - to make it generate on postgres use:
-// ? --- id String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
 
 // *** --- management --------------------------------------------------- *** //
 
@@ -336,6 +334,7 @@ model TeacherLink {
 }
 
 // -------------------------------------------------------------------------- //
+
 model Subject {
   id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name        String   @db.VarChar(20)
