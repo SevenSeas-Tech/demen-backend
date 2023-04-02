@@ -53,11 +53,11 @@ model EmailType {
 // -------------------------------------------------------------------------- //
 
 model Issue {
-  id        String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  typeId    String @map("type_id") @db.VarChar(20)
-  managerId String @map("managers_id") @db.Uuid
-  studentId String @map("student_id") @db.Uuid
-  videoId   String @map("video_id")
+  id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  typeId    String  @map("type_id") @db.VarChar(20)
+  managerId String? @map("managers_id") @db.Uuid
+  studentId String  @map("student_id") @db.Uuid
+  videoId   String  @map("video_id")
 
   description String?   @db.Text
   review      String?   @db.Text
@@ -67,7 +67,7 @@ model Issue {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
 
-  closedBy Manager   @relation(fields: [managerId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  closedBy Manager?  @relation(fields: [managerId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   openedBy Student   @relation(fields: [studentId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   type     IssueType @relation(fields: [typeId], references: [name], onDelete: Restrict, onUpdate: Cascade)
   video    Video     @relation(fields: [videoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
