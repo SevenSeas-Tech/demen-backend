@@ -4,7 +4,6 @@
 // ? --- Prisma does not support multiple files for models yet ------------ ? //
 // TODO: When it does, change into multiple files. -------------------------- //
 
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -57,7 +56,7 @@ model Issue {
   studentId String  @map("student_id") @db.Uuid
   videoId   String  @map("video_id")
 
-  description String   @db.Text
+  description String    @db.Text
   review      String?   @db.Text
   isOpen      Boolean   @default(true) @map("is_open") @db.Boolean
   closedAt    DateTime? @map("closed_at") @db.Timestamp()
@@ -197,7 +196,7 @@ model Video {
   disabled    Boolean  @default(false) @db.Boolean
   title       String   @db.VarChar(100)
   thumbnail   String   @db.Text
-  publishedAy DateTime @map("published_at") @db.Timestamp()
+  publishedAt DateTime @map("published_at") @db.Timestamp()
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
