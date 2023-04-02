@@ -13,13 +13,10 @@ export interface Token {
 
   createdAt: Date;
   updatedAt: Date;
-}
 
-// -------------------------------------------------------------------------- //
-
-export interface TokenFullData extends Token {
-  tokenType: TokenType;
-  user: Manager;
+  // *** --- relations -------------------------------------------------- *** //
+  tokenType?: TokenType;
+  user?: Manager;
 }
 
 // * ---------------------------------------------------------------------- * //
@@ -30,10 +27,7 @@ export interface TokenType {
 
   createdAt: Date;
   updatedAt: Date;
-}
 
-// -------------------------------------------------------------------------- //
-
-export interface TypeWithTokens extends TokenType {
-  tokens: Token[];
+  // *** --- relations -------------------------------------------------- *** //
+  tokens?: Token[];
 }
