@@ -9,10 +9,7 @@ export interface Phone {
   internationalCode: string;
   createdAt: Date;
   updatedAt: Date;
-}
 
-// -------------------------------------------------------------------------- //
-
-export interface PhoneWithUser extends Phone {
-  user: Manager;
+  // *** --- relations -------------------------------------------------- *** //
+  user?: Manager;
 }
