@@ -20,7 +20,7 @@ datasource db {
 model Email {
   id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   userId String @map("user_id") @db.Uuid
-  typeId String @map("type_id") @db.Uuid
+  typeId String @map("type_id") @db.VarChar(15)
 
   email    String  @unique @db.VarChar(50)
   verified Boolean @default(false) @db.Boolean
@@ -28,7 +28,7 @@ model Email {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
 
-  emailType EmailType @relation(fields: [typeId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  emailType EmailType @relation(fields: [typeId], references: [type], onDelete: Restrict, onUpdate: Cascade)
   user      Manager   @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
   @@map("emails")
@@ -37,8 +37,7 @@ model Email {
 // -------------------------------------------------------------------------- //
 
 model EmailType {
-  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name      String   @unique @db.VarChar(15)
+  type      String   @id @db.VarChar(15)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
 
@@ -51,7 +50,7 @@ model EmailType {
 
 model Issue {
   id        String  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  typeId    String  @map("type_id") @db.VarChar(20)
+  typeId    String  @map("type_id") @db.VarChar(15)
   managerId String? @map("managers_id") @db.Uuid
   studentId String  @map("student_id") @db.Uuid
   videoId   String  @map("video_id")
@@ -66,7 +65,7 @@ model Issue {
 
   closedBy Manager?  @relation(fields: [managerId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   openedBy Student   @relation(fields: [studentId], references: [id], onDelete: Restrict, onUpdate: Cascade)
-  type     IssueType @relation(fields: [typeId], references: [name], onDelete: Restrict, onUpdate: Cascade)
+  type     IssueType @relation(fields: [typeId], references: [type], onDelete: Restrict, onUpdate: Cascade)
   video    Video     @relation(fields: [videoId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
   @@map("issues")
@@ -75,7 +74,7 @@ model Issue {
 // -------------------------------------------------------------------------- //
 
 model IssueType {
-  name      String   @id @db.VarChar(20)
+  type      String   @id @db.VarChar(15)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
 
@@ -124,7 +123,7 @@ model Phone {
 model Token {
   id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   userId String @map("user_id") @db.Uuid
-  typeId String @map("type_id") @db.Uuid
+  typeId String @map("type_id") @db.VarChar(15)
 
   validUntil DateTime @map("valid_until") @db.Timestamp()
   isExpired  Boolean  @default(false) @map("is_expired") @db.Boolean
@@ -132,7 +131,7 @@ model Token {
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
 
-  tokenType TokenType @relation(fields: [typeId], references: [id], onDelete: Restrict, onUpdate: Cascade)
+  tokenType TokenType @relation(fields: [typeId], references: [type], onDelete: Restrict, onUpdate: Cascade)
   user      Manager   @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
   @@map("tokens")
@@ -141,8 +140,7 @@ model Token {
 // -------------------------------------------------------------------------- //
 
 model TokenType {
-  id   String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name String @db.VarChar(15)
+  type String @id @db.VarChar(15)
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()

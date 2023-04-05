@@ -8,7 +8,7 @@ export interface Issue {
   id: Uuid;
   managerId?: Uuid;
   studentId: Uuid;
-  typeId: Uuid;
+  typeId: string;
   videoId: Uuid;
 
   closedAt?: Date;
@@ -31,7 +31,7 @@ export interface Issue {
 // * ---------------------------------------------------------------------- * //
 
 export interface IssueType {
-  name: string;
+  type: string;
 
   createdAt: Date;
   updatedAt: Date;

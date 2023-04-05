@@ -5,7 +5,7 @@ import type { Uuid } from '@types';
 
 export interface Token {
   id: Uuid;
-  typeId: Uuid;
+  typeId: string;
   userId: Uuid;
 
   validUntil: Date;
@@ -22,7 +22,6 @@ export interface Token {
 // * ---------------------------------------------------------------------- * //
 
 export interface TokenType {
-  id: Uuid;
   name: string;
 
   createdAt: Date;

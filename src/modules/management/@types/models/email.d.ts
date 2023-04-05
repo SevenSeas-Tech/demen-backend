@@ -5,7 +5,7 @@ import type { Uuid } from '@types';
 
 export interface Email {
   id: Uuid;
-  typeId: Uuid;
+  typeId: string;
   userId: Uuid;
 
   email: string;
@@ -22,8 +22,7 @@ export interface Email {
 // * ---------------------------------------------------------------------- * //
 
 export interface EmailType {
-  id: Uuid;
-  name: string;
+  type: string;
 
   createdAt: Date;
   updatedAt: Date;
