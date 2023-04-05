@@ -1,4 +1,5 @@
-import type { Manager } from './manager';
+import type { Video } from '@content:models/video';
+import type { Manager } from '@management:models/manager';
 import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
@@ -21,10 +22,10 @@ export interface Issue {
   // *** --- relations -------------------------------------------------- *** //
   closedBy?: Manager;
   type?: IssueType;
+  video?: Video;
 
   // todo: create and import models:
   openedBy?: Student;
-  video?: Video;
 }
 
 // * ---------------------------------------------------------------------- * //

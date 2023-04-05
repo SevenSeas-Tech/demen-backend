@@ -1,6 +1,8 @@
-import type { Issue } from './issue';
-import type { Phone } from './phone';
-import type { Email } from './email';
+import type { Video } from '@content:models/video';
+import type { Email } from '@management:models/email';
+import type { Issue } from '@management:models/issue';
+import type { Phone } from '@management:models/phone';
+import type { Token } from '@management:models/token';
 import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
@@ -18,8 +20,6 @@ export interface Manager {
   emails?: Email[];
   issues?: Issue[];
   phones?: Phone[];
-
-  // todo: create and import models:
   tokens?: Token[];
   videos?: Video[];
 }
