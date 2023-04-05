@@ -1,4 +1,4 @@
-import type { Manager } from './manager';
+import type { Manager } from '@management:models/manager';
 import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //

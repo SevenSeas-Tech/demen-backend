@@ -1,7 +1,7 @@
-import type { Channel } from './channel';
-import type { Uuid } from '@types';
-import type { Manager } from '@management:models/manager';
+import type { Channel } from '@content:models/channel';
 import type { Issue } from '@management:models/issue';
+import type { Manager } from '@management:models/manager';
+import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
