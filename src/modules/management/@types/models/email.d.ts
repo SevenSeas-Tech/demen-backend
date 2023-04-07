@@ -1,3 +1,4 @@
+import type { EmailType } from '@management:models/email-type';
 import type { Manager } from '@management:models/manager';
 import type { Uuid } from '@types';
 
@@ -17,16 +18,4 @@ export interface Email {
   // *** --- relations -------------------------------------------------- *** //
   emailType?: EmailType;
   user?: Manager;
-}
-
-// * ---------------------------------------------------------------------- * //
-
-export interface EmailType {
-  type: string;
-
-  createdAt: Date;
-  updatedAt: Date;
-
-  // *** --- relations -------------------------------------------------- *** //
-  emails?: Email[];
 }

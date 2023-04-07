@@ -1,4 +1,5 @@
 import type { Manager } from '@management:models/manager';
+import type { TokenType } from '@management:models/token-type';
 import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
@@ -17,16 +18,4 @@ export interface Token {
   // *** --- relations -------------------------------------------------- *** //
   tokenType?: TokenType;
   user?: Manager;
-}
-
-// * ---------------------------------------------------------------------- * //
-
-export interface TokenType {
-  name: string;
-
-  createdAt: Date;
-  updatedAt: Date;
-
-  // *** --- relations -------------------------------------------------- *** //
-  tokens?: Token[];
 }
