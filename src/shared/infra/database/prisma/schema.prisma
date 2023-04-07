@@ -287,6 +287,8 @@ model Institution {
   @@map("institutions")
 }
 
+// -------------------------------------------------------------------------- //
+
 model Level {
   id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name        String   @unique @db.VarChar(20)
