@@ -1,7 +1,10 @@
 import type { Channel } from '@content:models/channel';
+import type { Institution } from '@education:models/institution';
+import type { Teacher } from '@education:models/teacher';
 import type { Issue } from '@management:models/issue';
 import type { Manager } from '@management:models/manager';
 import type { Uuid } from '@types';
+import type { Subject } from '@education:models/subject';
 
 // * ---------------------------------------------------------------------- * //
 
@@ -25,11 +28,8 @@ export interface Video {
   // *** --- relations -------------------------------------------------- *** //
   addedBy?: Manager;
   channel?: Channel;
-
-  issues?: Issue[];
-
-  // todo: create and import models:
   institution?: Institution;
+  issues?: Issue[];
   teacher?: Teacher;
-  subject: Subject;
+  subject?: Subject;
 }
