@@ -19,7 +19,7 @@
       "@shared:providers/*": ["shared/containers/providers/*"],
 
       "@management:containers/*": ["modules/management/containers/*"],
-      "@management:dtos/*": ["modules/management/@types/dtos/*"],
+      "@management:dto/*": ["modules/management/@types/dto/*"],
       "@management:errors/*": ["modules/management/errors/*"],
       "@management:infra/*": ["modules/management/infra/*"],
       "@management:mapper/*": ["modules/management/mapper/*"],
@@ -30,7 +30,7 @@
       "@management:use-cases/*": ["modules/management/use-cases/*"],
 
       "@students:containers/*": ["modules/students/containers/*"],
-      "@students:dtos/*": ["modules/students/@types/dtos/*"],
+      "@students:dto/*": ["modules/students/@types/dto/*"],
       "@students:errors/*": ["modules/students/errors/*"],
       "@students:infra/*": ["modules/students/infra/*"],
       "@students:mapper/*": ["modules/students/mapper/*"],
@@ -40,7 +40,7 @@
       "@students:use-cases/*": ["modules/students/use-cases/*"],
 
       "@content:containers/*": ["modules/content/containers/*"],
-      "@content:dtos/*": ["modules/content/@types/dtos/*"],
+      "@content:dto/*": ["modules/content/@types/dto/*"],
       "@content:errors/*": ["modules/content/errors/*"],
       "@content:infra/*": ["modules/content/infra/*"],
       "@content:mapper/*": ["modules/content/mapper/*"],
@@ -50,7 +50,7 @@
       "@content:use-cases/*": ["modules/content/use-cases/*"],
 
       "@education:containers/*": ["modules/education/containers/*"],
-      "@education:dtos/*": ["modules/education/@types/dtos/*"],
+      "@education:dto/*": ["modules/education/@types/dto/*"],
       "@education:errors/*": ["modules/education/errors/*"],
       "@education:infra/*": ["modules/education/infra/*"],
       "@education:mapper/*": ["modules/education/mapper/*"],

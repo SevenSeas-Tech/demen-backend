@@ -18,7 +18,7 @@ module.exports = {
           "@shared:providers": "./src/shared/containers/providers",
 
           "@management:containers": "./src/modules/management/containers",
-          "@management:dtos": "./src/modules/management/@types/dtos",
+          "@management:dto": "./src/modules/management/@types/dto",
           "@management:errors": "./src/modules/management/errors",
           "@management:infra": "./src/modules/management/infra",
           "@management:mapper": "./src/modules/management/mapper",
@@ -28,7 +28,7 @@ module.exports = {
           "@management:use-cases": "./src/modules/management/use-cases",
 
           "@students:containers": "./src/modules/students/containers",
-          "@students:dtos": "./src/modules/students/@types/dtos",
+          "@students:dto": "./src/modules/students/@types/dto",
           "@students:errors": "./src/modules/students/errors",
           "@students:mapper": "./src/modules/students/mapper",
           "@students:models": "./src/modules/students/@types/models",
@@ -38,7 +38,7 @@ module.exports = {
           "@students:use-cases": "./src/modules/students/use-cases",
 
           "@content:containers": "./src/modules/content/containers",
-          "@content:dtos": "./src/modules/content/@types/dtos",
+          "@content:dto": "./src/modules/content/@types/dto",
           "@content:errors": "./src/modules/content/errors",
           "@content:mapper": "./src/modules/content/mapper",
           "@content:models": "./src/modules/content/@types/models",
@@ -48,7 +48,7 @@ module.exports = {
           "@content:use-cases": "./src/modules/content/use-cases",
 
           "@education:containers": "./src/modules/education/containers",
-          "@education:dtos": "./src/modules/education/@types/dtos",
+          "@education:dto": "./src/modules/education/@types/dto",
           "@education:errors": "./src/modules/education/errors",
           "@education:mapper": "./src/modules/education/mapper",
           "@education:models": "./src/modules/education/@types/models",
