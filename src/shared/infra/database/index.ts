@@ -1,5 +1,5 @@
 
-import { PrismaDatabase } from './prisma/Prisma-Database';
+import { PrismaDatabase } from './prisma/prisma-database';
 
 import type { Database } from '@shared/@types/database';
 
