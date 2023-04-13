@@ -19,6 +19,7 @@
       "@shared:providers/*": ["shared/containers/providers/*"],
 
       "@management:containers/*": ["modules/management/containers/*"],
+      "@management:database-types/*": ["modules/management/@types/database/*"],
       "@management:dto/*": ["modules/management/@types/dto/*"],
       "@management:errors/*": ["modules/management/errors/*"],
       "@management:infra/*": ["modules/management/infra/*"],

@@ -19,6 +19,7 @@ module.exports = {
 
           "@management:containers": "./src/modules/management/containers",
           "@management:dto": "./src/modules/management/@types/dto",
+          "@management:database-types": "./src/modules/management/@types/database",
           "@management:errors": "./src/modules/management/errors",
           "@management:infra": "./src/modules/management/infra",
           "@management:mapper": "./src/modules/management/mapper",
