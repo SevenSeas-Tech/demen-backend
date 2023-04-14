@@ -5,10 +5,31 @@ import type { Database } from '@shared/@types/database';
 // * ---------------------------------------------------------------------- * //
 
 class PrismaDatabase implements Database {
-  prisma = new PrismaClient();
+  static INSTANCE: PrismaDatabase;
+  public client: PrismaClient;
+
+  // ------------------------------------------------------------------------ //
+
+  private constructor() {
+    if (!global.prisma) global.prisma = new PrismaClient();
+
+    this.client = global.prisma;
+  }
+
+  // ------------------------------------------------------------------------ //
+
+  static getInstance(): PrismaDatabase {
+    if (!this.INSTANCE) this.INSTANCE = new PrismaDatabase();
+
+    return this.INSTANCE;
+  }
+
+  // ------------------------------------------------------------------------ //
 
   async createConnection(): Promise<void> {
-    await this.prisma.$connect();
+    await this.client.$connect();
+
+    return;
   }
 }
 

@@ -5,7 +5,7 @@ import type { Database } from '@shared/@types/database';
 
 // * ---------------------------------------------------------------------- * //
 
-const database: Database = new PrismaDatabase();
+const database: Database = PrismaDatabase.getInstance();
 
 // * ---------------------------------------------------------------------- * //
 
