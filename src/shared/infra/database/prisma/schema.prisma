@@ -26,7 +26,7 @@ model Email {
   verified Boolean @default(false) @db.Boolean
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   emailType EmailType @relation(fields: [typeId], references: [type], onDelete: Restrict, onUpdate: Cascade)
   user      Manager   @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
@@ -39,7 +39,7 @@ model Email {
 model EmailType {
   type      String   @id @db.VarChar(15)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   emails Email[]
 
@@ -61,7 +61,7 @@ model Issue {
   closedAt    DateTime? @map("closed_at") @db.Timestamp()
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   closedBy Manager?  @relation(fields: [managerId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   openedBy Student   @relation(fields: [studentId], references: [id], onDelete: Restrict, onUpdate: Cascade)
@@ -76,7 +76,7 @@ model Issue {
 model IssueType {
   type      String   @id @db.VarChar(15)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   issues Issue[]
 
@@ -92,7 +92,7 @@ model Manager {
   isActive  Boolean  @default(true) @map("is_active") @db.Boolean
   password  String
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   issues Issue[]
   emails Email[]
@@ -111,7 +111,7 @@ model Phone {
   internationalCode String   @default("+55") @map("international_code") @db.VarChar(10)
   phone             String   @db.VarChar(50)
   createdAt         DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt         DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt         DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   user Manager @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
@@ -129,7 +129,7 @@ model Token {
   isExpired  Boolean  @default(false) @map("is_expired") @db.Boolean
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   tokenType TokenType @relation(fields: [typeId], references: [type], onDelete: Restrict, onUpdate: Cascade)
   user      Manager   @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
@@ -143,7 +143,7 @@ model TokenType {
   type String @id @db.VarChar(15)
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   tokens Token[]
 
@@ -159,7 +159,7 @@ model Student {
   email     String   @db.VarChar(30)
   isActive  Boolean  @default(true) @map("is_active") @db.Boolean
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   issues Issue[]
 
@@ -174,7 +174,7 @@ model Channel {
   description String?  @db.Text
   imageUrl    String   @map("image_url") @db.Text
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   videos Video[]
 
@@ -198,7 +198,7 @@ model Video {
   publishedAt DateTime @map("published_at") @db.Timestamp()
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   addedBy     Manager      @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   channel     Channel      @relation(fields: [channelId], references: [id], onDelete: Restrict, onUpdate: Cascade)
@@ -219,7 +219,7 @@ model Course {
   name        String   @db.VarChar(100)
   description String?  @db.Text
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   level Level @relation(fields: [levelId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
@@ -234,7 +234,7 @@ model CourseDiscipline {
   courseId     String   @map("course_id") @db.Uuid
   disciplineId String   @map("discipline_id") @db.Uuid
   createdAt    DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt    DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   course     Course     @relation(fields: [courseId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   discipline Discipline @relation(fields: [disciplineId], references: [id], onDelete: Restrict, onUpdate: Cascade)
@@ -250,7 +250,7 @@ model Discipline {
   name        String   @db.VarChar(20)
   description String?  @db.Text
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   subjects DisciplineSubject[]
   courses  CourseDiscipline[]
@@ -264,7 +264,7 @@ model DisciplineSubject {
   disciplineId String   @map("discipline_id") @db.Uuid
   subjectId    String   @map("subject_id") @db.Uuid
   createdAt    DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt    DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt    DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   subject    Subject    @relation(fields: [subjectId], references: [id], onDelete: Restrict, onUpdate: Cascade)
   discipline Discipline @relation(fields: [disciplineId], references: [id], onDelete: Restrict, onUpdate: Cascade)
@@ -280,7 +280,7 @@ model Institution {
   name      String   @db.VarChar(100)
   website   String?  @db.Text
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   videos Video[]
 
@@ -294,7 +294,7 @@ model Level {
   name        String   @unique @db.VarChar(20)
   description String?  @db.Text
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   courses Course[]
 
@@ -308,7 +308,7 @@ model Teacher {
   name      String?  @db.VarChar(20)
   lastName  String   @map("last_name") @db.VarChar(20)
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   videos Video[]
   links  TeacherLink[]
@@ -326,7 +326,7 @@ model TeacherLink {
   link String @db.Text
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   teacher Teacher @relation(fields: [teacherId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
@@ -340,7 +340,7 @@ model Subject {
   name        String   @db.VarChar(20)
   description String?  @db.Text
   createdAt   DateTime @default(now()) @map("created_at") @db.Timestamp()
-  updatedAt   DateTime @default(now()) @map("updated_at") @db.Timestamp()
+  updatedAt   DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
   videos      Video[]
   disciplines DisciplineSubject[]
