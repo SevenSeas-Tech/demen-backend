@@ -3,4 +3,6 @@ export interface ManagerCreationData {
   lastName: string;
   password: string;
   isActive?: boolean;
+  email:string;
+  emailType: string;
 }
