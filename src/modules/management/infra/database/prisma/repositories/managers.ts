@@ -14,7 +14,8 @@ import type {
   ManagerUpdateInput,
   ManagerWhereUniqueInput,
   ManagerInclude,
-  ManagerCreateInput
+  ManagerCreateInput,
+  ManagerDelegate
 } from '@management:database-types/prisma/manager';
 
 import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
@@ -22,7 +23,7 @@ import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
 // * ---------------------------------------------------------------------- * //
 
 class PrismaManagersRepository implements ManagersRepository {
-  private repository;
+  private repository: ManagerDelegate;
 
   // *** --- interns ---------------------------------------------------- *** //
 
