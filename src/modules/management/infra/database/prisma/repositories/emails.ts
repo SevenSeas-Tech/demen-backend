@@ -39,10 +39,22 @@ class PrismaEmailsRepository implements EmailsRepository {
 
   // ------------------------------------------------------------------------ //
 
-  async update(address: string, updatedAddress: string): Promise<Email> {
-    const where: EmailWhereUniqueInput = { email: address };
+  async update(emailAddress: string, updatedAddress: string): Promise<Email> {
+    const where: EmailWhereUniqueInput = { email: emailAddress };
 
     const data: EmailUpdateInput = { email: updatedAddress };
+
+    const email = await this.repository.update({ where, data });
+
+    return email;
+  }
+
+  // ------------------------------------------------------------------------ //
+
+  async setAsVerified(emailAddress: string): Promise<Email> {
+    const where: EmailWhereUniqueInput = { email: emailAddress };
+
+    const data: EmailUpdateInput = { verified: true };
 
     const email = await this.repository.update({ where, data });
 
