@@ -5,7 +5,7 @@ import type { Database } from '@shared/@types/database';
 // * ---------------------------------------------------------------------- * //
 
 class PrismaDatabase implements Database {
-  static INSTANCE: PrismaDatabase;
+  private static INSTANCE: PrismaDatabase;
   public client: PrismaClient;
 
   // ------------------------------------------------------------------------ //
