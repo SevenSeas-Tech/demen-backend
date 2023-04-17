@@ -14,11 +14,13 @@ module.exports = {
           "@shared:containers": "./src/shared/containers",
           "@shared:database": "./src/shared/infra/database",
           "@shared:errors": "./src/shared/errors",
+          "@shared:injection": "./src/shared/injection",
           "@shared:middlewares": "./src/shared/infra/http/middlewares",
-          "@shared:providers": "./src/shared/containers/providers",
+          "@shared:providers": "./src/shared/providers",
 
           "@management:containers": "./src/modules/management/containers",
           "@management:dto": "./src/modules/management/@types/dto",
+          "@management:database": "./src/modules/management/infra/database",
           "@management:database-types": "./src/modules/management/@types/database",
           "@management:errors": "./src/modules/management/errors",
           "@management:infra": "./src/modules/management/infra",
@@ -29,6 +31,8 @@ module.exports = {
           "@management:use-cases": "./src/modules/management/use-cases",
 
           "@students:containers": "./src/modules/students/containers",
+          "@students:database": "./src/modules/students/infra/database",
+          "@students:database-types": "./src/modules/students/@types/database",
           "@students:dto": "./src/modules/students/@types/dto",
           "@students:errors": "./src/modules/students/errors",
           "@students:mapper": "./src/modules/students/mapper",
@@ -39,6 +43,8 @@ module.exports = {
           "@students:use-cases": "./src/modules/students/use-cases",
 
           "@content:containers": "./src/modules/content/containers",
+          "@content:database": "./src/modules/content/infra/database",
+          "@content:database-types": "./src/modules/content/@types/database",
           "@content:dto": "./src/modules/content/@types/dto",
           "@content:errors": "./src/modules/content/errors",
           "@content:mapper": "./src/modules/content/mapper",
@@ -49,6 +55,8 @@ module.exports = {
           "@content:use-cases": "./src/modules/content/use-cases",
 
           "@education:containers": "./src/modules/education/containers",
+          "@education:database": "./src/modules/education/infra/database",
+          "@education:database-types": "./src/modules/education/@types/database",
           "@education:dto": "./src/modules/education/@types/dto",
           "@education:errors": "./src/modules/education/errors",
           "@education:mapper": "./src/modules/education/mapper",
