@@ -15,8 +15,15 @@ import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
 // * ---------------------------------------------------------------------- * //
 
 class PrismaEmailsRepository implements EmailsRepository {
-  private repository: EmailDelegate = PrismaDatabase.getInstance().client.email;
+  private repository: EmailDelegate;
   private include: EmailInclude = { user: true };
+
+  // ------------------------------------------------------------------------ //
+
+  constructor() {
+    const prisma = PrismaDatabase.getInstance();
+    this.repository = prisma.client.email;
+  }
 
   // *** --- methods ---------------------------------------------------- *** //
 
@@ -39,7 +46,7 @@ class PrismaEmailsRepository implements EmailsRepository {
   async delete(email: string): Promise<void> {
     const where: EmailWhereUniqueInput = { email };
 
-    await this.repository.delete({ where });
+    void await this.repository.delete({ where });
 
     return;
   }
@@ -70,8 +77,8 @@ class PrismaEmailsRepository implements EmailsRepository {
 
   // ------------------------------------------------------------------------ //
 
-  async findByEmail(address: string): Promise<Email | undefined> {
-    const where: EmailWhereUniqueInput = { email: address };
+  async findByEmail(emailAddress: string): Promise<Email | undefined> {
+    const where: EmailWhereUniqueInput = { email: emailAddress };
 
     const email = await this.repository
       .findUnique({ where, include: this.include });
