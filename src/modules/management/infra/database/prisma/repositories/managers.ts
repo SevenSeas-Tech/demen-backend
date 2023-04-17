@@ -52,8 +52,8 @@ class PrismaManagersRepository implements ManagersRepository {
 
   // *** --- methods ---------------------------------------------------- *** //
 
-  async create(data: ManagerCreationData): Promise<Manager> {
-    const { lastName, name, password, isActive, email, emailType:type } = data;
+  async create(_data: ManagerCreationData): Promise<Manager> {
+    const { lastName, name, password, isActive, email, emailType:type } = _data;
 
     const emailType: EmailTypeNestedInput = {
       connect: { type }
@@ -63,7 +63,7 @@ class PrismaManagersRepository implements ManagersRepository {
       create: { email, emailType }
     };
 
-    const prismaData: ManagerCreateInput = {
+    const data: ManagerCreateInput = {
       name,
       lastName,
       password,
@@ -71,19 +71,21 @@ class PrismaManagersRepository implements ManagersRepository {
       emails
     };
 
-    const manager = await this.repository.create({ data: prismaData });
+    const manager = await this.repository.create({ data: data });
 
     return manager as Manager;
   }
 
   // ------------------------------------------------------------------------ //
 
-  async update(id: Uuid, data: ManagerUpdateData): Promise<Manager> {
+  async update(_data: ManagerUpdateData): Promise<Manager> {
+    const { id } = _data;
+
     const where: ManagerWhereUniqueInput = { id };
 
-    const prismaData: ManagerUpdateInput = data;
+    const data: ManagerUpdateInput = _data;
 
-    const manager = await this.repository.update({ where, data: prismaData });
+    const manager = await this.repository.update({ where, data });
 
     return manager as Manager;
   }

@@ -8,7 +8,7 @@ import type { Uuid } from '@types';
 
 export interface ManagersRepository {
   create(data: ManagerCreationData): Promise<Manager>;
-  update(id: Uuid, data: ManagerUpdateData): Promise<Manager>;
+  update(data: ManagerUpdateData): Promise<Manager>;
   activate(id: Uuid): Promise<Manager>;
   deactivate(id: Uuid): Promise<Manager>;
 
