@@ -3,6 +3,7 @@ import type { Email } from '@management:models/email';
 import type { EmailCreationData } from '@management:dto/email/create';
 import type {
   EmailDelegate,
+  EmailInclude,
   EmailUpdateInput,
   EmailWhereInput,
   EmailWhereUniqueInput
@@ -13,11 +14,8 @@ import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
 // * ---------------------------------------------------------------------- * //
 
 class PrismaEmailsRepository implements EmailsRepository {
-  private repository: EmailDelegate;
-
-  constructor() {
-    this.repository = PrismaDatabase.getInstance().client.email;
-  }
+  private repository: EmailDelegate = PrismaDatabase.getInstance().client.email;
+  private include: EmailInclude = { user: true };
 
   // *** --- methods ---------------------------------------------------- *** //
 
@@ -66,7 +64,8 @@ class PrismaEmailsRepository implements EmailsRepository {
   async findByEmail(address: string): Promise<Email | undefined> {
     const where: EmailWhereUniqueInput = { email: address };
 
-    const email = await this.repository.findUnique({ where });
+    const email = await this.repository
+      .findUnique({ where, include: this.include });
 
     return email as Email;
   }
@@ -76,7 +75,8 @@ class PrismaEmailsRepository implements EmailsRepository {
   async findByUser(userId: string): Promise<Email[]> {
     const where: EmailWhereInput = { userId };
 
-    const emails = await this.repository.findMany({ where });
+    const emails = await this.repository
+      .findMany({ where, include: this.include });
 
     return emails;
   }
