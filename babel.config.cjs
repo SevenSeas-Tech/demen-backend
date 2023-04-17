@@ -22,6 +22,7 @@ module.exports = {
           "@management:dto": "./src/modules/management/@types/dto",
           "@management:database": "./src/modules/management/infra/database",
           "@management:database-types": "./src/modules/management/@types/database",
+          "@management:provider-types": "./src/modules/management/@types/providers",
           "@management:errors": "./src/modules/management/errors",
           "@management:infra": "./src/modules/management/infra",
           "@management:mapper": "./src/modules/management/mapper",

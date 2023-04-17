@@ -28,6 +28,7 @@
       "@management:mapper/*": ["modules/management/mapper/*"],
       "@management:models/*": ["modules/management/@types/models/*"],
       "@management:providers/*": ["modules/management/providers/*"],
+      "@management:provider-types/*": ["modules/management/@types/providers/*"],
       "@management:repositories/*": ["modules/management/@types/repositories/*"],
       "@management:routes/*": ["modules/management/infra/http/routes/*"],
       "@management:use-cases/*": ["modules/management/use-cases/*"],
