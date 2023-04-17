@@ -6,5 +6,4 @@ export interface ManagerUpdateData {
   name?: string;
   lastName?: string;
   password?: string;
-  updatedAt?: Date;
 }
