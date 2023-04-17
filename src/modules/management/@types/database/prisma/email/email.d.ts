@@ -2,9 +2,11 @@ import type { Prisma } from '@prisma/client';
 
 // * ---------------------------------------------------------------------- * //
 
+export type EmailCreateInput = Prisma.EmailCreateInput;
+
 export type EmailDelegate = Prisma.EmailDelegate<undefined>;
 
-export type EmailInclude = Prisma.EmailInclude
+export type EmailInclude = Prisma.EmailInclude;
 
 export type EmailNestedInput = Prisma.EmailCreateNestedManyWithoutUserInput;
 

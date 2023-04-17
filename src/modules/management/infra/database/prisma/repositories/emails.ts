@@ -2,12 +2,13 @@ import type { EmailsRepository } from '@management:repositories/emails';
 import type { Email } from '@management:models/email';
 import type { EmailCreationData } from '@management:dto/email/create';
 import type {
+  EmailCreateInput,
   EmailDelegate,
   EmailInclude,
   EmailUpdateInput,
   EmailWhereInput,
   EmailWhereUniqueInput
-} from '@management:database-types/prisma/email';
+} from '@management:database-types/prisma/email/email';
 
 import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
 
@@ -19,7 +20,15 @@ class PrismaEmailsRepository implements EmailsRepository {
 
   // *** --- methods ---------------------------------------------------- *** //
 
-  async create(data: EmailCreationData): Promise<Email> {
+  async create(_data: EmailCreationData): Promise<Email> {
+    const { email: emailAddress, typeId, userId } = _data;
+
+    const data: EmailCreateInput = {
+      email: emailAddress,
+      user: { connect: { id: userId } },
+      emailType: { connect: { type: typeId } }
+    };
+
     const email = await this.repository.create({ data });
 
     return email;
