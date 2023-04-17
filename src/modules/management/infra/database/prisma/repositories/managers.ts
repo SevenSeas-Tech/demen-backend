@@ -8,7 +8,7 @@ import type { Uuid } from '@types';
 import type {
   EmailNestedInput,
   EmailTypeNestedInput
-} from '@management:database-types/prisma/email';
+} from '@management:database-types/prisma/email/email';
 import type {
   ManagerWhereInput,
   ManagerUpdateInput,
