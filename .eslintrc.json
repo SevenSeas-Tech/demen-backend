@@ -72,7 +72,14 @@
         "groups": [
           "builtin",
           "external",
-          "parent", "sibling", "index", "type"],
+          "internal",
+          "parent", "sibling", "index", "object", "type"
+        ],
+        "alphabetize": {
+          "order": "asc",
+          "orderImportKind": "asc",
+          "caseInsensitive": true
+        },
         "newlines-between": "always"
     }],
     "import/newline-after-import": "error",
