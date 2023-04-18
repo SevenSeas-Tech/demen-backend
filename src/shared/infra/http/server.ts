@@ -1,4 +1,4 @@
-import { App } from '@shared/infra/http/App';
+import { App } from '@shared/infra/http/app';
 
 // * ---------------------------------------------------------------------- * //
 

@@ -1,32 +1,27 @@
 import 'reflect-metadata';
 import 'dotenv/config';
-
 import '@shared:containers/index';
-
 import 'express-async-errors';
 
 // eslint-disable-next-line import/order
 import express from 'express';
-
 import { serve, setup } from 'swagger-ui-express';
 import Yaml from 'yamljs';
-
-// ! --- import { load } from 'yamljs' - Does not work -------------------- ! //
-
-import { routes } from './routes/index.routes';
-
-import type { JsonObject } from 'swagger-ui-express';
-import type { Request, Response, NextFunction } from 'express';
 
 import { AppError } from '@shared/errors/App.error';
 import { database } from '@shared/infra/database';
 
+import { routes } from './routes/index.routes';
+
+import type { Request, Response, NextFunction } from 'express';
+import type { JsonObject } from 'swagger-ui-express';
+
 // * ---------------------------------------------------------------------- * //
 
 class App {
-  server = express();
   // eslint-disable-next-line import/no-named-as-default-member
-  swaggerDocument = Yaml.load('./swagger.yml') as JsonObject;
+  private readonly swaggerDocument = Yaml.load('./swagger.yml') as JsonObject;
+  readonly server = express();
 
   // ------------------------------------------------------------------------ //
 
@@ -47,14 +42,14 @@ class App {
 
   routes(): void {
     this.server.use(routes);
-    this.server.use('/api-docs', serve, setup(this.swaggerDocument));
+    this.server.use('/docs', serve, setup(this.swaggerDocument));
   }
 
   // ------------------------------------------------------------------------ //
 
   exceptionHandler(): void {
     this.server
-      .use((err: Error, req: Request, res: Response, _: NextFunction) => {
+      .use((err: Error, _req: Request, res: Response, _: NextFunction) => {
         if (err instanceof AppError) {
           return res
             .status(err.statusCode)
@@ -83,3 +78,9 @@ class App {
 // * ---------------------------------------------------------------------- * //
 
 export { App };
+
+/*
+  * --- annotations --- *
+  ! - import { load } from 'yamljs' doesn't work,
+  ! - so default import must be used
+*/
