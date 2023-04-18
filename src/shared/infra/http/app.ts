@@ -8,7 +8,7 @@ import express from 'express';
 import { serve, setup } from 'swagger-ui-express';
 import Yaml from 'yamljs';
 
-import { AppError } from '@shared/errors/App.error';
+import { AppError } from '@shared/errors/app-error';
 import { database } from '@shared/infra/database';
 
 import { routes } from './routes/index.routes';
