@@ -2,7 +2,7 @@ import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface ListManagerEmailsRequestBody {
+export interface ListEmailsQuery {
   userId: Uuid;
 }
 

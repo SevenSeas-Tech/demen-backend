@@ -1,25 +1,23 @@
-
 import { EmailsRepositorySymbol } from '@management:injection/repositories/symbols';
 import { AppError } from '@shared/errors/app-error';
 import { DependencyInjection } from '@shared/injection';
 
 import { ListManagerEmailsService } from './service';
 
-import type { ListManagerEmailsRequestBody } from '@management:requests/emails/list-manager-emails';
 import type { Request, Response } from 'express';
 
 // * ---------------------------------------------------------------------- * //
 
 class ListManagerEmailsController {
   static async execute(request: Request, response: Response): Promise<Response> {
-    const { userId } = request.body as ListManagerEmailsRequestBody;
+    const { userId } = request.query;
 
-    if (!userId) throw new AppError('bad request', 400);
+    if (typeof userId !== 'string') throw new AppError('bad request', 400);
 
     // *** --- service -------------------------------------------------- *** //
+    const { container } = DependencyInjection;
 
-    const emailsRepository = DependencyInjection
-      .container[EmailsRepositorySymbol];
+    const emailsRepository = container[EmailsRepositorySymbol];
 
     const listEmailsService = new ListManagerEmailsService(emailsRepository);
 
