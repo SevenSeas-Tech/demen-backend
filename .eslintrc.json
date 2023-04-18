@@ -43,6 +43,7 @@
       "error",
       {"allowExpressions": true}
     ],
+    "@typescript-eslint/unbound-method": ["error", {"ignoreStatic": true}],
 
     // *** --- Prittier Equivalent -------------------------------------- *** //
     "indent": ["error", 2],
