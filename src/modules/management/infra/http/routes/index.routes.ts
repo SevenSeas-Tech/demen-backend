@@ -1,14 +1,18 @@
 import { Router } from 'express';
 
-import { employeesRouter } from './employees.routes';
+import { emailRouter } from './emails.routes';
 import { sessionsRouter } from './sessions.routes';
 import { usersRouter } from './users.routes';
 
-// ---------------------------------------------------------------------------------------------- //
-const accountsRouter = Router();
+// * ---------------------------------------------------------------------- * //
 
-accountsRouter.use('/users', usersRouter);
-accountsRouter.use('/sessions', sessionsRouter);
-accountsRouter.use('/employees', employeesRouter);
+const managementRouter = Router();
 
-export { accountsRouter };
+managementRouter.use('/users', usersRouter);
+managementRouter.use('/sessions', sessionsRouter);
+managementRouter.use('/emails', emailRouter);
+managementRouter.use('/email-types');
+
+// * ---------------------------------------------------------------------- * //
+
+export { managementRouter };
