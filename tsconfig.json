@@ -20,6 +20,7 @@
       "@shared:providers/*": ["shared/providers/*"],
 
       "@management:containers/*": ["modules/management/containers/*"],
+      "@management:injection/*": ["modules/management/injection/*"],
       "@management:database/*": ["modules/management/infra/database/*"],
       "@management:database-types/*": ["modules/management/@types/database/*"],
       "@management:dto/*": ["modules/management/@types/dto/*"],

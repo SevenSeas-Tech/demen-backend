@@ -19,6 +19,7 @@ module.exports = {
           "@shared:providers": "./src/shared/providers",
 
           "@management:containers": "./src/modules/management/containers",
+          "@management:injection": "./src/modules/management/injection",
           "@management:dto": "./src/modules/management/@types/dto",
           "@management:database": "./src/modules/management/infra/database",
           "@management:database-types": "./src/modules/management/@types/database",
