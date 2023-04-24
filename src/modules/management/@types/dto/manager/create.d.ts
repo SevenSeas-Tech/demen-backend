@@ -1,4 +1,5 @@
-export interface ManagerCreationData {
+// * ---------------------------------------------------------------------- * //
+export type ManagerCreationData = {
   name: string;
   lastName: string;
   password: string;
@@ -6,3 +7,5 @@ export interface ManagerCreationData {
   email:string;
   emailType: string;
 }
+
+// * ---------------------------------------------------------------------- * //

@@ -1,9 +1,12 @@
 import type { Uuid } from '@types';
+
 // * ---------------------------------------------------------------------- * //
 
-export interface ManagerUpdateData {
+export type ManagerUpdateData = {
   id: Uuid;
   name?: string;
   lastName?: string;
   password?: string;
 }
+
+// * ---------------------------------------------------------------------- * //

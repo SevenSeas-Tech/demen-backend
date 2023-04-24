@@ -1,4 +1,8 @@
-export interface LoginCredentials {
+// * ---------------------------------------------------------------------- * //
+
+export type LoginCredentials = {
   email: string;
   password: string;
 }
+
+// * ---------------------------------------------------------------------- * //

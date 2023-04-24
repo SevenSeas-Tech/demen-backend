@@ -2,8 +2,10 @@ import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface EmailCreationData {
+export type EmailCreationData = {
   userId: Uuid;
   typeId: string;
   email: string;
 }
+
+// * ---------------------------------------------------------------------- * //

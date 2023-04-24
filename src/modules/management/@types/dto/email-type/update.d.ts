@@ -1,4 +1,8 @@
-export interface EmailTypeUpdateData {
+// * ---------------------------------------------------------------------- * //
+
+export type EmailTypeUpdateData = {
   type: string;
   updatedType: string;
 }
+
+// * ---------------------------------------------------------------------- * //

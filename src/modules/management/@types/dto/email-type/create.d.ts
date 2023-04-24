@@ -1,3 +1,7 @@
-export interface EmailTypeCreationData {
+// * ---------------------------------------------------------------------- * //
+
+export type EmailTypeCreationData = {
   type: string;
 }
+
+// * ---------------------------------------------------------------------- * //
