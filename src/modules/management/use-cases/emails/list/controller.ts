@@ -1,6 +1,7 @@
 import { EmailsRepositorySymbol } from '@management:injection/repositories/symbols';
-import { AppError } from '@shared/errors/app-error';
+import { BadRequestError } from '@shared/errors/bad-request';
 import { DependencyInjection } from '@shared/injection';
+import { isString } from '@shared:utils/type-validation/is-string';
 
 import { ListManagerEmailsService } from './service';
 
@@ -8,25 +9,24 @@ import type { Request, Response } from 'express';
 
 // * ---------------------------------------------------------------------- * //
 
-class ListManagerEmailsController {
-  static async execute(request: Request, response: Response): Promise<Response> {
-    const { userId } = request.query;
+async function listEmailsController(request: Request, response: Response): Promise<Response> {
+  const { userId } = request.query;
 
-    if (typeof userId !== 'string') throw new AppError('bad request', 400);
+  if (!isString(userId)) throw new BadRequestError();
 
-    // *** --- service -------------------------------------------------- *** //
-    const { container } = DependencyInjection;
+  // *** --- service ---------------------------------------------------- *** //
 
-    const emailsRepository = container[EmailsRepositorySymbol];
+  const { container } = DependencyInjection;
 
-    const listEmailsService = new ListManagerEmailsService(emailsRepository);
+  const emailsRepository = container[EmailsRepositorySymbol];
 
-    const emails = await listEmailsService.execute(userId);
+  const listEmailsService = new ListManagerEmailsService(emailsRepository);
 
-    return response.status(201).json(emails);
-  }
+  const emails = await listEmailsService.execute(userId);
+
+  return response.status(201).json(emails);
 }
 
 // * ---------------------------------------------------------------------- * //
 
-export { ListManagerEmailsController };
+export { listEmailsController };
