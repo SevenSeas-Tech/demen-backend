@@ -1,12 +1,12 @@
 import type { Video } from '@content:models/video';
 import type { IssueType } from '@management:models/issue-type';
 import type { Manager } from '@management:models/manager';
-import type { Uuid } from '@types';
 import type { Student } from '@students:models/student';
+import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface Issue {
+export type Issue = {
   id: Uuid;
   managerId?: Uuid;
   studentId: Uuid;

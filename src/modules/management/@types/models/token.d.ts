@@ -4,7 +4,7 @@ import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface Token {
+export type Token = {
   id: Uuid;
   typeId: string;
   userId: Uuid;

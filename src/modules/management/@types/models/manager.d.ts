@@ -7,7 +7,7 @@ import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface Manager {
+export type Manager = {
   id: Uuid;
   name: string;
   lastName: string;

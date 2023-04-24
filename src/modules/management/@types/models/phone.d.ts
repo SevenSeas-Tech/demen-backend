@@ -3,7 +3,7 @@ import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface Phone {
+export type Phone = {
   id: Uuid;
   userId: Uuid;
   internationalCode: string;

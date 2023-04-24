@@ -2,7 +2,7 @@ import type { Email } from '@management:models/email';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface EmailType {
+export type EmailType = {
   type: string;
 
   createdAt: Date;

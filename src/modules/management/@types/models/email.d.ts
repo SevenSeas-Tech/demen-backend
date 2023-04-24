@@ -4,7 +4,7 @@ import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface Email {
+export type Email = {
   id: Uuid;
   typeId: string;
   userId: Uuid;

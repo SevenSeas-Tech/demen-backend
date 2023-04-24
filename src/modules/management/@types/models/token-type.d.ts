@@ -2,7 +2,7 @@ import type { Token } from '@management:models/token';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface TokenType {
+export type TokenType = {
   name: string;
 
   createdAt: Date;

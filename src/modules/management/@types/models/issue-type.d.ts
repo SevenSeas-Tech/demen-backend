@@ -2,7 +2,7 @@ import type { Issue } from '@management:models/issue';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface IssueType {
+export type IssueType = {
   type: string;
 
   createdAt: Date;
