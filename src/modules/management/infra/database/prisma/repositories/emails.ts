@@ -1,6 +1,5 @@
-import type { EmailsRepository } from '@management:repositories/emails';
-import type { Email } from '@management:models/email';
-import type { EmailCreationData } from '@management:dto/email/create';
+import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
+
 import type {
   EmailCreateInput,
   EmailDelegate,
@@ -9,8 +8,9 @@ import type {
   EmailWhereInput,
   EmailWhereUniqueInput
 } from '@management:database-types/prisma/email/email';
-
-import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
+import type { EmailCreationData } from '@management:dto/email/create';
+import type { Email } from '@management:models/email';
+import type { EmailsRepository } from '@management:repositories/emails';
 
 // * ---------------------------------------------------------------------- * //
 
@@ -38,7 +38,7 @@ class PrismaEmailsRepository implements EmailsRepository {
 
     const email = await this.repository.create({ data });
 
-    return email;
+    return email as Email;
   }
 
   // ------------------------------------------------------------------------ //
@@ -60,7 +60,7 @@ class PrismaEmailsRepository implements EmailsRepository {
 
     const email = await this.repository.update({ where, data });
 
-    return email;
+    return email as Email;
   }
 
   // ------------------------------------------------------------------------ //
@@ -72,7 +72,7 @@ class PrismaEmailsRepository implements EmailsRepository {
 
     const email = await this.repository.update({ where, data });
 
-    return email;
+    return email as Email;
   }
 
   // ------------------------------------------------------------------------ //
@@ -94,7 +94,7 @@ class PrismaEmailsRepository implements EmailsRepository {
     const emails = await this.repository
       .findMany({ where, include: this.include });
 
-    return emails;
+    return emails as Email[];
   }
 }
 
