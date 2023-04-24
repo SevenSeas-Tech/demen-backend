@@ -18,6 +18,7 @@
       "@shared:injection/*": ["shared/injection/*"],
       "@shared:middlewares/*": ["shared/infra/http/middlewares/*"],
       "@shared:providers/*": ["shared/providers/*"],
+      "@shared:utils/*": ["shared/utils/*"],
 
       "@management:containers/*": ["modules/management/containers/*"],
       "@management:database/*": ["modules/management/infra/database/*"],

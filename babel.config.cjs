@@ -17,6 +17,7 @@ module.exports = {
           "@shared:injection": "./src/shared/injection",
           "@shared:middlewares": "./src/shared/infra/http/middlewares",
           "@shared:providers": "./src/shared/providers",
+          "@shared:utils": "./src/shared/utils",
 
           "@management:containers": "./src/modules/management/containers",
           "@management:injection": "./src/modules/management/injection",
