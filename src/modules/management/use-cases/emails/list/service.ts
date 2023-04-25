@@ -1,9 +1,10 @@
+import type { EmailListQuery } from '@management:dto/email/list';
 import type { Email } from '@management:models/email';
 import type { EmailsRepository } from '@management:repositories/emails';
 
 // * ---------------------------------------------------------------------- * //
 
-class ListManagerEmailsService {
+class ListEmailsService {
   private emailsRepository: EmailsRepository;
 
   constructor(emailsRepository: EmailsRepository) {
@@ -11,14 +12,14 @@ class ListManagerEmailsService {
   }
 
   // eslint-disable-next-line @typescript-eslint/require-await
-  async execute(userId: string): Promise<Email[]> {
+  async execute({ userId, typeId }: EmailListQuery): Promise<Email[]> {
     // todo: verify if data is valid;
 
     // todo: verify if there is filters;
 
     // todo: get emails from database;
 
-    const emails = await this.emailsRepository.findByUser(userId);
+    const emails = await this.emailsRepository.list({ userId, typeId });
 
     // todo: return a list of emails;
 
@@ -28,4 +29,4 @@ class ListManagerEmailsService {
 
 // * ---------------------------------------------------------------------- * //
 
-export { ListManagerEmailsService };
+export { ListEmailsService };

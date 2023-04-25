@@ -3,26 +3,30 @@ import { BadRequestError } from '@shared/errors/bad-request';
 import { DependencyInjection } from '@shared/injection';
 import { isString } from '@shared:utils/type-validation/is-string';
 
-import { ListManagerEmailsService } from './service';
+import { ListEmailsService } from './service';
 
 import type { Request, Response } from 'express';
 
 // * ---------------------------------------------------------------------- * //
 
-async function listEmailsController(request: Request, response: Response): Promise<Response> {
-  const { userId } = request.query;
+async function listEmailsController(request: Request, response: Response):
+ Promise<Response> {
+  const { userId, typeId } = request.query;
 
-  if (!isString(userId)) throw new BadRequestError();
+  // *** --- type check ------------------------------------------------- *** //
+
+  if (userId && !isString(userId)) throw new BadRequestError();
+  if (typeId && !isString(typeId)) throw new BadRequestError();
+
+  // *** --- dependencies ----------------------------------------------- *** //
+
+  const { container } = DependencyInjection;
+  const emailsRepository = container[EmailsRepositorySymbol];
+  const listEmailsService = new ListEmailsService(emailsRepository);
 
   // *** --- service ---------------------------------------------------- *** //
 
-  const { container } = DependencyInjection;
-
-  const emailsRepository = container[EmailsRepositorySymbol];
-
-  const listEmailsService = new ListManagerEmailsService(emailsRepository);
-
-  const emails = await listEmailsService.execute(userId);
+  const emails = await listEmailsService.execute({ userId, typeId });
 
   return response.status(201).json(emails);
 }
