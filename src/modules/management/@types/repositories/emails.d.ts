@@ -1,6 +1,6 @@
 import type { EmailCreationData } from '@management:dto/email/create';
+import type { EmailListQuery } from '@management:dto/email/list';
 import type { Email } from '@management:models/email';
-import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
@@ -10,5 +10,5 @@ export interface EmailsRepository {
   update(email: string, updatedEmail: string): Promise<Email>;
   setAsVerified(email): Promise<Email>;
   findByEmail(email: string): Promise<Email | undefined>;
-  findByUser(userId: Uuid): Promise<Email[]>;
+  list(data: EmailListQuery): Promise<Email[]>;
 }
