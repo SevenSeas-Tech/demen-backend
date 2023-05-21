@@ -1,11 +1,7 @@
-import type { EmailsRepository } from '@management:repositories/emails';
-import type { EmailTypesRepository } from '@management:repositories/email-types';
-import type { ManagersRepository } from '@management:repositories/managers';
-
-import { PrismaEmailsRepository } from '@management:database/prisma/repositories/emails';
 import { PrismaEmailTypesRepository } from '@management:database/prisma/repositories/email-types';
+import { PrismaEmailsRepository } from '@management:database/prisma/repositories/emails';
 import { PrismaManagersRepository } from '@management:database/prisma/repositories/managers';
-import { TestManagersRepository } from '@management:database/test/repositories/managers';
+import { ManagersTestRepository } from '@management:database/test/repositories/managers';
 import {
   EmailTypesRepositorySymbol,
   EmailsRepositorySymbol,
@@ -13,16 +9,20 @@ import {
   TestManagersRepositorySymbol
 } from '@management:injection/repositories/symbols';
 
+import type { EmailTypesRepository } from '@management:repositories/email-types';
+import type { EmailsRepositoryInterface } from '@management:repositories/emails';
+import type { ManagersRepositoryInterface } from '@management:repositories/managers';
+
 // * ---------------------------------------------------------------------- * //
 
-class ManagementRepositoriesInjector {
-  readonly [ManagersRepositorySymbol]: ManagersRepository =
+class ManagementRepositoriesContainer {
+  readonly [ManagersRepositorySymbol]: ManagersRepositoryInterface =
     new PrismaManagersRepository();
 
-  readonly [TestManagersRepositorySymbol]: ManagersRepository =
-    new TestManagersRepository();
+  readonly [TestManagersRepositorySymbol]: ManagersRepositoryInterface =
+    new ManagersTestRepository();
 
-  readonly [EmailsRepositorySymbol]: EmailsRepository =
+  readonly [EmailsRepositorySymbol]: EmailsRepositoryInterface =
     new PrismaEmailsRepository();
 
   readonly [EmailTypesRepositorySymbol]: EmailTypesRepository =
@@ -31,4 +31,4 @@ class ManagementRepositoriesInjector {
 
 // * ---------------------------------------------------------------------- * //
 
-export { ManagementRepositoriesInjector };
+export { ManagementRepositoriesContainer };

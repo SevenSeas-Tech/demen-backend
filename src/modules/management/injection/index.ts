@@ -1,11 +1,11 @@
-import { ManagementRepositoriesInjector } from '@management:injection/repositories/injector';
-import { ManagementProviderInjector } from '@management:injection/providers/injector';
+import { ManagementProviderContainer } from '@management:injection/providers/injector';
+import { ManagementRepositoriesContainer } from '@management:injection/repositories/injector';
 
 // * ---------------------------------------------------------------------- * //
 
 class ManagementDependencyInjector {
-  private static readonly repositories = new ManagementRepositoriesInjector();
-  private static readonly providers = new ManagementProviderInjector();
+  private static readonly repositories = new ManagementRepositoriesContainer();
+  private static readonly providers = new ManagementProviderContainer();
 
   // ------------------------------------------------------------------------ //
 
