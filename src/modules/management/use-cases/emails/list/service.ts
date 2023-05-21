@@ -1,17 +1,16 @@
 import type { EmailListQuery } from '@management:dto/email/list';
 import type { Email } from '@management:models/email';
-import type { EmailsRepository } from '@management:repositories/emails';
+import type { EmailsRepositoryInterface } from '@management:repositories/emails';
 
 // * ---------------------------------------------------------------------- * //
 
 class ListEmailsService {
-  private emailsRepository: EmailsRepository;
+  private emailsRepository: EmailsRepositoryInterface;
 
-  constructor(emailsRepository: EmailsRepository) {
+  constructor(emailsRepository: EmailsRepositoryInterface) {
     this.emailsRepository = emailsRepository;
   }
 
-  // eslint-disable-next-line @typescript-eslint/require-await
   async execute({ userId, typeId }: EmailListQuery): Promise<Email[]> {
     // todo: verify if data is valid;
 
