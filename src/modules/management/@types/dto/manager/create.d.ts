@@ -1,4 +1,5 @@
 // * ---------------------------------------------------------------------- * //
+
 export type ManagerCreationData = {
   name: string;
   lastName: string;
