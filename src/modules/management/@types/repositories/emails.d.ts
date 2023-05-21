@@ -4,7 +4,7 @@ import type { Email } from '@management:models/email';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface EmailsRepository {
+export interface EmailsRepositoryInterface {
   create(data: EmailCreationData): Promise<Email>;
   delete(email: string): Promise<void>;
   update(email: string, updatedEmail: string): Promise<Email>;

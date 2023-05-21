@@ -6,7 +6,7 @@ import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface ManagersRepository {
+export interface ManagersRepositoryInterface {
   create(data: ManagerCreationData): Promise<Manager>;
   update(data: ManagerUpdateData): Promise<Manager>;
   activate(id: Uuid): Promise<Manager>;
