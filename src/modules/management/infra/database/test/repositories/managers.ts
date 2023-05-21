@@ -1,21 +1,22 @@
 /* eslint-disable @typescript-eslint/require-await */
 
+import { DependencyInjection } from '@shared/injection';
+import { UuidProviderSymbol } from '@shared/injection/symbols';
+
 import type { ManagerCreationData } from '@management:dto/manager/create';
 import type { FullName } from '@management:dto/manager/full-name';
 import type { ManagerQueryOptions } from '@management:dto/manager/query';
+import type { ManagerUpdateData } from '@management:dto/manager/update';
 import type { Email } from '@management:models/email';
 import type { Manager } from '@management:models/manager';
-import type { ManagersRepository } from '@management:repositories/managers';
-import type { ManagerUpdateData } from '@management:dto/manager/update';
-
-import { SharedProviderInjection } from '@shared/injection/providers';
+import type { ManagersRepositoryInterface } from '@management:repositories/managers';
 
 // * ---------------------------------------------------------------------- * //
 
-class TestManagersRepository implements ManagersRepository {
+class ManagersTestRepository implements ManagersRepositoryInterface {
   private managers: Manager[] = [];
   private emails: Email[] = [];
-  private uuidProvider = SharedProviderInjection.uuidProvider;
+  private uuidProvider = DependencyInjection.container[UuidProviderSymbol];
 
   private getManagerEmails(managerId: string): Email[] {
     const emails = this.emails.filter(email => email.userId === managerId);
@@ -152,4 +153,4 @@ class TestManagersRepository implements ManagersRepository {
 
 // * ---------------------------------------------------------------------- * //
 
-export { TestManagersRepository };
+export { ManagersTestRepository };
