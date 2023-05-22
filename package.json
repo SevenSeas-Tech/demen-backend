@@ -1,13 +1,12 @@
 {
   "name": "demen-backend",
   "version": "0.0.1",
-  "main": "dist/shared/infra/http/server.js",
   "repository": "git@github.com:SevenSeas-Tech/demen-backend.git",
   "author": "Huam Benvenutti <huambenvenutti@protonmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "babel src --extensions \".js,.ts\" --source-maps --out-dir dist --copy-files",
-    "prod:server": "node ./dist/shared/infra/http/server.js",
+    "start": "node ./dist/shared/infra/http/server.js",
     "dev:server": "tsnd -r tsconfig-paths/register --inspect --transpile-only --ignore node_modules src/shared/infra/http/server.ts",
     "typeorm": "tsnd -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "test": "NODE_ENV=test jest --detectOpenHandles",
