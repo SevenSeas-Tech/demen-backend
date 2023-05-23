@@ -13,4 +13,4 @@ interface EmailTypesRepositoryInterface {
 
 // * ---------------------------------------------------------------------- * //
 
-export type { EmailTypesRepository };
+export type { EmailTypesRepositoryInterface };
