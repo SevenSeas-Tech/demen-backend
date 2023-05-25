@@ -6,10 +6,10 @@ import type { Uuid } from '@types';
 
 export type Email = {
   id: Uuid;
-  typeId: string;
+  type: string;
   userId: Uuid;
 
-  email: string;
+  address: string;
   verified: boolean;
 
   createdAt: Date;
