@@ -3,8 +3,8 @@
 import { DependencyInjection } from '@shared/injection';
 import { UuidProviderSymbol } from '@shared/injection/symbols';
 
-import type { ManagerCreationData } from '@management:dto/manager/create';
 import type { FullName } from '@management:dto/manager/full-name';
+import type { ManagerCreationData } from '@management:dto/manager/manager-creation-data';
 import type { ManagerQueryOptions } from '@management:dto/manager/query';
 import type { ManagerUpdateData } from '@management:dto/manager/update';
 import type { Email } from '@management:models/email';
@@ -27,7 +27,7 @@ class ManagersTestRepository implements ManagersRepositoryInterface {
   // *** --- public methods --------------------------------------------- *** //
 
   async create(data: ManagerCreationData): Promise<Manager> {
-    const { email: emailAddress, emailType, lastName, name, password } = data;
+    const { emailAddress, emailType, lastName, name, password } = data;
 
     const createdAt = new Date();
     const updatedAt = createdAt;
@@ -46,8 +46,8 @@ class ManagersTestRepository implements ManagersRepositoryInterface {
 
     const email: Email = {
       id: this.uuidProvider.generateV4(),
-      email: emailAddress,
-      typeId: emailType,
+      address: emailAddress,
+      type: emailType,
       verified: false,
       userId: manager.id,
       createdAt,
