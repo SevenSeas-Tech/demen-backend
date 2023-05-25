@@ -8,7 +8,7 @@ export interface EmailsRepositoryInterface {
   create(data: EmailCreationData): Promise<Email>;
   delete(email: string): Promise<void>;
   update(email: string, updatedEmail: string): Promise<Email>;
-  setAsVerified(email): Promise<Email>;
+  setAsVerified(email: string): Promise<Email>;
   findByEmail(email: string): Promise<Email | undefined>;
   list(data: EmailListQuery): Promise<Email[]>;
 }
