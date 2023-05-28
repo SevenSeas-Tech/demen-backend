@@ -14,11 +14,10 @@ class EmailsTestRepository implements EmailsRepositoryInterface {
     const { address, type, userId } = data;
 
     const email: Email = {
-      id: address,
+      address,
       createdAt: new Date(),
       updatedAt: new Date(),
       verified: false,
-      address,
       userId,
       type
     };
