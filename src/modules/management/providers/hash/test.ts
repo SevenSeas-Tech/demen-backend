@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/require-await */
 
-import type { HashProvider } from 'modules/management/@types/providers/hash';
+import type { HashProviderInterface } from 'modules/management/@types/providers/hash';
 
 // * ---------------------------------------------------------------------- * //
 
-class TestHashProvider implements HashProvider {
+class TestHashProvider implements HashProviderInterface {
   async hash(string: string): Promise<string> {
     return `hash${string}`;
   }
