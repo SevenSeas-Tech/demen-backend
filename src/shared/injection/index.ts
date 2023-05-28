@@ -4,17 +4,17 @@ import { SharedProviderInjector } from '@shared:injection/providers';
 // * ---------------------------------------------------------------------- * //
 
 class DependencyInjection {
-  private static readonly sharedProviderInjection =
+  private static readonly sharedProviderContainer =
     new SharedProviderInjector();
 
-  private static readonly managementInjector =
+  private static readonly managementContainer =
     ManagementDependencyInjector.container;
 
   // ------------------------------------------------------------------------ //
 
   static readonly container = {
-    ...this.sharedProviderInjection,
-    ...this.managementInjector
+    ...this.sharedProviderContainer,
+    ...this.managementContainer
   };
 }
 
