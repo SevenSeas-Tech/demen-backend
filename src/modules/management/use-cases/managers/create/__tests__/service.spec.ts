@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
+import { EmailTypeNotFoundError } from '@management:errors/email-type-not-found';
+import { TestHashProviderSymbol } from '@management:injection/providers/symbols';
 import {
   TestEmailTypesRepositorySymbol,
   TestEmailsRepositorySymbol,
@@ -10,6 +12,7 @@ import { ManagerCreationService } from '../manager-creation-service';
 
 import type { EmailTypeCreationData } from '@management:dto/email-type/create';
 import type { ManagerCreationData } from '@management:dto/manager/manager-creation-data';
+import type { HashProviderInterface } from '@management:provider-types/hash';
 import type { EmailTypesRepositoryInterface } from '@management:repositories/email-types';
 import type { EmailsRepositoryInterface } from '@management:repositories/emails-repository';
 import type { ManagersRepositoryInterface } from '@management:repositories/managers';
@@ -19,6 +22,7 @@ import type { ManagersRepositoryInterface } from '@management:repositories/manag
 describe('Manager Creation Service Tests', () => {
   const { container } = DependencyInjection;
 
+  // *** --- data ------------------------------------------------------- *** //
   const emailTypeData: EmailTypeCreationData = { type: 'personal' };
 
   const validManagerData: ManagerCreationData = {
@@ -30,23 +34,29 @@ describe('Manager Creation Service Tests', () => {
     passwordConfirmation: '@Password'
   };
 
+  // *** --- injection -------------------------------------------------- *** //
   let service: ManagerCreationService;
   let managersRepository: ManagersRepositoryInterface;
   let emailsRepository: EmailsRepositoryInterface;
   let emailTypesRepository: EmailTypesRepositoryInterface;
+  let hashProvider: HashProviderInterface;
 
   beforeEach(() => {
     managersRepository = container[TestManagersRepositorySymbol];
     emailsRepository = container[TestEmailsRepositorySymbol];
     emailTypesRepository = container[TestEmailTypesRepositorySymbol];
+    hashProvider = container[TestHashProviderSymbol];
 
     void emailTypesRepository.create(emailTypeData);
 
-    service =
-      new ManagerCreationService(managersRepository, emailsRepository, emailTypesRepository);
+    service = new ManagerCreationService(
+      managersRepository,
+      emailsRepository,
+      emailTypesRepository
+    );
   });
 
-  // *** --- success --------------------------------------------------- *** //
+  // *** --- success ---------------------------------------------------- *** //
 
   it('Should create a manager', async () => {
     const manager = await service.execute(validManagerData);
@@ -61,9 +71,19 @@ describe('Manager Creation Service Tests', () => {
 
   // ? it('Should create an e-mail', () => {}); // integration test;
 
-  it('Should hash the password', () => {});
+  it('Should hash the password', () => {
+    const hash = jest.spyOn(hashProvider, 'hash');
 
-  it('Should not return manager password', () => {});
+    void service.execute(validManagerData);
+
+    expect(hash).toHaveBeenCalled();
+  });
+
+  it('Should not return manager password', async () => {
+    const manager = await service.execute(validManagerData);
+
+    expect(manager).not.toHaveProperty('password');
+  });
 
   // *** --- password --------------------------------------------------- *** //
 
@@ -101,5 +121,13 @@ describe('Manager Creation Service Tests', () => {
 
   // *** --- e-mail type ------------------------------------------------ *** //
 
-  it('Should throw if email type is invalid', () => {});
+  it('Should throw if email type is invalid', () => {
+    const data: ManagerCreationData = { ...validManagerData, emailType: 'invalid' };
+
+    void expect(async () => {
+      await service.execute(data);
+    })
+      .rejects
+      .toEqual(new EmailTypeNotFoundError());
+  });
 });
