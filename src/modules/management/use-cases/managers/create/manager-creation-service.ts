@@ -1,4 +1,6 @@
-import { BadRequestError } from '@shared/errors/bad-request';
+import { EmailInUseError } from '@management:errors/email-in-use';
+import { EmailTypeNotFoundError } from '@management:errors/email-type-not-found';
+import { PasswordDoesNotMatchError } from '@management:errors/password-match';
 
 import type { ManagerCreationData } from '@management:dto/manager/manager-creation-data';
 import type { Manager } from '@management:models/manager';
@@ -46,7 +48,7 @@ class ManagerCreationService {
   private async emailAvailableOrThrow(emailAddress: string): Promise<boolean> {
     const email = await this.emailsRepository.findByEmail(emailAddress);
 
-    if (email) throw new BadRequestError();
+    if (email) throw new EmailInUseError();
 
     return true;
   }
@@ -56,7 +58,7 @@ class ManagerCreationService {
   private async emailTypeExistOrThrow(emailType: string): Promise<boolean> {
     const type = await this.emailTypesRepository.findByType(emailType);
 
-    if (!type) throw new BadRequestError();
+    if (!type) throw new EmailTypeNotFoundError();
 
     return true;
   }
@@ -64,7 +66,7 @@ class ManagerCreationService {
   // ------------------------------------------------------------------------ //
 
   private passwordsMatchOrThrow(password: string, password2: string): void {
-    if (!(password === password2)) throw new BadRequestError();
+    if (!(password === password2)) throw new PasswordDoesNotMatchError();
   }
 }
 
