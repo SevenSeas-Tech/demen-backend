@@ -37,9 +37,11 @@ class EmailsTestRepository implements EmailsRepositoryInterface {
   setAsVerified(_email: string): Promise<Email> {
     throw new Error('Method not implemented.');
   }
-  findByEmail(_email: string): Promise<Email | undefined> {
-    throw new Error('Method not implemented.');
+
+  async findByEmail(address: string): Promise<Email | undefined> {
+    return this.emails.find(email => email.address == address);
   }
+
   list(_data: EmailListQuery): Promise<Email[]> {
     throw new Error('Method not implemented.');
   }
