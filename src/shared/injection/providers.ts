@@ -1,12 +1,12 @@
-import type { UuidProviderType } from '@shared/@types/providers/uuid';
-
-import { UuidProviderSymbol } from '@shared:injection/symbols';
 import { UuidProvider } from '@shared/providers/uuid';
+import { UuidProviderSymbol } from '@shared:injection/symbols';
+
+import type { UuidProviderInterface } from '@shared/@types/providers/uuid';
 
 // * ---------------------------------------------------------------------- * //
 
 class SharedProviderInjector {
-  readonly [UuidProviderSymbol]: UuidProviderType = new UuidProvider();
+  readonly [UuidProviderSymbol]: UuidProviderInterface = new UuidProvider();
 }
 
 // * ---------------------------------------------------------------------- * //

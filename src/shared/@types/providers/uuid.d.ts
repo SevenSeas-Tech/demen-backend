@@ -2,6 +2,6 @@ import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
-export interface UuidProviderType {
+export interface UuidProviderInterface {
   generateV4(): Uuid;
 }

@@ -1,13 +1,13 @@
 import { v4 as uuidV4 } from 'uuid';
 
-import type { UuidProviderType } from '@shared/@types/providers/uuid';
+import type { UuidProviderInterface } from '@shared/@types/providers/uuid';
 import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
-class UuidProvider implements UuidProviderType {
+class UuidProvider implements UuidProviderInterface {
   generateV4(): Uuid {
-    return uuidV4() as Uuid;
+    return uuidV4();
   }
 }
 
