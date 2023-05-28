@@ -1,21 +1,20 @@
 import { sign, verify } from 'jsonwebtoken';
 
+import { authConfig } from '@config/auth/auth.config';
+
+import type { TokenPayload, TypeConfig } from '@management:provider-types/jwt-token';
 import type {
-  MapElement,
   SessionToken,
   TokenData,
-  TokenPayload,
-  TokenProvider
-} from '@management:types/providers/token';
-
-import { authConfig } from '@config/auth/auth.config';
+  TokenProviderInterface
+} from '@management:provider-types/token';
 
 // * --------------------------------------------------------------------- *  //
 
-class JsonWebTokenProvider implements TokenProvider {
+class JsonWebTokenProvider implements TokenProviderInterface {
   private secret = '';
   private expiresIn = '';
-  private tokenTypeMap: Map<string, MapElement> = new Map();
+  private tokenTypeMap: Map<string, TypeConfig> = new Map();
 
   // *** --- constructor ------------------------------------------------ *** //
 
