@@ -27,7 +27,7 @@ class ManagersTestRepository implements ManagersRepositoryInterface {
   // *** --- public methods --------------------------------------------- *** //
 
   async create(data: ManagerCreationData): Promise<Manager> {
-    const { emailAddress, emailType, lastName, name, password } = data;
+    const { emailAddress, emailType, surname, name, password } = data;
 
     const createdAt = new Date();
     const updatedAt = createdAt;
@@ -36,7 +36,7 @@ class ManagersTestRepository implements ManagersRepositoryInterface {
       id: this.uuidProvider.generateV4(),
       isActive: true,
       name,
-      lastName,
+      surname,
       password,
       createdAt,
       updatedAt
@@ -45,7 +45,6 @@ class ManagersTestRepository implements ManagersRepositoryInterface {
     // ---------------------------------------------------------------------- //
 
     const email: Email = {
-      id: this.uuidProvider.generateV4(),
       address: emailAddress,
       type: emailType,
       verified: false,
@@ -72,9 +71,9 @@ class ManagersTestRepository implements ManagersRepositoryInterface {
       ? data.name
       : manager.name;
 
-    const lastName = data.lastName
-      ? data.lastName
-      : manager.lastName;
+    const surname = data.surname
+      ? data.surname
+      : manager.surname;
 
     const password = data.password
       ? data.password
@@ -85,7 +84,7 @@ class ManagersTestRepository implements ManagersRepositoryInterface {
     manager = {
       ...manager,
       name,
-      lastName,
+      surname,
       password,
       updatedAt: new Date()
     };
@@ -142,10 +141,10 @@ class ManagersTestRepository implements ManagersRepositoryInterface {
 
   async findByFullName(fullName: FullName, _query: ManagerQueryOptions):
    Promise<Manager[]> {
-    const { name, lastName } = fullName;
+    const { name, surname } = fullName;
 
     const managers = this.managers
-      .filter(manager => manager.name === name && manager.lastName === lastName);
+      .filter(manager => manager.name === name && manager.surname === surname);
 
     return managers;
   }
