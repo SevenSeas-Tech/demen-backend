@@ -17,15 +17,12 @@ services:
     build:
       context: .
       target: production
-    container_name: demen-prod-server
+    container_name: demen
     ports:
       - 3334:3334
     environment:
       - NODE_ENV=production
       - PORT=3334
-      - TYPEORM_ENTITIES="./dist/modules/**/infra/typeorm/entities/*.js"
-      - TYPEORM_MIGRATIONS="./dist/shared/infra/typeorm/migrations/*.js"
-      - MIGRATIONS_DIR="./dist/shared/infra/typeorm/migrations"
     volumes:
       - .:/usr/app
     links:
