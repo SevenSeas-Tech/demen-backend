@@ -16,7 +16,6 @@ import type { ManagersRepositoryInterface } from '@management:repositories/manag
 class ManagersTestRepository implements ManagersRepositoryInterface {
   private managers: Manager[] = [];
   private emails: Email[] = [];
-  private uuidProvider = DependencyInjection.container[UuidProviderSymbol];
 
   private getManagerEmails(managerId: string): Email[] {
     const emails = this.emails.filter(email => email.userId === managerId);
@@ -27,13 +26,15 @@ class ManagersTestRepository implements ManagersRepositoryInterface {
   // *** --- public methods --------------------------------------------- *** //
 
   async create(data: ManagerCreationData): Promise<Manager> {
+    const uuidProvider = DependencyInjection.container[UuidProviderSymbol];
+
     const { emailAddress, emailType, surname, name, password } = data;
 
     const createdAt = new Date();
     const updatedAt = createdAt;
 
     const manager: Manager = {
-      id: this.uuidProvider.generateV4(),
+      id: uuidProvider.generateV4(),
       isActive: true,
       name,
       surname,
