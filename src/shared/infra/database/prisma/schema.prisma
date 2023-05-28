@@ -18,17 +18,16 @@ datasource db {
 // *** --- management --------------------------------------------------- *** //
 
 model Email {
-  id     String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  userId String @map("user_id") @db.Uuid
-  typeId String @map("type_id") @db.VarChar(15)
+  address String @id @db.VarChar(50)
+  userId  String @map("user_id") @db.Uuid
+  type    String @map("type_id") @db.VarChar(15)
 
-  email    String  @unique @db.VarChar(50)
   verified Boolean @default(false) @db.Boolean
 
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
   updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamp()
 
-  emailType EmailType @relation(fields: [typeId], references: [type], onDelete: Restrict, onUpdate: Cascade)
+  emailType EmailType @relation(fields: [type], references: [type], onDelete: Restrict, onUpdate: Cascade)
   user      Manager   @relation(fields: [userId], references: [id], onDelete: Restrict, onUpdate: Cascade)
 
   @@map("emails")
@@ -88,7 +87,7 @@ model IssueType {
 model Manager {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name      String   @db.VarChar(15)
-  lastName  String   @map("last_name") @db.VarChar(15)
+  surname   String   @map("surname") @db.VarChar(15)
   isActive  Boolean  @default(true) @map("is_active") @db.Boolean
   password  String
   createdAt DateTime @default(now()) @map("created_at") @db.Timestamp()
