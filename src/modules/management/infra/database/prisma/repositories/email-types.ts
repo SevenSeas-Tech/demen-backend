@@ -1,20 +1,20 @@
 
-import type { EmailTypesRepository } from '@management:repositories/email-types';
-import type { EmailType } from '@management:models/email-type';
-import type { EmailTypeCreationData } from '@management:dto/email-type/create';
-import type { EmailTypeUpdateData } from '@management:dto/email-type/update';
+import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
+
 import type {
   EmailTypeCreateInput,
   EmailTypeDelegate,
   EmailTypeUpdateInput,
   EmailTypeWhereUniqueInput
 } from '@management:database-types/prisma/email/type';
-
-import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
+import type { EmailTypeCreationData } from '@management:dto/email-type/create';
+import type { EmailTypeUpdateData } from '@management:dto/email-type/update';
+import type { EmailType } from '@management:models/email-type';
+import type { EmailTypesRepositoryInterface } from '@management:repositories/email-types';
 
 // * ---------------------------------------------------------------------- * //
 
-class PrismaEmailTypesRepository implements EmailTypesRepository {
+class PrismaEmailTypesRepository implements EmailTypesRepositoryInterface {
   private repository: EmailTypeDelegate;
 
   constructor() {
