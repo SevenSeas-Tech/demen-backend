@@ -26,7 +26,7 @@ class App {
   // ------------------------------------------------------------------------ //
 
   constructor() {
-    void database.createConnection();
+    void database.connect();
     this.middlewares();
     this.routes();
     this.exceptionHandler();

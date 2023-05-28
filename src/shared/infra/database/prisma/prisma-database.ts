@@ -26,10 +26,20 @@ class PrismaDatabase implements Database {
 
   // ------------------------------------------------------------------------ //
 
-  async createConnection(): Promise<void> {
+  async connect(): Promise<void> {
     await this.client.$connect();
 
     return;
+  }
+
+  async disconnect(): Promise<void> {
+    await this.client.$disconnect();
+  }
+
+  async cleanDatabase(): Promise<void> {
+    await this.client.$executeRaw`TRUNCATE TABLE managers CASCADE`;
+    await this.client.$executeRaw`TRUNCATE TABLE emails CASCADE`;
+    await this.client.$executeRaw`TRUNCATE TABLE email_types CASCADE`;
   }
 }
 

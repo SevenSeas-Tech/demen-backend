@@ -1,3 +1,5 @@
 export interface Database {
-  createConnection(): void;
+  connect(): void;
+  disconnect(): void;
+  cleanDatabase(): void;
 }
