@@ -10,7 +10,7 @@ import type { Uuid } from '@types';
 export type Manager = {
   id: Uuid;
   name: string;
-  lastName: string;
+  surname: string;
   password: string;
   isActive: boolean;
   createdAt: Date;

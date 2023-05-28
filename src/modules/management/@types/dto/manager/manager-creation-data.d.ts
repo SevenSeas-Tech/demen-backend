@@ -2,7 +2,7 @@
 
 export type ManagerCreationData = {
   name: string;
-  lastName: string;
+  surname: string;
   password: string;
   passwordConfirmation: string;
   isActive?: boolean;

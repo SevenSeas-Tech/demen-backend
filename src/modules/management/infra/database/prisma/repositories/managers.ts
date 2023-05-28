@@ -1,10 +1,5 @@
-import type { ManagerCreationData } from '@management:dto/manager/create';
-import type { FullName } from '@management:dto/manager/full-name';
-import type { ManagerQueryOptions } from '@management:dto/manager/query';
-import type { ManagerUpdateData } from '@management:dto/manager/update';
-import type { Manager } from '@management:models/manager';
-import type { ManagersRepository } from '@management:repositories/managers';
-import type { Uuid } from '@types';
+import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
+
 import type {
   EmailNestedInput,
   EmailTypeNestedInput
@@ -17,12 +12,17 @@ import type {
   ManagerCreateInput,
   ManagerDelegate
 } from '@management:database-types/prisma/manager';
-
-import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
+import type { FullName } from '@management:dto/manager/full-name';
+import type { ManagerCreationData } from '@management:dto/manager/manager-creation-data';
+import type { ManagerQueryOptions } from '@management:dto/manager/query';
+import type { ManagerUpdateData } from '@management:dto/manager/update';
+import type { Manager } from '@management:models/manager';
+import type { ManagersRepositoryInterface } from '@management:repositories/managers';
+import type { Uuid } from '@types';
 
 // * ---------------------------------------------------------------------- * //
 
-class PrismaManagersRepository implements ManagersRepository {
+class PrismaManagersRepository implements ManagersRepositoryInterface {
   private repository: ManagerDelegate;
 
   // *** --- interns ---------------------------------------------------- *** //
@@ -53,25 +53,25 @@ class PrismaManagersRepository implements ManagersRepository {
   // *** --- methods ---------------------------------------------------- *** //
 
   async create(_data: ManagerCreationData): Promise<Manager> {
-    const { lastName, name, password, isActive, email, emailType:type } = _data;
+    const { surname, name, password, isActive, emailAddress, emailType:type } = _data;
 
     const emailType: EmailTypeNestedInput = {
       connect: { type }
     };
 
     const emails: EmailNestedInput = {
-      create: { email, emailType }
+      create: { address: emailAddress, emailType }
     };
 
     const data: ManagerCreateInput = {
       name,
-      lastName,
+      surname,
       password,
       isActive,
       emails
     };
 
-    const manager = await this.repository.create({ data: data });
+    const manager = await this.repository.create({ data });
 
     return manager as Manager;
   }
@@ -147,9 +147,9 @@ class PrismaManagersRepository implements ManagersRepository {
 
   async findByFullName(fullName: FullName, query: ManagerQueryOptions):
    Promise<Manager[]> {
-    const { name, lastName } = fullName;
+    const { name, surname } = fullName;
 
-    const where: ManagerWhereInput = { name, lastName };
+    const where: ManagerWhereInput = { name, surname };
 
     const include: ManagerInclude = this.handleQueryData(query);
 
