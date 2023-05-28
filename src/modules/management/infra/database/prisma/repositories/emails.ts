@@ -8,14 +8,14 @@ import type {
   EmailWhereInput,
   EmailWhereUniqueInput
 } from '@management:database-types/prisma/email/email';
-import type { EmailCreationData } from '@management:dto/email/create';
-import type { EmailListQuery } from '@management:dto/email/list';
+import type { EmailCreationData } from '@management:dto/email/email-creation-data';
+import type { EmailListQuery } from '@management:dto/email/email-list-query';
 import type { Email } from '@management:models/email';
-import type { EmailsRepository } from '@management:repositories/emails';
+import type { EmailsRepositoryInterface } from '@management:repositories/emails-repository';
 
 // * ---------------------------------------------------------------------- * //
 
-class PrismaEmailsRepository implements EmailsRepository {
+class PrismaEmailsRepository implements EmailsRepositoryInterface {
   private repository: EmailDelegate;
   private include: EmailInclude = { user: true };
 
@@ -29,12 +29,12 @@ class PrismaEmailsRepository implements EmailsRepository {
   // *** --- methods ---------------------------------------------------- *** //
 
   async create(_data: EmailCreationData): Promise<Email> {
-    const { email: emailAddress, typeId, userId } = _data;
+    const { address, type, userId } = _data;
 
     const data: EmailCreateInput = {
-      email: emailAddress,
+      address,
       user: { connect: { id: userId } },
-      emailType: { connect: { type: typeId } }
+      emailType: { connect: { type: type } }
     };
 
     const email = await this.repository.create({ data });
@@ -44,8 +44,8 @@ class PrismaEmailsRepository implements EmailsRepository {
 
   // ------------------------------------------------------------------------ //
 
-  async delete(email: string): Promise<void> {
-    const where: EmailWhereUniqueInput = { email };
+  async delete(address: string): Promise<void> {
+    const where: EmailWhereUniqueInput = { address };
 
     void await this.repository.delete({ where });
 
@@ -54,10 +54,10 @@ class PrismaEmailsRepository implements EmailsRepository {
 
   // ------------------------------------------------------------------------ //
 
-  async update(emailAddress: string, updatedAddress: string): Promise<Email> {
-    const where: EmailWhereUniqueInput = { email: emailAddress };
+  async update(address: string, updatedAddress: string): Promise<Email> {
+    const where: EmailWhereUniqueInput = { address };
 
-    const data: EmailUpdateInput = { email: updatedAddress };
+    const data: EmailUpdateInput = { address: updatedAddress };
 
     const email = await this.repository.update({ where, data });
 
@@ -66,8 +66,8 @@ class PrismaEmailsRepository implements EmailsRepository {
 
   // ------------------------------------------------------------------------ //
 
-  async setAsVerified(emailAddress: string): Promise<Email> {
-    const where: EmailWhereUniqueInput = { email: emailAddress };
+  async setAsVerified(address: string): Promise<Email> {
+    const where: EmailWhereUniqueInput = { address };
 
     const data: EmailUpdateInput = { verified: true };
 
@@ -78,8 +78,8 @@ class PrismaEmailsRepository implements EmailsRepository {
 
   // ------------------------------------------------------------------------ //
 
-  async findByEmail(emailAddress: string): Promise<Email | undefined> {
-    const where: EmailWhereUniqueInput = { email: emailAddress };
+  async findByEmail(address: string): Promise<Email | undefined> {
+    const where: EmailWhereUniqueInput = { address };
 
     const email = await this.repository
       .findUnique({ where, include: this.include });
@@ -90,9 +90,9 @@ class PrismaEmailsRepository implements EmailsRepository {
   // ------------------------------------------------------------------------ //
 
   async list(data: EmailListQuery ): Promise<Email[]> {
-    const { userId, typeId } = data;
+    const { userId, type } = data;
 
-    const where: EmailWhereInput = { AND: [ { userId }, { typeId } ] };
+    const where: EmailWhereInput = { AND: [ { userId }, { type } ] };
 
     const emails = await this.repository
       .findMany({ where, include: this.include });

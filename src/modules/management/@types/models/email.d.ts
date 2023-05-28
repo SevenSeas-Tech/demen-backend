@@ -5,11 +5,10 @@ import type { Uuid } from '@types';
 // * ---------------------------------------------------------------------- * //
 
 export type Email = {
-  id: Uuid;
+  address: string;
   type: string;
   userId: Uuid;
 
-  address: string;
   verified: boolean;
 
   createdAt: Date;
