@@ -11,4 +11,6 @@ COPY . .
 FROM base as production
 EXPOSE 3334
 
+RUN npm run build
+
 CMD ["npm", "run", "start"]
