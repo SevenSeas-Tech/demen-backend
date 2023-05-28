@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { EmailTypeNotFoundError } from '@management:errors/email-type-not-found';
+import { PasswordDoesNotMatchError } from '@management:errors/password-match';
 import { TestHashProviderSymbol } from '@management:injection/providers/symbols';
 import {
   TestEmailTypesRepositorySymbol,
@@ -52,7 +53,8 @@ describe('Manager Creation Service Tests', () => {
     service = new ManagerCreationService(
       managersRepository,
       emailsRepository,
-      emailTypesRepository
+      emailTypesRepository,
+      hashProvider
     );
   });
 
@@ -69,17 +71,19 @@ describe('Manager Creation Service Tests', () => {
     expect(manager).toHaveProperty('updatedAt');
   });
 
-  // ? it('Should create an e-mail', () => {}); // integration test;
+  // ------------------------------------------------------------------------ //
 
-  it('Should hash the password', () => {
+  it('Should hash the password', async () => {
     const hash = jest.spyOn(hashProvider, 'hash');
 
-    void service.execute(validManagerData);
+    await service.execute(validManagerData);
 
     expect(hash).toHaveBeenCalled();
   });
 
-  it('Should not return manager password', async () => {
+  // ------------------------------------------------------------------------ //
+
+  it('Should not return the password', async () => {
     const manager = await service.execute(validManagerData);
 
     expect(manager).not.toHaveProperty('password');
@@ -87,7 +91,18 @@ describe('Manager Creation Service Tests', () => {
 
   // *** --- password --------------------------------------------------- *** //
 
-  it('Should throw if passwords does not match', () => {});
+  it('Should throw if passwords does not match', () => {
+    const data: ManagerCreationData = {
+      ...validManagerData,
+      password: '@Password2'
+    };
+
+    void expect(async () => {
+      await service.execute(data);
+    })
+      .rejects
+      .toEqual(new PasswordDoesNotMatchError());
+  });
 
   it('Should throw if password length < 8', () => {});
 
@@ -131,3 +146,9 @@ describe('Manager Creation Service Tests', () => {
       .toEqual(new EmailTypeNotFoundError());
   });
 });
+
+/*
+  ? --- tests not implemented here, but in integration -------------------- ? //
+
+  ? --- it('Should create an e-mail', () => {}); -------------------------- ? //
+*/
