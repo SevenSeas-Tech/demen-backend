@@ -60,7 +60,8 @@
     "yamljs": "^0.3.0",
     "yarn.lock": "^0.0.1-security",
     "yup": "^0.32.9",
-    "yup-password": "^0.2.2"
+    "yup-password": "^0.2.2",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.4",
