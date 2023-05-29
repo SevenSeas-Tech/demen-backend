@@ -104,13 +104,23 @@ describe('Manager Creation Service Tests', () => {
       .toEqual(new PasswordDoesNotMatchError());
   });
 
+  // ------------------------------------------------------------------------ //
+
   it('Should throw if password length < 8', () => {});
+
+  // ------------------------------------------------------------------------ //
 
   it('Should throw if password length > 20', () => {});
 
+  // ------------------------------------------------------------------------ //
+
   it('Should throw if password has sequence >= 3 ', () => {});
 
+  // ------------------------------------------------------------------------ //
+
   it('Should throw if password has no number ', () => {});
+
+  // ------------------------------------------------------------------------ //
 
   it('Should throw if password has no upper ', () => {});
 
@@ -118,25 +128,37 @@ describe('Manager Creation Service Tests', () => {
 
   it('Should throw if e-mail is not valid ', () => {});
 
+  // ------------------------------------------------------------------------ //
+
   it('Should throw if e-mail is in use', () => {});
 
   // *** --- names ------------------------------------------------------ *** //
 
   it('Should capitalize the name', () => {});
 
-  it('Should capitalize the last name', () => {});
+  // ------------------------------------------------------------------------ //
+
+  it('Should capitalize the surname', () => {});
+
+  // ------------------------------------------------------------------------ //
 
   it('Should trim the name', () => {});
 
-  it('Should trim the last name', () => {});
+  // ------------------------------------------------------------------------ //
+
+  it('Should trim the surname', () => {});
+
+  // ------------------------------------------------------------------------ //
 
   it('Should throw if name length < 3', () => {});
 
-  it('Should throw if last name length < 3', () => {});
+  // ------------------------------------------------------------------------ //
+
+  it('Should throw if surname length < 3', () => {});
 
   // *** --- e-mail type ------------------------------------------------ *** //
 
-  it('Should throw if email type is invalid', () => {
+  it('Should throw if email type does not exist', () => {
     const data: ManagerCreationData = { ...validManagerData, emailType: 'invalid' };
 
     void expect(async () => {
@@ -146,6 +168,8 @@ describe('Manager Creation Service Tests', () => {
       .toEqual(new EmailTypeNotFoundError());
   });
 });
+
+// * ---------------------------------------------------------------------- * //
 
 /*
   ? --- tests not implemented here, but in integration -------------------- ? //
