@@ -1,9 +1,12 @@
-
-import type { SessionToken, TokenData, TokenProvider } from '@management:types/providers/token';
+import type {
+  SessionToken,
+  TokenData,
+  TokenProviderInterface
+} from '@management:provider-types/token';
 
 // * ---------------------------------------------------------------------- * //
 
-class TokenProviderMock implements TokenProvider {
+class TestTokenProvider implements TokenProviderInterface {
   sign(data: TokenData, _: string): SessionToken {
     const { id, email } = data;
 
@@ -21,4 +24,4 @@ class TokenProviderMock implements TokenProvider {
 
 // * ---------------------------------------------------------------------- * //
 
-export { TokenProviderMock };
+export { TestTokenProvider };
