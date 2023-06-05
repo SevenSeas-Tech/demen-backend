@@ -20,11 +20,17 @@ class ZodValidationProvider implements DataValidationProviderInterface {
   private readonly passwordSchema = zod
     .string()
     .trim()
-    .min(this.passwordMinLength)
-    .max(this.passwordMaxLength);
+    .min(this.passwordMinLength, 'password must be at least 8 characters long')
+    .max(this.passwordMaxLength, 'password must be at most 20 characters long');
 
-  private readonly emailSchema = zod.string().trim().email();
-  private readonly nameSchema = zod.string().min(this.namesMinLength);
+  private readonly emailSchema = zod.string()
+    .trim()
+    .email('invalid e-mail address');
+
+  private readonly nameSchema = zod
+    .string()
+    .min(this.namesMinLength, 'name must be at least 3 characters long');
+
   private readonly emailTypeSchema = zod.string().trim();
 
   // ------------------------------------------------------------------------ //
