@@ -9,7 +9,7 @@ import type { AppError } from '@shared/errors/app-error';
 
 // * ---------------------------------------------------------------------- * //
 
-class ZodDataValidationProvider implements DataValidationProviderInterface {
+class ZodValidationProvider implements DataValidationProviderInterface {
   private readonly namesMinLength = 3;
   private readonly passwordMinLength = 8;
   private readonly passwordMaxLength = 20;
@@ -61,7 +61,7 @@ class ZodDataValidationProvider implements DataValidationProviderInterface {
 
 // * ---------------------------------------------------------------------- * //
 
-export { ZodDataValidationProvider };
+export { ZodValidationProvider };
 
 // *** --- annotations -------------------------------------------------- *** //
 /*
