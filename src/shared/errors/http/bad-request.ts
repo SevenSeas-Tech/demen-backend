@@ -1,10 +1,10 @@
-import { AppError } from './app-error';
+import { AppError } from '../app-error';
 
 // * ---------------------------------------------------------------------- * //
 
 class BadRequestError extends AppError {
   constructor() {
-    super('Bad Request', 400);
+    super('bad request', 400);
   }
 }
 
