@@ -50,7 +50,7 @@
     "linebreak-style": ["error","unix"],
     "quotes": ["error","single"],
     "arrow-parens": ["error", "as-needed"],
-    "max-len": ["error", { "code": 100 }],
+    "max-len": ["error", { "code": 100, "ignoreStrings": true }],
     "comma-dangle": ["error", "never"],
     "semi": ["error", "always"],
     "object-curly-spacing": ["error", "always"],
