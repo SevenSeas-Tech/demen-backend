@@ -1,4 +1,5 @@
 
+import { EmailTypeNotFoundError } from '@management:errors/email-type-not-found';
 import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
 
 import type {
@@ -10,7 +11,7 @@ import type {
 import type { EmailTypeCreationData } from '@management:dto/email-type/create';
 import type { EmailTypeUpdateData } from '@management:dto/email-type/update';
 import type { EmailType } from '@management:models/email-type';
-import type { EmailTypesRepositoryInterface } from '@management:repositories/email-types';
+import type { EmailTypesRepositoryInterface } from '@management:repositories/email-types-repository';
 
 // * ---------------------------------------------------------------------- * //
 
@@ -66,6 +67,15 @@ class PrismaEmailTypesRepository implements EmailTypesRepositoryInterface {
     void await this.repository.delete({ where });
 
     return;
+  }
+
+  // *** --- throwers --------------------------------------------------- *** //
+  async emailTypeExistsOrThrow(emailType: string): Promise<boolean> {
+    const type = await this.findByType(emailType);
+
+    if (!type) throw new EmailTypeNotFoundError();
+
+    return true;
   }
 }
 

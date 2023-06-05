@@ -11,4 +11,7 @@ export interface EmailsRepositoryInterface {
   setAsVerified(email: string): Promise<Email>;
   findByEmail(email: string): Promise<Email | undefined>;
   list(data: EmailListQuery): Promise<Email[]>;
+
+  // *** --- throwers --------------------------------------------------- *** //
+  emailIsAvailableOrThrow(emailAddress: string): Promise<boolean>;
 }

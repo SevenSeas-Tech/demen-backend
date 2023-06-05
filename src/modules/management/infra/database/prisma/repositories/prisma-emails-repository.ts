@@ -1,3 +1,4 @@
+import { EmailInUseError } from '@management:errors/email-in-use';
 import { PrismaDatabase } from '@shared/infra/database/prisma/prisma-database';
 
 import type {
@@ -98,6 +99,15 @@ class PrismaEmailsRepository implements EmailsRepositoryInterface {
       .findMany({ where, include: this.include });
 
     return emails as Email[];
+  }
+
+  // *** --- throwers --------------------------------------------------- *** //
+  async emailIsAvailableOrThrow(emailAddress: string): Promise<boolean> {
+    const email = await this.findByEmail(emailAddress);
+
+    if (email) throw new EmailInUseError();
+
+    return true;
   }
 }
 

@@ -1,16 +1,9 @@
-
-import { PrismaEmailTypesRepository } from '@management:database/prisma/repositories/email-types';
-import { PrismaEmailsRepository } from '@management:database/prisma/repositories/emails';
-import { PrismaManagersRepository } from '@management:database/prisma/repositories/managers';
-import {
-  EmailTypesTestRepository
-} from '@management:database/test/repositories/email-types-test-repository';
-import {
-  EmailsTestRepository
-} from '@management:database/test/repositories/emails-test-repository';
-import {
-  ManagersTestRepository
-} from '@management:database/test/repositories/managers-test-repository';
+import { PrismaEmailTypesRepository } from '@management:database/prisma/repositories/prisma-email-types-repository';
+import { PrismaEmailsRepository } from '@management:database/prisma/repositories/prisma-emails-repository';
+import { PrismaManagersRepository } from '@management:database/prisma/repositories/prisma-managers-repository';
+import { EmailTypesTestRepository } from '@management:database/test/repositories/email-types-test-repository';
+import { EmailsTestRepository } from '@management:database/test/repositories/emails-test-repository';
+import { ManagersTestRepository } from '@management:database/test/repositories/managers-test-repository';
 import {
   EmailTypesRepositorySymbol,
   EmailsRepositorySymbol,
@@ -20,7 +13,7 @@ import {
   TestManagersRepositorySymbol
 } from '@management:injection/repositories/symbols';
 
-import type { EmailTypesRepositoryInterface } from '@management:repositories/email-types';
+import type { EmailTypesRepositoryInterface } from '@management:repositories/email-types-repository';
 import type { EmailsRepositoryInterface } from '@management:repositories/emails-repository';
 import type { ManagersRepositoryInterface } from '@management:repositories/managers';
 

@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/require-await */
+import { EmailTypeNotFoundError } from '@management:errors/email-type-not-found';
+
 import type { EmailTypeCreationData } from '@management:dto/email-type/create';
 import type { EmailTypeUpdateData } from '@management:dto/email-type/update';
 import type { EmailType } from '@management:models/email-type';
-import type { EmailTypesRepositoryInterface } from '@management:repositories/email-types';
+import type { EmailTypesRepositoryInterface } from '@management:repositories/email-types-repository';
 
 // * ---------------------------------------------------------------------- * //
 
@@ -34,6 +36,15 @@ class EmailTypesTestRepository implements EmailTypesRepositoryInterface {
 
   delete(_type: string): Promise<void> {
     throw new Error('Method not implemented.');
+  }
+
+  // *** --- throwers --------------------------------------------------- *** //
+  async emailTypeExistsOrThrow(emailType: string): Promise<boolean> {
+    const type = await this.findByType(emailType);
+
+    if (!type) throw new EmailTypeNotFoundError();
+
+    return true;
   }
 }
 

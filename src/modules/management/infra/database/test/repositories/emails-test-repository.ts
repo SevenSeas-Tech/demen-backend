@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/require-await */
 
+import { EmailInUseError } from '@management:errors/email-in-use';
+
 import type { EmailCreationData } from '@management:dto/email/email-creation-data';
 import type { EmailListQuery } from '@management:dto/email/email-list-query';
 import type { Email } from '@management:models/email';
@@ -44,6 +46,15 @@ class EmailsTestRepository implements EmailsRepositoryInterface {
 
   list(_data: EmailListQuery): Promise<Email[]> {
     throw new Error('Method not implemented.');
+  }
+
+  // *** --- throwers --------------------------------------------------- *** //
+  async emailIsAvailableOrThrow(emailAddress: string): Promise<boolean> {
+    const email = await this.findByEmail(emailAddress);
+
+    if (email) throw new EmailInUseError();
+
+    return true;
   }
 }
 

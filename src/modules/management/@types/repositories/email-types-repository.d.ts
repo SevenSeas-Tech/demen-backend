@@ -9,6 +9,9 @@ interface EmailTypesRepositoryInterface {
   findByType(type: string): Promise<EmailType | undefined>;
   update(data: EmailTypeUpdateData): Promise<EmailType>;
   delete(type: string): Promise<void>;
+
+  // *** --- throwers --------------------------------------------------- *** //
+  emailTypeExistsOrThrow(emailType: string): Promise<boolean>;
 }
 
 // * ---------------------------------------------------------------------- * //
