@@ -30,7 +30,7 @@ async function managerCreationController(request: Request, response: Response):
     .status(result.statusCode)
     .json(result.message);
 
-  return response.status(200).json(result);
+  return response.status(201).json(result);
 }
 
 // * ---------------------------------------------------------------------- * //
