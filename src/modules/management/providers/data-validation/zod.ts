@@ -1,10 +1,11 @@
 import { z as zod } from 'zod';
 
-import { AppError } from '@shared/errors/app-error';
+import { InvalidDataError } from '@shared/errors/invalid-data';
 import { capitalize } from '@shared/utils/strings/capitalize';
 
 import type { ManagerCreationData } from '@management:dto/manager/manager-creation-data';
 import type { DataValidationProviderInterface } from '@management:provider-types/data-validation';
+import type { AppError } from '@shared/errors/app-error';
 
 // * ---------------------------------------------------------------------- * //
 
@@ -40,7 +41,7 @@ class ZodDataValidationProvider implements DataValidationProviderInterface {
 
     const result = schema.safeParse(data);
 
-    if (!result.success) return new AppError(result.error.message);
+    if (!result.success) return new InvalidDataError(result.error.message);
 
     const treatedData = this.treatData(result.data);
 
@@ -70,5 +71,4 @@ export { ZodDataValidationProvider };
   ? - check if a string contains an upper case character.
 
   todo: implement these validations.
-  todo: implement a validation that doesn't throw an error, but returns a boolean.
 */
